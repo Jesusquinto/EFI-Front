@@ -201,81 +201,144 @@
         <aside id="leftsidebar" class="sidebar">
             <!-- Menu -->
             <div class="menu">
-                <ul class="list">
+                <ul *ngIf="user != null" class="list">
                     <li class="sidebar-user-panel">
                         <div class="user-panel">
                             <div class=" image">
-                                <img src="assets/images/usrbig.jpg" class="img-circle user-img-circle"
-                                    alt="User Image" />
+                                <img src="assets/images/usrbig.jpg" class="img-circle user-img-circle" alt="User Image" />
                             </div>
                         </div>
                         <div class="profile-usertitle">
-                            <div class="sidebar-userpic-name"> Yair Muñoz </div>
-                            <div class="profile-usertitle-job ">Administrador </div>
+                            <div class="sidebar-userpic-name"> {{user.nombre}} </div>
+                            <div class="profile-usertitle-job "> {{user.roles[0]}} </div>
                         </div>
                     </li>
-                    <li routerLinkActive="active">
-                        <a href="#" onClick="return false;" class="menu-toggle">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Panel Administrativo</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li routerLinkActive="active">
-                                <a routerLink="dashboard/main">Fichas</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a routerLink="apps/calendar">
-                            <i class="far fa-money-bill-alt"></i>
-                            <span>C. Financieros</span>
-                        </a>
-                    </li>
-                
-                   
-                        
-                       
-                    <li routerLinkActive="active">
-                        <a routerLink="widget">
-                            <i class="fas fa-bell"></i>
-                            <span>Indicador de calidad</span>
-                        </a>
-                    </li>
+        
+                    <div id="menu-admin">
+                        <li routerLinkActive="active">
+                            <a routerLink="empresa">
+                                <i class="far fa-building"></i>
+                                <span>Configurar Empresa</span>
+                            </a>
+                        </li>
+        
+                        <li routerLinkActive="active">
+                            <a routerLink="widget">
+                                <i class="fas fa-bell"></i>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+        
+                        <li routerLinkActive="active">
+                            <a href="#" onClick="return false;" class="menu-toggle">
+                                <i class="fas fa-cogs"></i>
+                                <span>Configuracion</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li routerLinkActive="active">
+                                    <a onClick="return false;" class="menu-toggle">
+                                        <span>Indicadores</span>
+                                    </a>
+                                    <ul class="ml-menu">
+                                        <li routerLinkActive="active">
+                                            <a>Tipo Indicador</a>
+                                        </li>
+                                        <li routerLinkActive="active">
+                                            <a>Grupo Indicador</a>
+                                        </li>
+                                        <li routerLinkActive="active">
+                                            <a>Variable</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li routerLinkActive="active">
+                                    <a routerLink="media/carousel">Tipo de Encuesta</a>
+                                </li>
+                                <li routerLinkActive="active">
+                                    <a routerLink="media/carousel">Administrar Encuesta</a>
+                                </li>
+                            </ul>
+                        </li>
 
-                    <li routerLinkActive="active">
+                        <li routerLinkActive="active">
+                            <a href="#" onClick="return false;" class="menu-toggle">
+                                <i class="fas fa-cogs"></i>
+                                <span>Consultas/Estadistica</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li routerLinkActive="active">
+                                    <a>None</a>
+                                </li>
+                                <li routerLinkActive="active">
+                                    <a>None</a>
+                                </li>
+                                <li routerLinkActive="active">
+                                    <a>None</a>
+                                </li>
+                            </ul>
+                        </li>
+        
+                    </div>
+        
+                    <div id="menu-user">
+                        <li routerLinkActive="active">
+                            <a href="#" onClick="return false;" class="menu-toggle">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Panel Administrativo</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li routerLinkActive="active">
+                                    <a routerLink="dashboard/main">Fichas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a routerLink="apps/calendar">
+                                <i class="far fa-money-bill-alt"></i>
+                                <span>C. Financieros</span>
+                            </a>
+                        </li>
+        
+                        <li routerLinkActive="active">
+                            <a routerLink="widget">
+                                <i class="fas fa-bell"></i>
+                                <span>Indicador de calidad</span>
+                            </a>
+                        </li>
+        
+                        <li routerLinkActive="active">
                             <a routerLink="widget">
                                 <i class="fas fa-braille"></i>
                                 <span>Inversiones por sector</span>
                             </a>
                         </li>
-
+        
                         <li routerLinkActive="active">
-                                <a routerLink="widget">
-                                    <i class="fas fa-money-check-alt"></i>
-                                    <span>Endeudamiento</span>
-                                </a>
-                            </li>
-
-                   
-                  
-                    <li routerLinkActive="active">
-                        <a href="#" onClick="return false;" class="menu-toggle">
-                            <i class="fas fa-cogs"></i>
-                            <span>Configuraciones</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li routerLinkActive="active">
-                                <a routerLink="media/gallery">Parametros</a>
-                            </li>
-                            <li routerLinkActive="active">
-                                <a routerLink="media/carousel">Transferencias</a>
-                            </li>
-                        </ul>
-                    </li>
-                  
-                 
-                
-                  
+                            <a routerLink="widget">
+                                <i class="fas fa-money-check-alt"></i>
+                                <span>Endeudamiento</span>
+                            </a>
+                        </li>
+        
+                        <li routerLinkActive="active">
+                            <a href="#" onClick="return false;" class="menu-toggle">
+                                <i class="fas fa-cogs"></i>
+                                <span>Configuraciones</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li routerLinkActive="active">
+                                    <a routerLink="media/gallery">Parametros</a>
+                                </li>
+                                <li routerLinkActive="active">
+                                    <a routerLink="media/carousel">Transferencias</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </div>
+        
+        
+        
+        
                 </ul>
             </div>
             <!-- #Menu -->

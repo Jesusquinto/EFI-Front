@@ -10,7 +10,7 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "sass"
+          "style": "scss"
         }
       },
       "architect": {
@@ -27,10 +27,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/ng-snotify/styles/dark.css",
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js"

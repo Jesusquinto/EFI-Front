@@ -8,12 +8,15 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { LockedComponent } from './locked/locked.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [Page500Component, Page404Component, SigninComponent, SignupComponent, LockedComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
-    AuthenticationRoutingModule
+    AuthenticationRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthenticationModule { }

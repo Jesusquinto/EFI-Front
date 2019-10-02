@@ -4,6 +4,10 @@ import { WidgetComponent } from './widget/widget.component';
 
 const routes: Routes = [
     {
+        path: 'empresa',
+        loadChildren: () => import('./empresa/empresa.module').then(m => m.EmpresaModule)
+    },
+    {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
     },

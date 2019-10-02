@@ -214,7 +214,7 @@
                         </div>
                     </li>
         
-                    <div id="menu-admin">
+                    <div *ngIf="menu == 1">
                         <li routerLinkActive="active">
                             <a routerLink="empresa">
                                 <i class="far fa-building"></i>
@@ -280,7 +280,7 @@
         
                     </div>
         
-                    <div id="menu-user">
+                    <div *ngIf="menu == 2">
                         <li routerLinkActive="active">
                             <a href="#" onClick="return false;" class="menu-toggle">
                                 <i class="fas fa-tachometer-alt"></i>

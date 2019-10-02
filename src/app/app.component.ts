@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Event, Router, NavigationStart, NavigationEnd, RouterEvent } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
 import { AppService } from './services/app.service';
-import $ from "jquery";
 
 @Component({
   selector: 'app-root',
@@ -14,10 +13,9 @@ export class AppComponent {
   showLoadingIndicatior = true;
   public user: any;
   public show = true;
+  public menu = 0;
 
   constructor(private appService: AppService, private _router: Router, location: PlatformLocation) {
-    $('#menu-user').hide();
-    $('#menu-admin').hide();
     this._router.events.subscribe((routerEvent: Event) => {
 
       if (routerEvent instanceof NavigationStart) {
@@ -42,10 +40,10 @@ export class AppComponent {
         //document.getElementById('main-component').style.removeProperty('display');
         switch (this.user.roles[0]) {
           case 'ROLE_USER':
-            $('#menu-user').show();
+            this.menu = 2;
             break;
-            case 'ROLE_ADMIN':
-            $('#menu-admin').show();
+          case 'ROLE_ADMIN':
+            this.menu = 1;
             break;
 
           default:

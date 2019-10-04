@@ -1,17 +1,36 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from '@angular/router';
-import { WidgetComponent } from './widget/widget.component';
+import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
 
-const routes: Routes = [
+
+export const routes: Routes = [
+
+
     {
+        path: "guest",
+        component: GuestLayoutComponent,
+        children: [
+          {
+            path: "",
+            loadChildren:
+              "./layouts/guest-layout/guest-layout.module#GuestLayoutModule"
+          }
+        ]
+      }, 
+
+
+
+ /*    {
         path: 'empresa',
         loadChildren: () => import('./empresa/empresa.module').then(m => m.EmpresaModule)
     },
     {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-    },
-    {
+    }, */
+  /*   {
         path: 'email',
         loadChildren: () => import('./email/email.module').then(m => m.EmailModule)
     },
@@ -62,16 +81,22 @@ const routes: Routes = [
     {
         path: 'maps',
         loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule)
-    },
+    }, */
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'guest',
         pathMatch: 'full'
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [
+      CommonModule,
+      BrowserModule,
+      RouterModule.forRoot(routes, {
+        useHash: true
+      })
+    ],
     exports: [RouterModule]
-})
+  })
 export class AppRoutingModule { }

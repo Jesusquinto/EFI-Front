@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-import { MainComponent } from './main/main.component';
 import {AccordionModule} from 'primeng/accordion';   
 import {ChartModule} from 'primeng/chart';
 import { DialogModule } from 'primeng/dialog';
@@ -12,13 +11,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
 import { FormsModule }   from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { GuestLayoutRoutes } from './guest-layout.routing';
-import { DemoComponent } from './demo/demo.component';
+import { AdminLayoutRoutes } from './admin-layout.routing';
 import { ToastDefaults, SnotifyService } from 'ng-snotify';
 import { DynamicScriptLoaderService } from 'src/app/dynamic-script-loader-service.service';
 import { AppSettings } from 'src/app/settings/app.settings';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
+import { EmpresaComponent } from './empresa/empresa.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -29,11 +28,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 
 @NgModule({
-  declarations: [MainComponent, DemoComponent, LoginComponent],
+  declarations: [EmpresaComponent, DashboardComponent],
   imports: [
     CommonModule,
     AccordionModule,
-    RouterModule.forChild(GuestLayoutRoutes),
+    RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ChartModule,
     DialogModule,
@@ -49,4 +48,4 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
   ]
 })
-export class GuestLayoutModule { }
+export class AdminLayoutModule { }

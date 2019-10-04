@@ -3,13 +3,23 @@ import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from '@angular/router';
 import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { GuestGuard } from './guards/guest.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { UserGuard } from './guards/user.guard';
 
 
 export const routes: Routes = [
 
+    {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
 
     {
-        path: "guest",
+        path: "",
         component: GuestLayoutComponent,
         children: [
           {
@@ -17,76 +27,43 @@ export const routes: Routes = [
             loadChildren:
               "./layouts/guest-layout/guest-layout.module#GuestLayoutModule"
           }
-        ]
-      }, 
+        ],
+        canActivate: [GuestGuard]
 
+    }, 
 
+    {
+        path: "",
+        component: AdminLayoutComponent,
+        children: [
+          {
+            path: "",
+            loadChildren:
+              "./layouts/admin-layout/admin-layout.module#AdminLayoutModule"
+          }
+        ],
+        canActivate: [AdminGuard]
 
- /*    {
-        path: 'empresa',
-        loadChildren: () => import('./empresa/empresa.module').then(m => m.EmpresaModule)
-    },
+    }, 
+
     {
-        path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-    }, */
-  /*   {
-        path: 'email',
-        loadChildren: () => import('./email/email.module').then(m => m.EmailModule)
-    },
+        path: "",
+        component: UserLayoutComponent,
+        children: [
+          {
+            path: "",
+            loadChildren:
+              "./layouts/user-layout/user-layout.module#UserLayoutModule"
+          }
+        ],
+        canActivate: [UserGuard]
+
+    }, 
+
     {
-        path: 'apps',
-        loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)
-    },
-    {
-        path: 'widget',
-        component: WidgetComponent
-    },
-    {
-        path: 'ui',
-        loadChildren: () => import('./ui/ui.module').then(m => m.UiModule)
-    },
-    {
-        path: 'forms',
-        loadChildren: () => import('./forms/forms.module').then(m => m.FormModule)
-    },
-    {
-        path: 'tables',
-        loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule)
-    },
-    {
-        path: 'media',
-        loadChildren: () => import('./media/media.module').then(m => m.MediaModule)
-    },
-    {
-        path: 'charts',
-        loadChildren: () => import('./charts/charts.module').then(m => m.ChartsModule)
-    },
-    {
-        path: 'timeline',
-        loadChildren: () => import('./timeline/timeline.module').then(m => m.TimelineModule)
-    },
-    {
-        path: 'icons',
-        loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule)
-    },
-    {
-        path: 'authentication',
-        loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
-    },
-    {
-        path: 'extra-pages',
-        loadChildren: () => import('./extra-pages/extra-pages.module').then(m => m.ExtraPagesModule)
-    },
-    {
-        path: 'maps',
-        loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule)
-    }, */
-    {
-        path: '',
-        redirectTo: 'guest',
-        pathMatch: 'full'
-    }
+        path: "**",
+        redirectTo: "login"
+      }
 ];
 
 @NgModule({

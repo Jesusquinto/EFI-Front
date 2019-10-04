@@ -5,10 +5,12 @@ import { Component, OnInit } from "@angular/core";
   templateUrl: "./guest-layout.component.html",
   styleUrls: ["./guest-layout.component.scss"]
 })
-export class GuestLayoutComponent  {
+export class GuestLayoutComponent implements OnInit {
 
   constructor() {}
 
-  
+  ngOnInit(){
+    console.log("entrooo");
+  }
 
 }

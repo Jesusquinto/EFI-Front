@@ -12,12 +12,17 @@ import { AppSettings } from './settings/app.settings';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GuestLayoutComponent,
+    AdminLayoutComponent,
+    UserLayoutComponent
     
   ],
   imports: [
@@ -29,7 +34,8 @@ import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.compon
       useHash: true
     }),
     AppRoutingModule,
-    SnotifyModule
+    SnotifyModule,
+    NgxSpinnerModule
   ],
   providers: [
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},

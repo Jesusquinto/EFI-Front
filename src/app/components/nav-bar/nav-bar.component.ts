@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as $ from 'jquery';
+import { AuthService } from 'src/app/services/auth.service';
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './nav-bar.component.html',
@@ -11,9 +14,13 @@ export class NavBarComponent implements OnInit {
   @Input() user;
   @Input() type;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  
+  logout(){
+    this.authService.logout();
+  } 
+
+
 
   ngOnInit() {
     $(".sidemenu-collapse").on("click", function() {

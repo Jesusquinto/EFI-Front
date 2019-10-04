@@ -7,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmpresaComponent implements OnInit {
 
-  constructor() { 
-    
-  }
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

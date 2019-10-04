@@ -40,6 +40,7 @@
     "ngx-dropzone-wrapper": "^7.2.1",
     "ngx-mat-select-search": "^1.8.0",
     "ngx-perfect-scrollbar": "^8.0.0",
+    "ngx-spinner": "^8.0.3",
     "primeicons": "^2.0.0",
     "primeng": "^8.0.2",
     "rxjs": "~6.5.2",

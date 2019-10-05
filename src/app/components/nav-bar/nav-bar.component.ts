@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as $ from 'jquery';
+import { AppService } from 'src/app/services/app-service';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -10,19 +11,20 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavBarComponent implements OnInit {
 
-
   @Input() user;
   @Input() type;
+  public usuario: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private appService: AppService, private authService: AuthService) {
+    this.usuario = this.appService.getDataUser();
+   }
 
   logout(){
     this.authService.logout();
-  } 
-
-
+  }
 
   ngOnInit() {
+
     $(".sidemenu-collapse").on("click", function() {
       var $body = $("body");
       if ($body.hasClass("side-closed")) {
@@ -44,8 +46,6 @@ export class NavBarComponent implements OnInit {
       $body.removeClass("submenu-closed");
     });
   
-   
-
   }
 
 }

@@ -8,38 +8,35 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ReactiveFormsModule } from '@angular/forms';
-import {DropdownModule} from 'primeng/dropdown';
-import { FormsModule }   from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { AdminLayoutRoutes } from './admin-layout.routing';
-import { ToastDefaults, SnotifyService } from 'ng-snotify';
-import { DynamicScriptLoaderService } from 'src/app/dynamic-script-loader-service.service';
-import { AppSettings } from 'src/app/settings/app.settings';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EmpresaComponent } from './empresa/empresa.component';
+import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-
-
-
+const routes: Routes = [
+  { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
+  { path: 'empresa', loadChildren: './empresa/empresa.module#EmpresaModule' },
+  { path: 'usuarios', loadChildren: './usuarios/usuarios.module#UsuariosModule' },
+  { path: 'indicadores-tipo', loadChildren: './indicadores-tipo/indicadores-tipo.module#IndicadoresTipoModule' },
+  { path: 'indicadores-grupo', loadChildren: './indicadores-grupo/indicadores-grupo.module#IndicadoresGrupoModule' },
+  { path: 'indicadores-variables', loadChildren: './indicadores-variables/indicadores-variables.module#IndicadoresVariablesModule' },
+  { path: 'plan-cuenta', loadChildren: './plan-cuenta/plan-cuenta.module#PlanCuentaModule' },
+];
 
 @NgModule({
-  declarations: [EmpresaComponent, DashboardComponent],
+  declarations: [ DashboardComponent],
   imports: [
     CommonModule,
     AccordionModule,
-    RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
+    RouterModule.forChild(routes),
     ChartModule,
     DialogModule,
     PerfectScrollbarModule,
     ReactiveFormsModule,
-    DropdownModule
-
+    SharedModule
   ],
   providers: [
     {
@@ -48,4 +45,5 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
   ]
 })
+
 export class AdminLayoutModule { }

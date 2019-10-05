@@ -47,7 +47,7 @@ import {
     MatCardModule,
     MatIconModule,
     MatPaginatorModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatDialogModule,
     FlexLayoutModule
   ]

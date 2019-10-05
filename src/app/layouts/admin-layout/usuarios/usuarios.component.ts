@@ -3,21 +3,20 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
+import { UsuariosFormComponent } from './usuarios-form/usuarios-form.component';
 import { AppService } from 'src/app/services/app-service';
-import { EmpresaFormComponent } from './empresa-form/empresa-form.component';
 
 @Component({
-  selector: 'app-empresa',
-  templateUrl: './empresa.component.html',
-  styleUrls: ['./empresa.component.scss']
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.component.html',
+  styleUrls: ['./usuarios.component.scss']
 })
 
-export class EmpresaComponent implements OnInit {
+export class UsuariosComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  public displayedColumns: string[] = ['acciones',
-  'nombre', 'nit', 'telefono', 'direccion', 'orden', 'contactoNombre', 'contactoTelefono', 'contactoEmail', 'contactoCargo'];
+  public displayedColumns: string[] = ['acciones', 'username', 'nombre', 'apellido', 'documento', 'email', 'enabled'];
   public dataSource: any;
   public itemSelected: any;
 
@@ -30,14 +29,14 @@ export class EmpresaComponent implements OnInit {
   }
 
   public getEmpresas() {
-    this.appService.get('empresa').subscribe(
+    this.appService.get('usuarios').subscribe(
       (data: any) => {
         console.log(data);
         this.dataSource = new MatTableDataSource<any>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
-      error => { }
+      error => {  }
     );
   }
 
@@ -51,11 +50,12 @@ export class EmpresaComponent implements OnInit {
   public editar(item: any) { this.itemSelected = item;this.openForm(1)}
 
   public openForm(tipoForm: number) {
-    const dialogRef = this.dialog.open(EmpresaFormComponent, {
+    this.appService.hideNavBar();
+    const dialogRef = this.dialog.open(UsuariosFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
       width: 'auto', height: 'auto', disableClose: true, backdropClass: 'dark',
     });
-    dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getEmpresas()}});
+    dialogRef.afterClosed().subscribe(result => {this.appService.showNavBar(); if (result === 1) {this.getEmpresas()}});
   }
 
 }

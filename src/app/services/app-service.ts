@@ -126,4 +126,11 @@ export class AppService {
     return usuario;
   }
 
+  public showNavBar(){
+    this.settings.navbar = true;
+  }
+
+  public hideNavBar(){
+    this.settings.navbar = false;
+  }
 }

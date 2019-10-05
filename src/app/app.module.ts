@@ -1,36 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WidgetComponent } from './widget/widget.component';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { DynamicScriptLoaderService } from './dynamic-script-loader-service.service';
 import { HttpClientModule } from '@angular/common/http'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
-import { AppService } from './services/app.service';
 import { AppSettings } from './settings/app.settings';
+import { RouterModule } from '@angular/router';
+import { ComponentsModule } from './components/components.module';
+import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    WidgetComponent
+    GuestLayoutComponent,
+    AdminLayoutComponent,
+    UserLayoutComponent
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    ComponentsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SnotifyModule
+    RouterModule.forRoot(routes,{
+      useHash: true
+    }),
+    AppRoutingModule,
+    SnotifyModule,
   ],
   providers: [
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     SnotifyService,
     DynamicScriptLoaderService,
-    AppService,
     AppSettings
   ],
   bootstrap: [AppComponent]

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Event, Router, NavigationStart, NavigationEnd, RouterEvent } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
-import { AppService } from './services/app.service';
 
 @Component({
   selector: 'app-root',
@@ -15,43 +14,8 @@ export class AppComponent {
   public show = true;
   public menu = 0;
 
-  constructor(private appService: AppService, private _router: Router, location: PlatformLocation) {
-    this._router.events.subscribe((routerEvent: Event) => {
+  constructor(private _router: Router) {
+    
 
-      if (routerEvent instanceof NavigationStart) {
-        this.showLoadingIndicatior = true;
-        location.onPopState(() => {window.location.reload()});
-        this.currentUrl = routerEvent.url.substring(routerEvent.url.lastIndexOf('/') + 1);
-      }
-
-      if (
-        this.currentUrl.trim() === 'signin' ||
-        this.currentUrl.trim() === 'signup' ||
-        this.currentUrl.trim() === 'forgot-password' ||
-        this.currentUrl.trim() === 'locked' ||
-        this.currentUrl.trim() === 'page404' ||
-        this.currentUrl.trim() === 'page500') {
-        //document.getElementById('main-component').style["display"] = 'none';
-        this.show = false;
-      } else {
-        this.show = true;
-        console.log(this.appService.getDataUser());
-        this.user = this.appService.getDataUser();
-        //document.getElementById('main-component').style.removeProperty('display');
-        switch (this.user.roles[0]) {
-          case 'ROLE_USER':
-            this.menu = 2;
-            break;
-          case 'ROLE_ADMIN':
-            this.menu = 1;
-            break;
-
-          default:
-            break;
-        }
-      }
-      if (routerEvent instanceof NavigationEnd) {this.showLoadingIndicatior = false}
-      window.scrollTo(0, 0)
-    });
   }
 }

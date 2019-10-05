@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AppService } from './app-service';
+
 
 @Injectable({
     providedIn: 'root'
@@ -13,10 +15,22 @@ export class AuthService {
     public _usuario: any;
     public _token: string;
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router ) { }
 
     public setToken(token: any){
         sessionStorage.setItem('token', token);
+        console.log(this.obtenerDatosToken(sessionStorage.getItem('token')).authorities[0]);
+        switch (this.obtenerDatosToken(sessionStorage.getItem('token')).authorities[0]) {
+            case "ROLE_ADMIN":
+            this.router.navigate(['dashboard']);
+            break;
+            case "ROLE_USER":
+            this.router.navigate(['panel']);
+            break;
+        }
+
+
+
     }
 
     public isTokenExpired(): boolean {
@@ -52,11 +66,21 @@ export class AuthService {
         return false;
     }
 
+
+    public get token(): string {
+        if ( this._token != null ) {
+          return this._token;
+        } else if ( this._token == null && sessionStorage.getItem('token') != null) {
+          this._token = sessionStorage.getItem('token');
+          return this._token;
+        }
+      }
+
     public logout(): void {
         this._token = null;
         this._usuario = null;
         sessionStorage.removeItem('token');
         sessionStorage.clear();
-        this.router.navigate(['authentication/signin']);
+        this.router.navigate(['login']);
     }
 }

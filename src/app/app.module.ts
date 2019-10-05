@@ -14,7 +14,7 @@ import { ComponentsModule } from './components/components.module';
 import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -23,6 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     GuestLayoutComponent,
     AdminLayoutComponent,
     UserLayoutComponent
+    
   ],
   imports: [
     BrowserModule,

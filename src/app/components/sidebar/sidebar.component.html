@@ -1,0 +1,32 @@
+<div class="logo">
+  <a  class="simple-text logo-mini">
+    <div class="logo-img" style="    width: 45px;
+    height: 35px;
+    display: block;
+    margin-left: 2px;
+    position: absolute;
+    top: 12px;">
+      <img src="./assets/img/angular2-logo-white.png" style="width: 80px;
+      height: 45px;" />
+    </div>
+  </a>
+  <a  class="simple-text logo-normal" style="margin-left: 70px;position: relative;bottom: 5px;">
+    {{username}}
+  </a>
+  <button type="button" class="btn " [ngClass]="{'btn-success': rol == 'Aprendíz', 'btn-warning': rol == 'Instructor' }" style="font-size: 10px;padding: 4px;position: absolute;top: 30px;left: 80px;">{{rol}}</button>
+
+</div>
+<div class="sidebar-wrapper">
+  <ul class="nav">
+    <li
+      routerLinkActive="active"
+      *ngFor="let menuItem of menuItems"
+      class="{{ menuItem.class }} nav-item"
+    >
+      <a [routerLink]="[menuItem.path]">
+        <i class="tim-icons  {{ menuItem.icon }}"></i>
+        <p>{{ menuItem.title }}</p>
+      </a>
+    </li>
+  </ul>
+</div>

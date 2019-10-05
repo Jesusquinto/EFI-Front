@@ -1,0 +1,74 @@
+/* You can add global styles to this file, and also import other style files */
+.ui-fileupload-buttonbar {
+    background-color: #334675 !important;
+    border: none !important;
+}
+
+
+
+body .ui-fileupload .ui-fileupload-buttonbar .ui-button {
+    background: #3356e6 !important;
+    border: none !important;
+}
+.ui-button:hover{
+    cursor: pointer !important;
+}
+body .ui-fileupload .ui-fileupload-content {
+    background-color: #f3f3f3 !important;
+    border: none !important;
+}
+
+button, html [type=button], [type=reset], [type=submit] {
+    -webkit-appearance: none !important;
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+
+  .animated.fast {
+    -webkit-animation-duration: 800ms;
+    animation-duration: 800ms;
+  }
+
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+  @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
+    transform: none !important;
+}
+
+
+.changecolor{
+  background: #efeeee !important;
+}
+
+.block{
+  background: linear-gradient(to right, rgba(47, 77, 186, 0.6) 0%, rgba(101, 121, 160, 0) 100%) !important;
+}

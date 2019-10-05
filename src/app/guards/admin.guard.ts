@@ -37,9 +37,10 @@ export class AdminGuard implements CanActivate, OnInit {
 
 
     isAdmin(): boolean {
-      const payload = this.servicio.getDataUser();
-      if(payload.roles[0] === "ROLE_ADMIN") {
-        return true;
+      let token = sessionStorage.getItem('token');
+      let payload = this.servicio.getDataUser();
+      if(payload.roles[0] == "ROLE_ADMIN"){
+        return true; 
       }
       return false;
     }

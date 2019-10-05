@@ -14,6 +14,7 @@ import { ComponentsModule } from './components/components.module';
 import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -22,7 +23,6 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
     GuestLayoutComponent,
     AdminLayoutComponent,
     UserLayoutComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -34,6 +34,7 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
     }),
     AppRoutingModule,
     SnotifyModule,
+    NgxSpinnerModule
   ],
   providers: [
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},

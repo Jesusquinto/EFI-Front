@@ -1,31 +1,45 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
+
+import {AccordionModule} from 'primeng/accordion';   
+import {ChartModule} from 'primeng/chart';
+import { DialogModule } from 'primeng/dialog';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import {DropdownModule} from 'primeng/dropdown';
+import { FormsModule }   from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AdminLayoutRoutes } from './admin-layout.routing';
+import { ToastDefaults, SnotifyService } from 'ng-snotify';
+import { DynamicScriptLoaderService } from 'src/app/dynamic-script-loader-service.service';
+import { AppSettings } from 'src/app/settings/app.settings';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EmpresaComponent } from './empresa/empresa.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
-  { path: 'empresa', loadChildren: './empresa/empresa.module#EmpresaModule' },
-  { path: 'usuarios', loadChildren: './usuarios/usuarios.module#UsuariosModule' },
-  { path: 'indicadores-tipo', loadChildren: './indicadores-tipo/indicadores-tipo.module#IndicadoresTipoModule' },
-  { path: 'indicadores-grupo', loadChildren: './indicadores-grupo/indicadores-grupo.module#IndicadoresGrupoModule' },
-  { path: 'indicadores-variables', loadChildren: './indicadores-variables/indicadores-variables.module#IndicadoresVariablesModule' },
-  { path: 'plan-cuenta', loadChildren: './plan-cuenta/plan-cuenta.module#PlanCuentaModule' },
-];
+
+
+
 
 @NgModule({
-  declarations: [ DashboardComponent],
+  declarations: [EmpresaComponent, DashboardComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    PerfectScrollbarModule
+    AccordionModule,
+    RouterModule.forChild(AdminLayoutRoutes),
+    FormsModule,
+    ChartModule,
+    DialogModule,
+    PerfectScrollbarModule,
+    ReactiveFormsModule,
+    DropdownModule
+
   ],
   providers: [
     {

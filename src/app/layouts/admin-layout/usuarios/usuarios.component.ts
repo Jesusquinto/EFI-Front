@@ -50,11 +50,12 @@ export class UsuariosComponent implements OnInit {
   public editar(item: any) { this.itemSelected = item;this.openForm(1)}
 
   public openForm(tipoForm: number) {
+    this.appService.hideNavBar();
     const dialogRef = this.dialog.open(UsuariosFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
       width: 'auto', height: 'auto', disableClose: true, backdropClass: 'dark',
     });
-    dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getEmpresas()}});
+    dialogRef.afterClosed().subscribe(result => {this.appService.showNavBar(); if (result === 1) {this.getEmpresas()}});
   }
 
 }

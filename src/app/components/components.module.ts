@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AppComponent } from '../app.component';
 import { ToastDefaults, SnotifyService } from 'ng-snotify';
 import { DynamicScriptLoaderService } from '../dynamic-script-loader-service.service';
@@ -9,11 +8,11 @@ import { AppSettings } from '../settings/app.settings';
 
 
 @NgModule({
-  declarations: [NavBarComponent],
+  declarations: [],
   imports: [
     CommonModule
   ],
-  exports: [NavBarComponent],
+  exports: [],
   bootstrap: [AppComponent],
   providers: [
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},

@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
 import { IndicadoresGrupoFormComponent } from './indicadores-grupo-form/indicadores-grupo-form.component';
-import {MenuItem} from 'primeng/api';
 import { AppService } from 'src/app/services/app-service';
 
 @Component({
@@ -20,7 +19,6 @@ export class IndicadoresGrupoComponent implements OnInit {
   public displayedColumns: string[] = ['acciones', 'nombreGrupo', 'estado'];
   public dataSource: any;
   public itemSelected: any;
-  public items: MenuItem[];
 
   constructor(
     public dialog: MatDialog,
@@ -28,11 +26,6 @@ export class IndicadoresGrupoComponent implements OnInit {
 
   ngOnInit() {
     this.getIndicadoresGrupos();
-    this.items = [
-      {label: 'Nueva IndicadoresGrupo', icon: 'fa fa-plus'},
-      {label: 'Export Excel', icon: 'fa fa-file-excel'},
-      {label: 'Export PDF', icon: 'fa fa-file-pdf'}
-    ]
   }
 
   public getIndicadoresGrupos() {

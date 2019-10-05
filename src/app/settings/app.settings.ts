@@ -15,6 +15,7 @@ export class AppSettings {
         'teal-light',   //indigo-light, teal-light, red-light, blue-dark, green-dark, pink-dark
         false, // true = rtl, false = ltr
         0,
-        ''       
+        '',
+        true       
     )
 }

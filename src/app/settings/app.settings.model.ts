@@ -10,6 +10,7 @@ export class Settings {
                 public theme: string,
                 public rtl: boolean,
                 public tipoColor: number,
-                public img: string
+                public img: string,
+                public navbar: boolean
                 ) { }
 }

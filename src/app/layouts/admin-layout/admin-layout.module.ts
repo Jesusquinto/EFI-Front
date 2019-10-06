@@ -21,10 +21,10 @@ import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CustomOverlayContainer } from 'src/app/utils/custom-overlay-container';
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-
 
 @NgModule({
   imports: [

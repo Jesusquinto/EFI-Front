@@ -14,6 +14,5 @@ export class Usuario {
     apellido: string;
     usuario: string;
     email: any;
-    empresa: any;
     rol: number;
   }

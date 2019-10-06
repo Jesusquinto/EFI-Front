@@ -13,20 +13,37 @@
   <a  class="simple-text logo-normal" style="margin-left: 70px;position: relative;bottom: 5px;">
     {{username}}
   </a>
-  <button type="button" class="btn " [ngClass]="{'btn-success': rol == 'Aprendíz', 'btn-warning': rol == 'Instructor' }" style="font-size: 10px;padding: 4px;position: absolute;top: 30px;left: 80px;">{{rol}}</button>
+  <button type="button" class="btn " [ngClass]="{'btn-success': rol == 'user', 'btn-warning': rol == 'admin' }" style="font-size: 10px;padding: 4px;position: absolute;top: 30px;left: 80px;">{{rol}}</button>
 
 </div>
 <div class="sidebar-wrapper">
-  <ul class="nav">
-    <li
-      routerLinkActive="active"
-      *ngFor="let menuItem of menuItems"
-      class="{{ menuItem.class }} nav-item"
-    >
-      <a [routerLink]="[menuItem.path]">
-        <i class="tim-icons  {{ menuItem.icon }}"></i>
-        <p>{{ menuItem.title }}</p>
-      </a>
-    </li>
-  </ul>
+    <perfect-scrollbar style="max-width: 500px; max-height: 500px;" [config]="config">
+
+        <ul class="nav">
+            <li
+              routerLinkActive="active"
+              *ngFor="let menuItem of menuItems"
+              class="{{ menuItem.class }} nav-item">
+              <a *ngIf="menuItem.path" [routerLink]="[menuItem.path]" style="padding-bottom: 0px">
+                <i class="tim-icons  {{ menuItem.icon }}"></i>
+                <p>{{ menuItem.title }}</p>
+              </a>
+              <a *ngIf="!menuItem.path" style="padding-bottom: 0px" (click)=" menuItem.showSubrutas ? menuItem.showSubrutas = false : menuItem.showSubrutas = true">
+                  <i class="tim-icons  {{ menuItem.icon }}"></i>
+                  <p>{{ menuItem.title }}
+                     <i class="tim-icons" [ngClass]="{'icon-minimal-right' : menuItem.showSubrutas == false,'icon-minimal-down' : menuItem.showSubrutas == true } "
+                     style="float: right; font-size: 12px"></i>
+                  </p>
+                </a>
+              <div *ngIf="menuItem.subrutas && menuItem.showSubrutas" style="margin-left: 2rem;font-size: 12px;" [@enterAnimation]>
+                <a *ngFor="let submenu of menuItem.subrutas" [routerLink]="[submenu.path]">
+                  <i class="tim-icons  {{ submenu.icon }}" style="font-size: 15px"></i>
+                  <p>{{ submenu.title }}</p>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </perfect-scrollbar>
+
+  
 </div>

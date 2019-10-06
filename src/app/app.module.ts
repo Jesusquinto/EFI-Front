@@ -14,8 +14,6 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
 
-
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -28,7 +26,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
     }),
     AppRoutingModule,
     NgxSpinnerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   declarations: [AppComponent, UserLayoutComponent, AuthLayoutComponent, AdminLayoutComponent],
   providers: [],

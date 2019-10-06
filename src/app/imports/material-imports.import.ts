@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
+=======
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {TooltipModule} from 'primeng/tooltip';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+>>>>>>> esting
 import { MatAutocompleteModule,
          MatButtonModule,
          MatButtonToggleModule,
@@ -65,7 +71,15 @@ import { MatAutocompleteModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+<<<<<<< HEAD
     MatStepperModule
+=======
+    MatStepperModule,
+    FlexLayoutModule,
+    TooltipModule,
+    FormsModule,
+    ReactiveFormsModule
+>>>>>>> esting
   ],
   exports: [
     MatAutocompleteModule,
@@ -98,7 +112,15 @@ import { MatAutocompleteModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+<<<<<<< HEAD
     MatStepperModule
+=======
+    MatStepperModule,
+    FlexLayoutModule,
+    TooltipModule,
+    FormsModule,
+    ReactiveFormsModule
+>>>>>>> esting
   ],
   declarations: []
 })

@@ -1,49 +1,35 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule, routes } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LocationStrategy, HashLocationStrategy} from '@angular/common';
-import { DynamicScriptLoaderService } from './dynamic-script-loader-service.service';
-import { HttpClientModule } from '@angular/common/http'; 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
-import { AppSettings } from './settings/app.settings';
-import { RouterModule } from '@angular/router';
-import { ComponentsModule } from './components/components.module';
-import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
+import { ToastrModule } from 'ngx-toastr';
+import { AppComponent } from "./app.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { AppRoutingModule, routes } from "./app-routing.module";
+import { ComponentsModule } from "./components/components.module";
+import { NgxSpinnerModule } from "ngx-spinner";
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GuestLayoutComponent,
-    AdminLayoutComponent,
-    UserLayoutComponent
-    
-  ],
   imports: [
-    BrowserModule,
-    ComponentsModule,
-    HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    NgbModule,
     RouterModule.forRoot(routes,{
-      useHash: true
+      useHash: false
     }),
     AppRoutingModule,
-    SnotifyModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [
-    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
-    SnotifyService,
-    DynamicScriptLoaderService,
-    AppSettings
-  ],
+  declarations: [AppComponent, UserLayoutComponent, AuthLayoutComponent, AdminLayoutComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

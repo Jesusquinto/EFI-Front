@@ -1,51 +1,55 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {AccordionModule} from 'primeng/accordion';   
-import {ChartModule} from 'primeng/chart';
-import { DialogModule } from 'primeng/dialog';
+
+import { UserLayoutRoutes } from "./user-layout.routing";
+
+// import { RtlComponent } from "../../pages/rtl/rtl.component";
+
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { MaterialImports } from 'src/app/imports/material-imports.import';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { ReactiveFormsModule } from '@angular/forms';
-import {DropdownModule} from 'primeng/dropdown';
-import { FormsModule }   from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { UserLayoutRoutes } from './user-layout.routing';
-import { ToastDefaults, SnotifyService } from 'ng-snotify';
-import { DynamicScriptLoaderService } from 'src/app/dynamic-script-loader-service.service';
-import { AppSettings } from 'src/app/settings/app.settings';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EncuestaComponent } from './encuesta/encuesta.component';
-import { PanelComponent } from './panel/panel.component';
-
+import { PipesModule } from 'src/app/pipes/pipes.module';
+import {FileUploadModule} from 'primeng/fileupload';
+import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PanelComponent } from 'src/app/pages/panel/panel.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 
-
-
-
 @NgModule({
-  declarations: [ EncuestaComponent, PanelComponent],
   imports: [
     CommonModule,
-    AccordionModule,
     RouterModule.forChild(UserLayoutRoutes),
     FormsModule,
-    ChartModule,
-    DialogModule,
-    PerfectScrollbarModule,
     ReactiveFormsModule,
-    DropdownModule
-
+    HttpClientModule,
+    NgbModule,
+    MaterialImports,
+    PerfectScrollbarModule,
+    PipesModule,
+    FileUploadModule,
+    MatDialogModule
+  ],
+  declarations: [
+    PanelComponent
+    // RtlComponent
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
-  ]
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
+  ],
+  entryComponents:[]
+
 })
-export class UserLayoutModule { }
+export class UserLayoutModule {}

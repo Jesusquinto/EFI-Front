@@ -9,8 +9,12 @@ export class AdminLayoutComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(){
-    console.log("entrooo");
+  
+  ngOnInit() { 
+    var body = document.getElementsByTagName('body')[0]; body.classList.add("white-content");
+    var sidebar = document.getElementsByClassName('sidebar')[0];
+    var mainPanel = document.getElementsByClassName('main-panel')[0];
+    sidebar.setAttribute('data',"blue");
+    mainPanel.setAttribute('data',"blue");
   }
-
 }

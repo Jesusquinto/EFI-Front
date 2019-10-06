@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { AppService } from '../services/app-service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class AdminGuard implements CanActivate, OnInit {
 
   public usuario: any;
 
-  constructor(private auth: AuthService, private router: Router, private servicio: AppService) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
@@ -19,31 +18,30 @@ export class AdminGuard implements CanActivate, OnInit {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-      if (this.auth.isAuthenticated()) {
-        if (this.isTokenExpired()) {
-          this.auth.logout();
-          this.router.navigate(['login']);
-          return false;
-        }
-
-        if(this.isAdmin()){
-          return true;
-        }
+    if (this.auth.isAuthenticated()) {
+      if (this.isTokenExpired()) {
+        this.auth.logout();
+        this.router.navigate(['/login']);
+        return false;
       }
-      this.router.navigate(['login']);
-      return false;
-    }
-
-
-
-    isAdmin(): boolean {
-      let token = sessionStorage.getItem('token');
-      let payload = this.servicio.getDataUser();
-      if(payload.roles[0] == "ROLE_ADMIN"){
-        return true; 
+      if (this.isAdmin()) {
+        return true;
       }
-      return false;
     }
+    this.router.navigate(['/login']);
+    return false;
+  }
+
+
+
+  isAdmin(): boolean {
+    let token = sessionStorage.getItem('token');
+    let payload = this.auth.obtenerDatosToken(token);
+    if (payload.roles[0].nombre == 'ROLE_ADMIN') {
+      return true;
+    }
+    return false;
+  }
 
 
 

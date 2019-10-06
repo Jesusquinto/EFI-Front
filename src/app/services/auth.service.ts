@@ -63,10 +63,7 @@ export class AuthService {
     this._usuario.documento = payload.documento;
     this._usuario.rol  = payload.roles[0];
     this._usuario.usuario = payload.usuario;
-<<<<<<< HEAD
     this._usuario.empresa = payload.empresa;
-=======
->>>>>>> esting
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
     switch (payload.roles[0].nombre) {
       case "ROLE_ADMIN":

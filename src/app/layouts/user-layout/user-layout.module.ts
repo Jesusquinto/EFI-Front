@@ -19,10 +19,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PanelComponent } from 'src/app/pages/panel/panel.component';
-<<<<<<< HEAD
 import { AplicarEncuestaComponent } from 'src/app/pages/aplicar-encuesta/aplicar-encuesta.component';
-=======
->>>>>>> esting
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -43,12 +40,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatDialogModule
   ],
   declarations: [
-<<<<<<< HEAD
     PanelComponent,
     AplicarEncuestaComponent
-=======
-    PanelComponent
->>>>>>> esting
     // RtlComponent
   ],
   providers: [

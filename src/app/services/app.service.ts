@@ -100,14 +100,7 @@ export class AppService {
   return this.http.post<any>(this.urlx+'oauth/token', params.toString(), { headers: httpHeaders });
 }
 
-
-
-
-
-
-
-
-
-
+public openSpinner() { this.spinner.show(); }
+public closeSpinner() { this.spinner.hide(); }
 
 }

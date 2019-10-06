@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, OnDestroy, ɵConsole } from "@angular/core";
+import { Component, OnInit, ElementRef, OnDestroy } from "@angular/core";
 import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
@@ -163,26 +163,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  getTitle(): string {
+  getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee.charAt(0) === "/") {
+    if (titlee.charAt(0) === "#") {
       titlee = titlee.slice(1);
     }
+
     for (var item = 0; item < this.listTitles.length; item++) {
-      if(this.listTitles[item].subrutas){
-        for (let i = 0; i < this.listTitles[item].subrutas.length; i++) {
-          if (this.listTitles[item].subrutas[i].path === "/"+titlee) {
-            return this.listTitles[item].subrutas[i].title;
-          }           
-        }      
-      }else{
-        if (this.listTitles[item].path === "/"+titlee) {
-          return this.listTitles[item].title;
-        }
+      if (this.listTitles[item].path === titlee) {
+        return this.listTitles[item].title;
       }
     }
+    return "Dashboard";
   }
-  
+
   open(content) {
     this.modalService.open(content, {windowClass: 'modal-search'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

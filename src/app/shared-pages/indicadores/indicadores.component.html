@@ -1,0 +1,54 @@
+
+<div class=" content">
+        <div class=" row">
+         <div class=" col-12">
+           <div class=" card card-chart">
+             <div class=" card-header">
+               <div class=" row">
+                 <div class=" col-sm-6 text-left">
+                   <h5 class=" card-category"  >Seleccionar Grupo</h5>
+                   <h2 class=" card-title" >Grupos de indicadores</h2>
+
+
+                 </div>
+                 <div class=" col-sm-6">
+                   <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
+                     <label class=" btn btn-sm btn-info btn-simple" (click)="tipo = 'financieros'" [ngClass]="{'active':tipo==='financieros'}">
+                       <input checked="checked" name="options" type="radio"/>
+     
+                       <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                         Financieros
+                       </span>
+                       <span class=" d-block d-sm-none">
+                         <i class=" tim-icons icon-single-02"> </i>
+                       </span>
+                     </label>
+                     <label class=" btn btn-sm btn-info btn-simple"  [ngClass]="{'active':tipo==='tributarios'}">
+                       <input class=" d-none d-sm-none" name="options" type="radio"/>
+     
+                       <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                         Tributarios
+                       </span>
+                       <span class=" d-block d-sm-none">
+                         <i class=" tim-icons icon-gift-2"> </i>
+                       </span>
+                     </label>
+                    
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+
+                 
+
+
+             </div>
+           </div>
+         </div>
+       </div> 
+
+     
+     
+     </div>
+     

@@ -32,10 +32,24 @@ export const ROUTESUSER: RouteInfo[] = [
       {
         path: "/aplicar-encuesta",
         title: "Aplicar encuesta",
+        icon: "icon-single-copy-04",
+        class: "",
+      },
+      {
+        path: "/encuestas-realizadas",
+        title: "Encuestas realizadas",
         icon: "icon-bullet-list-67",
         class: "",
       }
     ]
+  },
+
+  {
+    path: "/user-indicadores",
+    title: "Indicadores",
+    icon: "icon-chart-bar-32",
+    class: "",
+  
   },
  ];
 

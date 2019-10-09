@@ -1,0 +1,65 @@
+<div class=" row">
+
+    <div class=" card card-chart ml-2 mr-2" style="padding: 10px"> 
+        <h4 class=" card-title">
+            <i class=" tim-icons icon-zoom-split text-danger-states"> </i> Filtrar encuestas
+          </h4>               
+                
+                  <mat-form-field class="example-full-width " style="margin-left: 2rem; margin-right: 2rem">
+                      <input type="text" matInput placeholder="Buscar encuesta" [(ngModel)]="searchInput">
+                      <mat-icon matSuffix>search</mat-icon>
+                  </mat-form-field>
+
+      </div>
+
+
+    <div *ngFor="let e of encuestas" class=" col-lg-4 " >
+        <div class=" card card-chart encuesta">
+          <div class=" card-header">
+            <h5 class=" card-category">{{e.fecha | date}}</h5>
+            <h4 class=" card-title" *ngIf="tipo == 1">
+              <i class=" tim-icons icon-notes text-danger-states" > </i> {{e.nombre}}
+            </h4>
+
+            <h4 class=" card-title" *ngIf="tipo == 2" style="margin-bottom: 0px">
+                <i class=" tim-icons icon-notes text-danger-states"> </i> {{e.idEncuesta.nombre}}
+            </h4>
+
+
+            <h4 class=" card-category ml-4" *ngIf="tipo == 2" style="color: red;">
+               Aplicado a {{e.idEntidad.ciudad}}
+              </h4>
+
+
+              <button *ngIf="tipo == 2" class=" btn btn-link float-right mb-0 " type="button" placement="left" ngbTooltip="Editar encuesta" container="body" (click)="editEncuesta(e)" >
+                  <i class="tim-icons icon-pencil" style="font-size: 18px;"></i>
+                </button>  
+
+                <button *ngIf="tipo == 2" class=" btn btn-link float-right mb-0 " type="button" placement="left" ngbTooltip="Remover encuesta" container="body" (click)="deleteEncuesta(e)" >
+                    <i class="tim-icons icon-simple-remove" style="font-size: 18px"></i>
+                  </button>  
+
+
+                  <button *ngIf="tipo == 1" class=" btn btn-link float-right mb-0 " type="button" placement="left" ngbTooltip="Aplicar Encuesta" container="body" (click)="hacerEncuesta(e)">
+                      <i class="tim-icons icon-simple-add" style="font-size: 18px;" ></i>
+                    </button>  
+
+           
+
+
+          </div>
+          <div class=" card-body">
+            
+          </div>
+
+        </div>
+      </div>
+
+
+  
+ 
+
+
+
+
+  </div>

@@ -1,0 +1,153 @@
+ <h3 style="font-size: large;font-weight: 200;" class="mb-0" *ngIf="empresaCtrl">Aplicada a {{empresaCtrl.entidad}}</h3>
+ <div class=" row">
+          <div class=" col-lg-8 col-md-12">
+            <div class=" card card-tasks">
+              <div class=" card-header">
+                <h6 class=" title d-inline" *ngIf="preguntas">Preguntas({{preguntas.length}})</h6>
+                <p *ngIf="preguntas" class=" card-category d-inline" style="color: #3354db;">{{preguntas[0].idPregunta.idGrupo.nombre}}</p>
+                <div ngbDropdown>
+                  <button
+                    class=" btn btn-link btn-icon"
+                    data-toggle="dropdown"
+                    ngbDropdownToggle
+                    type="button">
+                    <i class=" tim-icons icon-settings-gear-63"> </i>
+                  </button>
+                  <div
+                    aria-labelledby="dropdownMenuLink"
+                    class=" dropdown-menu-right"
+                    ngbDropdownMenu>
+
+                    <a href="javascript:void(0)" ngbDropdownItem> Agregar pregunta </a>
+                    <a href="javascript:void(0)" ngbDropdownItem> Quitar pregunta </a>
+                  </div>
+                </div>
+              </div>
+            
+
+              <div class=" card-body">
+                <div class=" table-full-width table-responsive" style="overflow-x: auto">
+                  <table class=" table">
+                    <tbody>
+                     
+                      <tr *ngFor="let p of preguntas; let i = index" class="pregunta">
+                         
+
+
+
+                        <td>
+                            <mat-radio-group aria-label="Seleccione una respuesta" [(ngModel)]="encuestasDetalle[i].resultado">
+                                <mat-radio-button [value]="0">SI</mat-radio-button>
+                                <mat-radio-button [value]="1">NO</mat-radio-button>
+                                <mat-radio-button [value]="2">N/R</mat-radio-button>
+
+                              </mat-radio-group>
+                        </td>
+                        <td>
+                          <p class=" title">{{p.idPregunta.codigo}} - {{p.idPregunta.responsable  }}</p>
+                          <p class=" text-muted">
+                            {{p.idPregunta.descripcion}}
+                          </p>
+                        </td>
+
+                        <td>
+                          {{p.idPregunta.periodo}}
+
+                        </td>
+
+
+                        <td class=" td-actions text-right">
+                          <button class=" btn btn-link" type="button" placement="left" ngbTooltip="Agregar Observacion" container="body" (click)="selectEncuestaDetalleIndex(i)">
+                            <i class="tim-icons icon-pencil" [ngClass]="{'with-observacion': encuestasDetalle[i].observacion != null && encuestasDetalle[i].observacion != '' }" ></i>
+                          </button>  
+                          
+                          <button class=" btn btn-link" type="button" placement="left" ngbTooltip="{{p.idPregunta.referencia}}" container="body" >
+                            <a class="tim-icons icon-attach-87" href="{{p.idPregunta.referencia}}" target="_blank"></a>
+                          </button>  
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-lg-4 col-md-12">
+            <div class=" card">
+              <div class=" card-header">
+                  <h5 class=" card-category" *ngIf="showAddObservacion">pregunta {{preguntas[encuestasDetalleSelected].idPregunta.codigo}} </h5>
+                <h4 class=" card-title" *ngIf="!showAddObservacion">Configurar encuesta</h4>
+                <h4 class=" card-title" *ngIf="showAddObservacion">Agregar Observacion</h4> 
+                
+                         
+              </div>
+              <div class=" card-body">
+                
+
+
+
+                <div *ngIf="!showAddObservacion" style="width: 80%; margin-left: 2rem; margin-right: 2rem;">
+                    <mat-form-field class="example-full-width " style="margin-left: 2rem; margin-right: 2rem; width: 100%">
+                        <input type="text" matInput placeholder="Digite periodo" [(ngModel)]="periodo">
+                        <mat-icon matSuffix>event</mat-icon>
+                    </mat-form-field>
+  
+                    <mat-form-field style="margin-left: 2rem; margin-right: 2rem; width: 100%">
+                        <mat-select [(ngModel)]="empresaCtrl" placeholder="Seleccionar entidad" #singleSelect>
+                          <mat-option>
+                            <ngx-mat-select-search [(ngModel)]="empresaFilterCtrl" [placeholderLabel]="'Buscar entidad...'"
+                            [noEntriesFoundLabel]="'no se encontró la entidad'"></ngx-mat-select-search>
+                          </mat-option>
+                          <mat-option *ngFor="let entidad of entidades | searchPipe:{entidad: empresaFilterCtrl} " [value]="entidad">
+                            {{entidad.entidad}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    <button *ngIf="tipo == 1" type="button" class="btn btn-info" style="margin-left: 2rem; margin-right: 2rem; width: 100% " (click)="sendEncuestaResultado()">Aplicar encuesta</button>
+                    <button *ngIf="tipo == 2" type="button" class="btn btn-info" style="margin-left: 2rem; margin-right: 2rem; width: 100% " (click)="sendEncuestaResultado()">Editar encuesta</button>
+                </div>
+
+
+                <div *ngIf="showAddObservacion" style="width: 80%; margin-left: 2rem; margin-right: 2rem;">
+                  <mat-form-field class="example-full-width" style="width: 100%;  margin-left: 2rem; margin-right: 2rem; ">
+
+                      <textarea matInput placeholder="Observación" [(ngModel)]="observacion"></textarea>
+
+
+                  </mat-form-field>
+                  <div class="row">
+                    <div [ngClass]="{'col-10': encuestasDetalle[encuestasDetalleSelected].observacion != null || encuestasDetalle[encuestasDetalleSelected].observacion != '',
+                                    'col-12': encuestasDetalle[encuestasDetalleSelected].observacion == null || encuestasDetalle[encuestasDetalleSelected].observacion == ''}"> 
+                      
+                    <button type="button" class="btn btn-info" style="margin-left: 2rem; margin-right: 2rem; width: 100%" (click)="setObservacion()">Agregar Observacion</button>
+ 
+                   </div>
+
+                    <div *ngIf="encuestasDetalle[encuestasDetalleSelected].observacion != null"
+                     class="col-2"> <button  class=" btn btn-link" type="button" (click)="eliminarObservacion()" placement="left" ngbTooltip="Eliminar observacion" container="body" >
+                        <i class="tim-icons icon-simple-remove"></i>
+                      </button> 
+                     </div>
+
+                  </div>
+
+                  <button type="button" class="btn btn-danger" style="margin-left: 2rem; margin-right: 2rem; width: 100% " (click)="showAddObservacion = false;
+                  encuestasDetalleSelected = null; observacion = '' ">Cancelar</button>
+
+                </div>
+
+
+                
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div> 
+
+      

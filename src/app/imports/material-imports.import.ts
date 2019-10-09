@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {TooltipModule} from 'primeng/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatButtonToggleModule,
@@ -72,7 +75,10 @@ import { MatAutocompleteModule,
     FlexLayoutModule,
     TooltipModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OverlayPanelModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -109,7 +115,10 @@ import { MatAutocompleteModule,
     FlexLayoutModule,
     TooltipModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OverlayPanelModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule
   ],
   declarations: []
 })

@@ -35,6 +35,10 @@ import { MatAutocompleteModule,
          MatTooltipModule,
          MatStepperModule } from '@angular/material';
 
+import {DropdownModule} from 'primeng/dropdown';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { FilterPipe } from '../utils/filter.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -72,7 +76,9 @@ import { MatAutocompleteModule,
     FlexLayoutModule,
     TooltipModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropdownModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -109,8 +115,13 @@ import { MatAutocompleteModule,
     FlexLayoutModule,
     TooltipModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropdownModule,
+    NgxMatSelectSearchModule,
+    FilterPipe
   ],
-  declarations: []
+  declarations: [
+    FilterPipe
+  ]
 })
 export class MaterialImports { }

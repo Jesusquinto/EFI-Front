@@ -1,5 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
+.back-gradient{
+  background: linear-gradient(to right, #44a08d, #093637); 
+  background: -webkit-linear-gradient(to right, #44a08d, #093637);
+}
+.back-gradient-gray{
+  background: linear-gradient(to right, #2c3e50, #bdc3c7);
+  background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);
+}
+.back-gradient-teal-gray{
+  background: linear-gradient(to right, #808080, #3fada8);
+  background: -webkit-linear-gradient(to right, #808080, #3fada8);
+}
+.back-gradient-dark-blue{
+  background: linear-gradient(to right, #141e30, #243b55);
+  background: -webkit-linear-gradient(to right, #141e30, #243b55);
+  opacity: 0.4;
+}
+.back-gradient-light-purple{
+  background: linear-gradient(to right, #2c3e50, #2980b9);
+  background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);
+}
+
+.dark{
+  background-color:  rgba(0, 0, 0, 0.6);
+}
+
+.bg-gray{
+  background-color: rgb(218, 218, 218)
+}
+
+.bg-white{
+  background-color: #fff !important;
+}
+
 .ui-fileupload-buttonbar {
     background-color: #334675 !important;
     border: none !important;
@@ -72,4 +106,53 @@ button, html [type=button], [type=reset], [type=submit] {
 
 .block{
   background: linear-gradient(to right, rgba(47, 77, 186, 0.6) 0%, rgba(101, 121, 160, 0) 100%) !important;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #777;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.toast-top-right{
+  left: 80%;
+  right: 10%;
 }

@@ -38,6 +38,10 @@ import { MatAutocompleteModule,
          MatTooltipModule,
          MatStepperModule } from '@angular/material';
 
+import {DropdownModule} from 'primeng/dropdown';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { FilterPipe } from '../utils/filter.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -120,6 +124,8 @@ import { MatAutocompleteModule,
     MatFormFieldModule,
     NgxMatSelectSearchModule
   ],
-  declarations: []
+  declarations: [
+    FilterPipe
+  ]
 })
 export class MaterialImports { }

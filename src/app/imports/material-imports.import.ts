@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {TooltipModule} from 'primeng/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { MatAutocompleteModule,
          MatButtonModule,

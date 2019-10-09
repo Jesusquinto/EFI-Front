@@ -1,0 +1,58 @@
+
+<div class=" content">
+        <div class=" row">
+         <div class=" col-12">
+           <div class=" card card-chart">
+             <div class=" card-header">
+               <div class=" row">
+                 <div class=" col-sm-6 text-left">
+                   <h5 class=" card-category" *ngIf="estado == 'ver-encuestas'" >Seleccionar encuestas realizadas</h5>
+                   <h5 class=" card-category" *ngIf="estado == 'editar-encuesta'">Editar encuesta realizada</h5>
+                   <h2 class=" card-title" *ngIf="estado == 'ver-encuestas'">Encuestas Realizadas</h2>
+                   <h2 class=" card-title" *ngIf="estado == 'editar-encuesta'">Editar encuesta "{{encuesta.idEncuesta.nombre}}"</h2>
+
+
+                 </div>
+                 <div class=" col-sm-6">
+                   <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
+                     <label class=" btn btn-sm btn-info btn-simple" (click)="estado = 'ver-encuestas'" [ngClass]="{'active':estado==='ver-encuestas'}">
+                       <input checked="checked" name="options" type="radio"/>
+     
+                       <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                         ver Encuestas
+                       </span>
+                       <span class=" d-block d-sm-none">
+                         <i class=" tim-icons icon-single-02"> </i>
+                       </span>
+                     </label>
+                     <label class=" btn btn-sm btn-info btn-simple"  [ngClass]="{'active':estado==='editar-encuesta'}">
+                       <input class=" d-none d-sm-none" name="options" type="radio"/>
+     
+                       <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                         editar Encuesta
+                       </span>
+                       <span class=" d-block d-sm-none">
+                         <i class=" tim-icons icon-gift-2"> </i>
+                       </span>
+                     </label>
+                    
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+
+                    <app-ver-encuestas *ngIf="estado === 'ver-encuestas'" (editarEncuesta)="editarEncuesta($event)"  [tipo]="2"></app-ver-encuestas>
+
+                    <app-hacer-encuesta *ngIf="estado === 'editar-encuesta'" [encuesta]="encuesta" (finish)="finalizarEdicion()" [tipo]="2"></app-hacer-encuesta>
+
+
+             </div>
+           </div>
+         </div>
+       </div> 
+
+     
+     
+     </div>
+     

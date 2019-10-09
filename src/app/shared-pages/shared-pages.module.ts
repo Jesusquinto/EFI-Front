@@ -3,9 +3,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 
-import { UserLayoutRoutes } from "./user-layout.routing";
 
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
@@ -18,21 +18,16 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import {FileUploadModule} from 'primeng/fileupload';
 import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
-import { PanelComponent } from 'src/app/pages/panel/panel.component';
-import { AplicarEncuestaComponent } from 'src/app/pages/aplicar-encuesta/aplicar-encuesta.component';
-import { VerEncuestasComponent } from 'src/app/pages/aplicar-encuesta/ver-encuestas/ver-encuestas.component';
-import { HacerEncuestaComponent } from 'src/app/pages/aplicar-encuesta/hacer-encuesta/hacer-encuesta.component';
-import { EncuestasRealizadasComponent } from 'src/app/pages/encuestas-realizadas/encuestas-realizadas.component';
-import { SharedPagesModule } from 'src/app/shared-pages/shared-pages.module';
+import { IndicadoresComponent } from './indicadores/indicadores.component';
+
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(UserLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -41,16 +36,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     PipesModule,
     FileUploadModule,
-    MatDialogModule,
-    SharedPagesModule
+    MatDialogModule
   ],
   declarations: [
-    PanelComponent,
-    AplicarEncuestaComponent,
-    VerEncuestasComponent,
-    HacerEncuestaComponent,
-    EncuestasRealizadasComponent
+    IndicadoresComponent   
     // RtlComponent
+  ],
+
+  exports : [
+    IndicadoresComponent
   ],
   providers: [
     {
@@ -62,4 +56,4 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   entryComponents:[]
 
 })
-export class UserLayoutModule {}
+export class SharedPagesModule {}

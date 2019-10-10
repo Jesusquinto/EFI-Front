@@ -7,8 +7,7 @@ import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: "app-aplicar-encuesta",
-  templateUrl: "aplicar-encuesta.component.html",
-  styleUrls: ["aplicar-encuesta.component.scss"]
+  templateUrl: "aplicar-encuesta.component.html"
 })
 export class AplicarEncuestaComponent implements OnInit {
   public encuesta: any;

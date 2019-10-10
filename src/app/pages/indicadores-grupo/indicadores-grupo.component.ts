@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
 import { IndicadoresGrupoFormComponent } from './indicadores-grupo-form/indicadores-grupo-form.component';
 import { AppService } from 'src/app/services/app.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-indicadores-grupo',
@@ -55,6 +56,50 @@ export class IndicadoresGrupoComponent implements OnInit {
       width: 'auto', height: 'auto', minWidth: '35%', disableClose: true, backdropClass: 'dark',
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getIndicadoresGrupos()}});
+  }
+
+  public setEstado(data: any) {
+    switch (data.estado) {
+      case 0:
+        data.estado = 1;
+        this.update(data);
+        break;
+      case 1:
+        data.estado = 0;
+        this.update(data);
+        break;
+      default:
+        break;
+    }
+  }
+
+  public update(data: any) {
+    Swal.fire({
+      title: 'Advertencia',
+      text: 'Estas seguro de que quiere Cambiar El Grupo?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Cambiar',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.appService.openSpinner();
+        this.appService.put('indicadorGrupo', data).subscribe(
+          (data: any) => {
+            console.log(data),
+            this.appService.closeSpinner();
+            Swal.fire({
+              type: 'success', text: 'El estado del Grupo ' + String(data.NombreGrupo).toUpperCase() + ' Ha sido Cambiado!',
+              timer: 3000, showConfirmButton: false
+            });
+            this.getIndicadoresGrupos();
+          }, error => {
+            this.appService.closeSpinner();
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    })
   }
 
 }

@@ -3,79 +3,196 @@
         <div class="form-row">
             <!-- // Informacion Principal  // -->
             <div class="col-md-12">
-                <div class="bg-dark text-white my-2" style=" padding: 8px">
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="w-100">
-                        <div class="">
-                            <a *ngIf="data.tipoForm == 0" class="text-white my-1" style="margin-left: 10px; font-size: 20px;"><i
-                                    class="fa fa-plus"></i>&nbsp;Nueva Encuesta</a>
-                            <a *ngIf="data.tipoForm == 1" class="text-white my-1" style="margin-left: 10px; font-size: 20px;"><i
-                                    class="fa fa-edit"></i>&nbsp;Editar Encuesta </a>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="form-row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label for="nombre">Nombre de Encuesta <b class="text-danger">*</b></label>
-                            <input type="text" name="nombre" id="nombre" formControlName="nombre" class="form-control" placeholder="Nombre">
-                        </div>
-                    </div>
-                </div>
+                    <div class="col-md-4">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 class="text-muted">Listado de Preguntas</h4>
-                        <div class="table-responsive" style="height: 50vh">
-                                <table class="table table-sm table-hover">
-                                        <thead class="bg-dark">
+                            
+                        <div class="card " style="background-color: rgb(226, 222, 222); padding: 15px">
+
+                            <h4 class="card-title"><i class="fa fa-plus"></i>&nbsp; Generar Encuesta</h4>
+                            <div class="card- bg-white" style="padding: 10px;border-radius: 5px;">
+                                
+                                <div class="form-group">
+                                    <label for="empresa">Empresa <b class="text-danger">*</b></label>
+                                    <input readonly type="text" name="empresa" id="empresa" formControlName="empresa"
+                                        class="form-control" placeholder="Empresa">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="usuario">Usuario <b class="text-danger">*</b></label>
+                                    <input readonly type="text" name="usuario" id="usuario" formControlName="usuario"
+                                        class="form-control" placeholder="Usuario">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nombre">Nombre de Encuesta <b class="text-danger">*</b></label>
+                                    <input type="text" name="nombre" id="nombre" formControlName="nombre"
+                                        class="form-control" placeholder="Nombre de Encuesta">
+                                </div>
+
+                                <div class="alert text-muted" role="alert">
+                                    <strong>No. de preguntas Seleccionadas:</strong> &nbsp;
+                                    <strong
+                                        style="font-size: 20px; font-weight: 100;">{{preguntasSelected.length}}</strong>
+                                </div>
+
+                                <button [disabled]="!datos.valid" type="button" class="btn btn-lg btn-info btn-block"
+                                    (click)="openModal()">
+                                    <i class="fa fa-pencil-alt"></i>&nbsp; Seleccionar Preguntas</button>
+
+
+                                <!-- // Submit // -->
+                                <div class="col-md-12">
+                                    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+                                        <button [disabled]="!datos.valid || preguntasSelected.length == 0"
+                                            [ngClass]="data.tipoForm == 0 ? 'text-success' : 'text-info'" mat-button
+                                            class="bg-white" (click)="submit()">
+                                            <mat-icon *ngIf="data.tipoForm == 0">save</mat-icon>
+                                            <mat-icon *ngIf="data.tipoForm == 1">create</mat-icon>
+                                            Guardar
+                                        </button>
+
+                                        <button mat-button class="bg-white text-danger" (click)="close()">
+                                            <mat-icon>cancel</mat-icon> Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-8">
+
+                        <div class="card" style="background-color: rgb(226, 222, 222);">
+                            <div class="card-body">
+                                <h4 class="card-title"><i class="fa fa-pencil-alt"></i>&nbsp; Preguntas de la Encuesta
+                                </h4>
+                                <div
+                                    style=" max-height: 70vh; overflow-y: scroll; padding: 10px; border-radius: 5px; background-color: #fff;">
+                                    <table class="table table-sm table-hover">
+                                        <thead>
                                             <tr>
-                                                <th>No.</th>
-                                                <th>Descripcion</th>
-                                                <th>Grupo</th>
-                                                <th>Categoria</th>
-                                                <th>Seleccionar</th>
+                                                <th><i class="fa fa-arrow-down text-warning"></i>&nbsp; No.
+                                                </th>
+                                                <th style="width: 300px;"><i class="fa fa-file text-warning"></i>&nbsp;
+                                                    Descripcion</th>
+                                                <th><i class="fa fa-arrow-down text-warning"></i>&nbsp; Grupo</th>
+                                                <th><i class="fa fa-arrow-down text-warning"></i>&nbsp; Categoria</th>
+                                                <th> <i class="fa fa-times text-danger"></i>&nbsp; Eliminar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let item of preguntas; let i=index">
+                                            <tr *ngFor="let item of preguntasSelected; let i=index">
                                                 <td scope="row">{{item[0]}}</td>
-                                                <td (click)="op.toggle($event)">{{item[1]}} </td>
+                                                <td (click)="op.toggle($event)" (mouseenter)="mouseEnter(item)" (mouseleave)="mouseLeave(item)"
+                                                [ngClass]="{'desc-selected': desc1 == item[0]}" style="transition: all .3s;">
+                                                    {{desc1 == item[0] ? (item[1] | truncate : item[1].length) : (item[1] | truncate : 30)}}
+                                                    </td>
                                                 <td>{{item[9]}}</td>
                                                 <td>{{item[10]}}</td>
                                                 <td>
-                                                    <button mat-icon-button color="primary" (click)="seleccionarPregunta({index: i,data:item})">
-                                                        <mat-icon class="mat-18">add</mat-icon>
+                                                    <button mat-icon-button (click)="deletePregunta(i)">
+                                                        <mat-icon class="mat-18">cancel</mat-icon>
                                                     </button>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                </div>
 
-
-                <!-- // Submit // -->
-                <div class="col-md-12">
-                    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-                        <button [disabled]="!datos.valid" [ngClass]="data.tipoForm == 0 ? 'text-success' : 'text-info'" mat-button
-                            class="bg-white" (click)="submit()">
-                            <mat-icon *ngIf="data.tipoForm == 0">save</mat-icon>
-                            <mat-icon *ngIf="data.tipoForm == 1">create</mat-icon>
-                            Guardar
-                        </button>
-
-                        <button mat-button class="bg-white text-danger" (click)="close()">
-                            <mat-icon>cancel</mat-icon> Cancelar
-                        </button>
                     </div>
                 </div>
-                <br>
 
             </div>
         </div>
     </form>
+
+    
 </div>
 
+
+<p-dialog [(visible)]="display" [closable]="false" [draggable]="false" [responsive]="true" [baseZIndex]="10000"
+    [style]="{width: '80%'}">
+
+    <p-header>
+        <i class="fa fa-pencil-alt"></i> Listado de Preguntas
+
+        <div class="ui-inputgroup" style="float: right; width: 500px;">
+            <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+            <input style="width: 100%" (keyup)="applyFilter($event.target.value)" type="text" pInputText
+                placeholder="Buscar Por...">
+            <button (click)="closeModal()" class="ui-button-danger" pButton label="Cancelar"
+                icon="fa fa-times"></button>
+        </div>
+
+    </p-header>
+
+
+    <table mat-table [dataSource]="dataSource" matSort class="w-100">
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%" mat-sort-header> Acciones </th>
+            <td mat-cell *matCellDef="let item; let i = index">
+                <div class="row">
+                    <button pTooltip="Seleccionar" tooltipPosition="top" mat-icon-button
+                        (click)="seleccionarPregunta({data:item, index: i})">
+                        <mat-icon class="text-info">add</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="responsable">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%" mat-sort-header> Responsable </th>
+            <td mat-cell *matCellDef="let item"> {{item[2]}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef style="width: 20%" mat-sort-header> Descripcion </th>
+            <td mat-cell *matCellDef="let item" (mouseenter)="mouseEnter(item)" (mouseleave)="mouseLeave(item)"
+                [ngClass]="{'desc-selected': desc1 == item[0]}" style="transition: all .3s;">
+                {{desc1 == item[0] ? (item[1] | truncate : item[1].length) : (item[1] | truncate : 30)}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="referencia">
+            <th mat-header-cell *matHeaderCellDef style="width: 20%" mat-sort-header> Referencias </th>
+            <td mat-cell *matCellDef="let item" (mouseenter)="mouseEnter2(item)" (mouseleave)="mouseLeave2(item)"
+                [ngClass]="{'desc-selected': desc2 == item[0]}" style="transition: all .3s;">
+                {{desc2 == item[0] ? (item[3] | truncate : item[3].length) : (item[3] | truncate : 30)}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="periodo">
+            <th mat-header-cell *matHeaderCellDef style="width: 20%" mat-sort-header> Periodo </th>
+            <td mat-cell *matCellDef="let item" (mouseenter)="mouseEnter3(item)" (mouseleave)="mouseLeave3(item)"
+                [ngClass]="{'desc-selected': desc3 == item[0]}" style="transition: all .3s;">
+                {{desc3 == item[0] ? (item[4] | truncate : item[4].length) : (item[4] | truncate : 30)}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="grupo">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%" mat-sort-header> Grupo </th>
+            <td mat-cell *matCellDef="let item"> {{item[9]}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef style="width: 10%" mat-sort-header> Categoria </th>
+            <td mat-cell *matCellDef="let item"> {{item[10]}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10,15,20,50,100]" showFirstLastButtons></mat-paginator>
+
+</p-dialog>

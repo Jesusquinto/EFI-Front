@@ -16,7 +16,7 @@ export class PreguntasComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  public displayedColumns: string[] = ['acciones', 'responsable', 'descripcion', 'referencia', 'periodo', 'grupo', 'categoria'];
+  public displayedColumns: string[] = [ 'responsable', 'descripcion', 'referencia', 'periodo', 'grupo', 'categoria'];
   public dataSource: any;
   public itemSelected: any;
   public desc1: number;

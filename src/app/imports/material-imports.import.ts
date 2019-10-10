@@ -38,6 +38,8 @@ import { MatAutocompleteModule,
 import {DropdownModule} from 'primeng/dropdown';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { FilterPipe } from '../utils/filter.pipe';
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   imports: [
@@ -78,7 +80,8 @@ import { FilterPipe } from '../utils/filter.pipe';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
-    NgxMatSelectSearchModule
+    DialogModule,
+    ButtonModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -118,7 +121,9 @@ import { FilterPipe } from '../utils/filter.pipe';
     ReactiveFormsModule,
     DropdownModule,
     NgxMatSelectSearchModule,
-    FilterPipe
+    FilterPipe,
+    DialogModule,
+    ButtonModule
   ],
   declarations: [
     FilterPipe

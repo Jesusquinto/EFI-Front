@@ -24,7 +24,7 @@ export class IndicadoresGrupoFormComponent implements OnInit {
     private appService: AppService) {
     this.datos = this.formBuilder.group({
       nombreGrupo: ['', Validators.required],
-      estado: [1, Validators.required]
+      estado: [0, Validators.required]
     });
   }
 

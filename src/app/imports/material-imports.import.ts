@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {TooltipModule} from 'primeng/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material';
+
+
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatButtonToggleModule,
@@ -119,11 +123,9 @@ import {ButtonModule} from 'primeng/button';
     TooltipModule,
     FormsModule,
     ReactiveFormsModule,
-    DropdownModule,
-    NgxMatSelectSearchModule,
-    FilterPipe,
-    DialogModule,
-    ButtonModule
+    OverlayPanelModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
     FilterPipe

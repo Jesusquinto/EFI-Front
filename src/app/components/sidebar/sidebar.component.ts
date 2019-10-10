@@ -27,14 +27,28 @@ export const ROUTESUSER: RouteInfo[] = [
     showSubrutas: false,
     subrutas: [
       {
-        path: '/aplicar-encuesta',
-        title: 'Aplicar encuesta',
-        icon: 'icon-bullet-list-67',
-        class: '',
+        path: "/aplicar-encuesta",
+        title: "Aplicar encuesta",
+        icon: "icon-single-copy-04",
+        class: "",
+      },
+      {
+        path: "/encuestas-realizadas",
+        title: "Encuestas realizadas",
+        icon: "icon-bullet-list-67",
+        class: "",
       }
     ]
   },
-];
+
+  {
+    path: "/user-indicadores",
+    title: "Indicadores",
+    icon: "icon-chart-bar-32",
+    class: "",
+  
+  },
+ ];
 
 
 export const ROUTESADMIN: RouteInfo[] = [

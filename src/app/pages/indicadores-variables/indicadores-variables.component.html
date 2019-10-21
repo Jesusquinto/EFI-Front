@@ -6,14 +6,19 @@
                     <div class="row">
                         <div class="col-md-8">
                             <button (click)="nuevo()" style="margin-left: 10px;" pTooltip="Nuevo Variable Indicador"
-                                tooltipPosition="top" type="button" class="btn btn-sm text-white"><i
+                                tooltipPosition="top" type="button" class="btn btn-sm btn-info"><i
                                     class="fa fa-plus"></i> Nuevo</button>
                         </div>
                         <div class="col-md-4">
-                            <div class="ui-inputgroup">
-                                <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
-                                <input style="width: 100%" (keyup)="applyFilter($event.target.value)" type="text"
-                                    pInputText placeholder="Buscar Por...">
+
+                            <div class="input-group w-100">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="tim-icons icon-zoom-split text-info"></i>
+                                    </div>
+                                </div>
+                                <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control"
+                                    placeholder="Buscar por...">
                             </div>
                         </div>
                     </div>
@@ -22,42 +27,59 @@
                     <div class="">
                         <table mat-table [dataSource]="dataSource" matSort class="w-100">
                             <ng-container matColumnDef="acciones">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> <i
+                                        class="tim-icons icon-atom text-warning"></i>&nbsp; Acciones </th>
                                 <td mat-cell *matCellDef="let item">
                                     <div class="row">
-                                        <button pTooltip="Editar IndicadoresVariables" tooltipPosition="top"
-                                            mat-icon-button (click)="editar(item)">
-                                            <mat-icon class="mat-18 text-info">create</mat-icon>
+
+                                        <button (click)="editar(item)" pTooltip="Editar IndicadoresVariables"
+                                            tooltipPosition="top" type="button" rel="tooltip"
+                                            class="btn btn-info btn-link btn-icon btn-sm">
+                                            <i class="tim-icons icon-pencil"></i>
                                         </button>
-                                        <button pTooltip="Anular IndicadoresVariables" tooltipPosition="top"
-                                            mat-icon-button>
-                                            <mat-icon class="mat-18 text-danger">cancel</mat-icon>
+                                        <button *ngIf="item.estado == 0" (click)="setEstado(item)"
+                                            pTooltip="Anular Indicador Variable" tooltipPosition="top" type="button"
+                                            rel="tooltip" class="btn btn-link btn-icon btn-sm text-danger">
+                                            <i class="tim-icons icon-simple-remove"></i>
                                         </button>
+                                        <button *ngIf="item.estado == 1" (click)="setEstado(item)"
+                                            pTooltip="Habilitar Indicador Variable" tooltipPosition="top" type="button"
+                                            rel="tooltip" class="btn btn-link btn-icon btn-sm text-warning">
+                                            <i class="tim-icons icon-refresh-01"></i>
+                                        </button>
+
                                     </div>
                                 </td>
                             </ng-container>
 
                             <ng-container matColumnDef="nombreVariable">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Indicador Validador</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i
+                                        class="tim-icons icon-minimal-down text-warning"></i>&nbsp; Nombre Indicador
+                                    Variable</th>
                                 <td mat-cell *matCellDef="let item"> {{item.nombreVariable}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="nombreGrupo">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Indicador Grupo</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i
+                                        class="tim-icons icon-minimal-down text-warning"></i>&nbsp; Nombre Indicador
+                                    Grupo</th>
                                 <td mat-cell *matCellDef="let item"> {{item.fkGrupo.nombreGrupo}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="nombreTipo">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Indicador Tipo</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i
+                                        class="tim-icons icon-minimal-down text-warning"></i>&nbsp; Nombre Indicador
+                                    Tipo</th>
                                 <td mat-cell *matCellDef="let item"> {{item.fkGrupo.fkTipo.nombreTipo}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="estado">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> <i
+                                        class="tim-icons icon-button-pause text-warning"></i> &nbsp; Estado </th>
                                 <td mat-cell *matCellDef="let item">
-                                    <span *ngIf="item.estado == 1" class="badge bg-success text-white"><i
+                                    <span *ngIf="item.estado == 0" class="badge bg-success text-white"><i
                                             class="fa fa-check-circle"></i> Activo</span>
-                                    <span *ngIf="item.estado == 0" class="badge bg-danger text-white"><i
+                                    <span *ngIf="item.estado == 1" class="badge bg-danger text-white"><i
                                             class="fa fa-ban"></i> Inactivo</span>
                                 </td>
                             </ng-container>

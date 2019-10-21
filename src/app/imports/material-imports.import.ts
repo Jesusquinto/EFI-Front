@@ -5,7 +5,6 @@ import {TooltipModule} from 'primeng/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material';
 
-
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { MatAutocompleteModule,
          MatButtonModule,
@@ -41,7 +40,7 @@ import { MatAutocompleteModule,
 
 import {DropdownModule} from 'primeng/dropdown';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { FilterPipe } from '../utils/filter.pipe';
+import { FilterPipe } from '../pipes/filter.pipe';
 import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
 
@@ -125,7 +124,10 @@ import {ButtonModule} from 'primeng/button';
     ReactiveFormsModule,
     OverlayPanelModule,
     MatFormFieldModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    DialogModule,
+    ButtonModule,
+    FilterPipe
   ],
   declarations: [
     FilterPipe

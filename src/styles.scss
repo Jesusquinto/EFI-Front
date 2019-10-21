@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+.box >  mat-dialog-container {
+  border-left: 10px solid rgb(148, 6, 6);
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+  overflow: auto;
+  pointer-events: auto;  
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.content > * {
+  width: 100%;
+}
 
 .back-gradient{
   background: linear-gradient(to right, #44a08d, #093637); 
@@ -156,3 +176,24 @@ tr.example-element-row:not(.example-expanded-row):active {
   left: 80%;
   right: 10%;
 }
+
+.mat-cell, .mat-footer-cell {
+  font-size: 12px;
+}
+
+tr.mat-row {
+  height: 25px;
+}
+
+.bg-form{
+  background-color: rgb(226, 222, 222) !important;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.bg-form2{
+  background-color: #fff !important;
+  padding: 15px;
+  border-radius: 5px;
+}
+

@@ -1,99 +1,234 @@
 <div fxLayout="row">
-    <form [formGroup]="datos" style="height: 100%">
+    <form [formGroup]="datos" class="w-100">
         <div class="form-row">
             <!-- // Informacion Principal  // -->
-            <div class="col-md-12"
-                style="padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-                <div class="bg-dark text-white my-2" style="border-radius: 4px;">
+            <div class="col-md-12">
+                <div class="my-2">
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="w-100">
                         <div class="">
-                            <a *ngIf="data.tipoForm == 0" class="text-white my-1" style="margin-left: 10px"><i
-                                    class="fa fa-plus"></i>&nbsp;Nueva Entidades</a>
-                            <a *ngIf="data.tipoForm == 1" class="text-white my-1" style="margin-left: 10px"><i
-                                    class="fa fa-edit"></i>&nbsp;Editar Entidades </a>
+                            <a *ngIf="data.tipoForm == 0" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-plus"></i>&nbsp;&nbsp;Nuevo Entidad</a>
+                            <a *ngIf="data.tipoForm == 1" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;Editar Entidad </a>
                         </div>
                     </div>
                 </div>
+                <hr>
 
                 <div class="form-row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-5">
 
-                                <label for="">Tercero <b class="text-danger">*</b></label>
-                                <div class="ui-inputgroup" style="width: 100%">
-                                    <button  (click)="openTerceros()" pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
-                                    <input class="bg-white" readonly formControlName="tercero" name="tercero" type="text" pInputText placeholder="Seleccione el Tercero">         
-                                </div>
-
+                            <div class="col-md-12">
+                                <a class="my-2 text-info" style="font-size: 18px"><i
+                                        class="fa fa-info"></i>&nbsp;&nbsp;Informacion Principal
+                                </a>
                             </div>
-                            <div class="col-md-4">
+                            <br>
+                            <br>
 
-                                <label for="codigoBanco">Codigo Banco <b class="text-danger">*</b></label>
-                                <div class="ui-inputgroup" style="width: 100%">
-                                    <button  (click)="openBancos()" pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
-                                    <input class="bg-white" readonly formControlName="codigoBanco" name="codigoBanco" type="text" pInputText placeholder="Seleccione el Banco">         
-                                </div>
-
-                            </div>
                             <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="tipoCuenta">Tipo Cuenta <b class="text-danger">*</b></label>
-                                    <select class="form-control form-control-sm" formControlName="tipoCuenta"
-                                        name="tipoCuenta" id="tipoCuenta" placeholder="Tipo Cuenta">
-                                        <option selected [value]="'CORRIENTE           '">CORRIENTE</option>
-                                        <option [value]="'AHORRO              '">AHORRO</option>
-                                        <option [value]="'OTROS               '">OTROS</option>
-                                    </select>
+                                <div class="form-group content">
+                                    <label for="fkCategoria">Categoria <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Categoria</mat-label>
+                                        <mat-select formControlName="fkCategoria" name="fkCategoria" id="fkCategoria"
+                                            placeholder="Seleccionar Categoria">
+                                            <mat-option *ngFor="let item of categorias" [value]="item.idCategoria">
+                                                {{item.descripcionCategoria}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
 
-                                    <label for="codigoCta">Cuenta <b class="text-danger">*</b></label>
-                                    <div class="ui-inputgroup" style="width: 100%">
-                                        <button  (click)="openCuentas()" pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
-                                        <input class="bg-white" readonly formControlName="codigoCta" name="codigoCta" type="text" pInputText placeholder="Seleccione la Cuenta">         
-                                    </div>
-
-                                </div>
-                            </div>
                             <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="nombreCuenta">Nombre Cuenta <b class="text-danger">*</b></label>
-                                    <input class="form-control form-control-sm" name="nombreCuenta" id="nombreCuenta"
-                                        placeholder="Nombre Cuenta" formControlName="nombreCuenta">
+                                <div class="form-group content">
+                                    <label for="entidad">Nombre Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Nombre Entidad</mat-label>
+                                        <input matInput formControlName="entidad" name="entidad" id="entidad"
+                                            placeholder="Nombre Entidad">
+                                    </mat-form-field>
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="nit">NIT Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>NIT</mat-label>
+                                        <input matInput formControlName="nit" name="nit" id="nit"
+                                            placeholder="NIT Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
                             <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="cuentaNro">No. Cuenta <b class="text-danger">*</b></label>
-                                    <input class="form-control form-control-sm" name="cuentaNro" id="cuentaNro"
-                                        placeholder="No. Cuenta" formControlName="cuentaNro">
+                                <div class="form-group content">
+                                    <label for="paginaWeb">pagina Web Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Pagina Web</mat-label>
+                                        <input matInput formControlName="paginaWeb" name="paginaWeb" id="paginaWeb"
+                                            placeholder="Pagina Web Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group content">
+                                    <label for="codigoChip">Codigo Chip Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Codigo Chip</mat-label>
+                                        <input matInput formControlName="codigoChip" name="codigoChip" id="codigoChip"
+                                            placeholder="Codigo Chip Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group content">
+                                    <label for="codigoDane">Codigo Dane Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Codigo Dane</mat-label>
+                                        <input matInput formControlName="codigoDane" name="codigoDane" id="codigoDane"
+                                            placeholder="Codigo Dane Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group content">
+                                    <label for="codigoPostal">Codigo Postal Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Codigo Postal</mat-label>
+                                        <input matInput formControlName="codigoPostal" name="codigoPostal"
+                                            id="codigoPostal" placeholder="Codigo Postal Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="sector">Sector <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Sector</mat-label>
+                                        <input matInput formControlName="sector" name="sector" id="sector"
+                                            placeholder="Sector">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="naturaleza">Naturaleza Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Naturaleza</mat-label>
+                                        <input matInput formControlName="naturaleza" name="naturaleza" id="naturaleza"
+                                            placeholder="Naturaleza">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="tipo">Tipo Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Tipo</mat-label>
+                                        <input matInput formControlName="tipo" name="tipo" id="tipo"
+                                            placeholder="Tipo Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <a class="my-2 text-info" style="font-size: 18px"><i
+                                        class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Informacion Contacto
+                                </a>
+                            </div>
+                            <br>
+                            <br>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="correo">Correo Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Correo</mat-label>
+                                        <input matInput formControlName="correo" name="correo" id="correo"
+                                            placeholder="Correo Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="direccion">Direccion Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Direccion</mat-label>
+                                        <input matInput formControlName="direccion" name="direccion" id="direccion"
+                                            placeholder="Direccion Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="telefonos">Telefono Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Telefono</mat-label>
+                                        <input matInput formControlName="telefonos" name="direccion" id="direccion"
+                                            placeholder="Telefono Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="departamento">Departamento Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Departamento</mat-label>
+                                        <input matInput formControlName="departamento" name="departamento"
+                                            id="departamento" placeholder="Departamento">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="ciudad">Ciudad Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Ciudad</mat-label>
+                                        <input matInput formControlName="ciudad" name="ciudad" id="ciudad"
+                                            placeholder="Ciudad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group content">
+                                    <label for="fax">FAX Entidad <b class="text-danger">*</b></label>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>FAX</mat-label>
+                                        <input matInput formControlName="fax" name="fax" id="fax"
+                                            placeholder="FAX Entidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <hr>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button [disabled]="!datos.valid" (click)="submit()" type="button"
+                                        class="btn btn-sm btn-simple btn-info"><i
+                                            [ngClass]="data.tipoForm == 0 ? 'fa fa-save' : 'fa fa-edit'"></i>
+                                        Guardar</button>
+                                    <button (click)="close()" type="button" class="btn btn-sm btn-simple btn-info"><i
+                                            class="fa fa-times"></i> Cancelar</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
-                <!-- // Submit // -->
-                <div class="col-md-12">
-                    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-                        <button [ngClass]="data.tipoForm == 0 ? 'text-success' : 'text-info'" mat-button
-                            class="bg-white" (click)="submit()">
-                            <mat-icon *ngIf="data.tipoForm == 0">save</mat-icon>
-                            <mat-icon *ngIf="data.tipoForm == 1">create</mat-icon>
-                            Guardar
-                        </button>
-
-                        <button mat-button class="bg-white text-danger" (click)="close()">
-                            <mat-icon>cancel</mat-icon> Cancelar
-                        </button>
-                    </div>
-                </div>
-                <br>
-
             </div>
         </div>
     </form>

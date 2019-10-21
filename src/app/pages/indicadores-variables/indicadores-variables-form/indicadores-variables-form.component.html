@@ -1,100 +1,157 @@
 <div fxLayout="row">
-    <form [formGroup]="datos" style="height: 100%">
+    <form [formGroup]="datos" class="w-100">
         <div class="form-row">
             <!-- // Informacion Principal  // -->
-            <div class="col-md-12"
-                style="background-color: rgb(218, 218, 218); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-                <div class="bg-dark text-white my-2" style="border-radius: 4px;">
+            <div class="col-md-12">
+                <div class="my-2">
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="w-100">
                         <div class="">
-                            <a *ngIf="data.tipoForm == 0" class="text-white my-1" style="margin-left: 10px"><i
-                                    class="fa fa-plus"></i>&nbsp;Nueva IndicadoresVariables</a>
-                            <a *ngIf="data.tipoForm == 1" class="text-white my-1" style="margin-left: 10px"><i
-                                    class="fa fa-edit"></i>&nbsp;Editar IndicadoresVariables </a>
+                            <a *ngIf="data.tipoForm == 0" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-plus"></i>&nbsp;&nbsp;Nueva
+                                IndicadoresVariables</a>
+                            <a *ngIf="data.tipoForm == 1" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;Editar
+                                IndicadoresVariables </a>
                         </div>
                     </div>
                 </div>
+                <hr>
 
                 <div class="form-row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-5">
-
-                                <label for="">Tercero <b class="text-danger">*</b></label>
-                                <div class="ui-inputgroup" style="width: 100%">
-                                    <button  (click)="openTerceros()" pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
-                                    <input class="bg-white" readonly formControlName="tercero" name="tercero" type="text" pInputText placeholder="Seleccione el Tercero">         
-                                </div>
-
-                            </div>
-                            <div class="col-md-4">
-
-                                <label for="codigoBanco">Codigo Banco <b class="text-danger">*</b></label>
-                                <div class="ui-inputgroup" style="width: 100%">
-                                    <button  (click)="openBancos()" pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
-                                    <input class="bg-white" readonly formControlName="codigoBanco" name="codigoBanco" type="text" pInputText placeholder="Seleccione el Banco">         
-                                </div>
-
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="tipoCuenta">Tipo Cuenta <b class="text-danger">*</b></label>
-                                    <select class="form-control form-control-sm" formControlName="tipoCuenta"
-                                        name="tipoCuenta" id="tipoCuenta" placeholder="Tipo Cuenta">
-                                        <option selected [value]="'CORRIENTE           '">CORRIENTE</option>
-                                        <option [value]="'AHORRO              '">AHORRO</option>
-                                        <option [value]="'OTROS               '">OTROS</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-
-                                    <label for="codigoCta">Cuenta <b class="text-danger">*</b></label>
-                                    <div class="ui-inputgroup" style="width: 100%">
-                                        <button  (click)="openCuentas()" pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
-                                        <input class="bg-white" readonly formControlName="codigoCta" name="codigoCta" type="text" pInputText placeholder="Seleccione la Cuenta">         
+                                    <label>Grupo Seleccionado <b class="text-danger">*</b></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" (click)="openTable()">
+                                                <i class="tim-icons icon-zoom-split text-info"></i>
+                                            </div>
+                                        </div>
+                                        <input readonly type="text" formControlName="nombreGrupo"
+                                            class="form-control bg-white" placeholder="Seleccione el Grupo">
                                     </div>
+                                </div>
+                            </div>
 
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="codigoFut">Codigo FUT <b class="text-danger">*</b></label>
+                                    <input type="text" name="codigoFut" id="codigoFut" formControlName="codigoFut"
+                                        class="form-control" placeholder="Codifo FUT">
                                 </div>
                             </div>
-                            <div class="col-md-5">
+
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="nombreCuenta">Nombre Cuenta <b class="text-danger">*</b></label>
-                                    <input class="form-control form-control-sm" name="nombreCuenta" id="nombreCuenta"
-                                        placeholder="Nombre Cuenta" formControlName="nombreCuenta">
+                                    <label for="nombreVariable">Nombre Variable <b class="text-danger">*</b></label>
+                                    <input type="text" name="nombreVariable" id="nombreVariable"
+                                        formControlName="nombreVariable" class="form-control"
+                                        placeholder="Nombre Variable">
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="cuentaNro">No. Cuenta <b class="text-danger">*</b></label>
-                                    <input class="form-control form-control-sm" name="cuentaNro" id="cuentaNro"
-                                        placeholder="No. Cuenta" formControlName="cuentaNro">
-                                </div>
+
+                            <div class="col-md-12">
+                                    <hr>
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                        <button [disabled]="!datos.valid" (click)="submit()" type="button"
+                                            class="btn btn-sm btn-simple btn-info"><i
+                                                [ngClass]="data.tipoForm == 0 ? 'fa fa-save' : 'fa fa-edit'"></i>
+                                            Guardar</button>
+                                        <button (click)="close()" type="button" class="btn btn-sm btn-simple btn-info"><i
+                                                class="fa fa-times"></i> Cancelar</button>
+                                    </div>
                             </div>
 
                         </div>
+
                     </div>
                 </div>
-
-                <!-- // Submit // -->
-                <div class="col-md-12">
-                    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-                        <button [ngClass]="data.tipoForm == 0 ? 'text-success' : 'text-info'" mat-button
-                            class="bg-white" (click)="submit()">
-                            <mat-icon *ngIf="data.tipoForm == 0">save</mat-icon>
-                            <mat-icon *ngIf="data.tipoForm == 1">create</mat-icon>
-                            Guardar
-                        </button>
-
-                        <button mat-button class="bg-white text-danger" (click)="close()">
-                            <mat-icon>cancel</mat-icon> Cancelar
-                        </button>
-                    </div>
-                </div>
-                <br>
-
             </div>
         </div>
     </form>
 </div>
+
+
+
+
+<p-dialog [(visible)]="display" [style]="{width: '70%', minWidth: '300px'}" [minY]="70" [baseZIndex]="10000"
+    [closable]="false" showHeader="false">
+
+    <p-header>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>
+                    <i class="tim-icons icon-bullet-list-67"></i>&nbsp; Listado de Indicadores Grupos
+                </h4>
+            </div>
+            <div class="col-md-6">
+
+                <div class="input-group" style="width: 100%">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text bg-white">
+                            <i class="tim-icons icon-zoom-split text-info"></i>
+                        </div>
+                    </div>
+                    <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control bg-white"
+                        placeholder="Buscar por...">
+                </div>
+            </div>
+        </div>
+    </p-header>
+
+    <div class=" col-md-12">
+        <div class="">
+            <table mat-table [dataSource]="dataSource" matSort class="w-100">
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                    <td mat-cell *matCellDef="let item">
+                        <div class="row">
+                            <button (click)="selectGrupo(item)" type="button" rel="tooltip"
+                                class="btn btn-info btn-link btn-icon btn-sm">
+                                <i class="tim-icons icon-simple-add"></i>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreGrupo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Indicador Grupo</th>
+                    <td mat-cell *matCellDef="let item"> {{item.nombreGrupo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreTipo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Indicador Tipo</th>
+                    <td mat-cell *matCellDef="let item"> {{item.fkTipo.nombreTipo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                    <td mat-cell *matCellDef="let item">
+                        <span *ngIf="item.estado == 0" class="badge bg-success text-white"><i
+                                class="fa fa-check-circle"></i> Activo</span>
+                        <span *ngIf="item.estado == 1" class="badge bg-danger text-white"><i class="fa fa-ban"></i>
+                            Inactivo</span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div class="row">
+                <div class="col-md-4">
+                    <button style="float: left !important;" (click)="closeTable()" type="button" rel="tooltip"
+                        class="btn btn-danger btn-sm btn-simple">
+                        <i class="tim-icons icon-simple-remove"></i>&nbsp; Cancelar
+                    </button>
+                </div>
+                <div class="col-md-8">
+                    <mat-paginator [pageSizeOptions]="[10,15,20,50,100]" showFirstLastButtons></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</p-dialog>

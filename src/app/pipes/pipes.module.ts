@@ -10,7 +10,6 @@ import { ContratanteSearchPipe } from './contratante-search.pipe.';
 import { TruncateFilePipe } from './truncate-file.pipe';
 import { searchPipe } from './search.pipe';
 
-
 @NgModule({
     imports: [ 
         CommonModule 

@@ -1,17 +1,20 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { AppService } from 'src/app/services/app.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-preguntas-form',
   templateUrl: './preguntas-form.component.html',
   styleUrls: ['./preguntas-form.component.scss']
 })
+
 export class PreguntasFormComponent implements OnInit {
 
   public datos: FormGroup;
+  public grupos: Array<any> = [];
+  public categoria: Array<any> = [];
 
   constructor(
 
@@ -21,12 +24,15 @@ export class PreguntasFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     private appService: AppService) {
     this.datos = this.formBuilder.group({
-      codigoBanco: ['', Validators.required],
-      codigoCta: ['', Validators.required],
-      nombreCuenta: ['', Validators.required],
-      tercero: ['', Validators.required],
-      tipoCuenta: ['', Validators.required],
-      cuentaNro: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      responsable: ['', Validators.required],
+      referencia: ['', Validators.required],
+      periodo: ['', Validators.required],
+      codigo: ['', Validators.required],
+      idCategoria: [1, Validators.required],
+      idEmpresa: [1, Validators.required],
+      idGrupo: [1, Validators.required],
+      estado: [0, Validators.required]
     });
   }
 
@@ -46,33 +52,54 @@ export class PreguntasFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.data.tipoForm == 1) {
+    if (this.data.tipoForm === 1) {
       console.log(this.data.data);
+      const datos = this.data.data;
       this.datos.patchValue({
-        codigoBanco: this.data.data.codigoBanco,
-        codigoCta: this.data.data.codigoCta,
-        nombreCuenta: this.data.data.nombreCuenta,
-        tercero: String(this.data.data.tercero),
-        tipoCuenta: this.data.data.tipoCuenta,
-        cuentaNro: this.data.data.cbancoCuentaPK.cuentaNro
+        ...this.data.data,
+        idCategoria: datos.id,
+        idEmpresa: 1,
+        idGrupo: datos.id
       });
     }
+    this.getInfo();
+  }
+
+
+  public getInfo() {
+    this.appService.get('gruposPregunta').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.grupos = data;
+        this.appService.get('categoriasPregunta').subscribe(
+          (data2: any) => {
+            this.categoria = data;
+            console.log(data2);
+          }
+        );
+      }
+    );
   }
 
   public setCuenta() {
     if (this.datos.valid) {
-      const datos = this.datos.value;
       return {
-        "codigoBanco": datos.codigoBanco,
-        "codigoCta": datos.codigoCta,
-        "nombreCuenta": datos.nombreCuenta,
-        "tercero": parseInt(datos.tercero),
-        "tipoCuenta": datos.tipoCuenta,
-        "cbancoCuentaPK": {
-          "codigoEntidad": "1",
-          "cuentaNro": datos.cuentaNro
-        }
+        id: this.setId(),
+        ...this.datos.value
       }
+    }
+  }
+
+  public setId() {
+    switch (this.data.tipoForm) {
+      case 0:
+        return 0;
+        break;
+      case 1:
+        return this.data.data.id;
+        break;
+      default:
+        break;
     }
   }
 
@@ -80,22 +107,26 @@ export class PreguntasFormComponent implements OnInit {
     if (this.datos.valid) {
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere crear la Cuenta?',
+        text: 'Estas seguro de que quiere crear la Pregunta?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Crear',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.post('cbancocuenta/new', this.setCuenta()).subscribe(
+          this.appService.post('preguntas', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
-              this.close(1)
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'la Pregunta #: ' + data.id + 'ha sido Creado!',
+                timer: 3000, showConfirmButton: false
+              });
+              this.close(1);
             }, error => {
-              console.log(error)
-              this.appService.closeSpinner()
+              this.appService.closeSpinner();
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -106,24 +137,29 @@ export class PreguntasFormComponent implements OnInit {
 
   public editar() {
     if (this.datos.valid) {
+      console.log(this.setCuenta());
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere editar la Cuenta?',
+        text: 'Estas seguro de que quiere editar la Pregunta?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.put('cbancocuenta/edit', this.setCuenta()).subscribe(
+          this.appService.put('preguntas', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'la Pregunta #: ' + data.id + 'ha sido Editada!',
+                timer: 3000, showConfirmButton: false
+              });
               this.close(1)
             }, error => {
-              console.log(error),
-                this.appService.closeSpinner();
+              this.appService.closeSpinner();
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {

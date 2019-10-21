@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
 import { IndicadoresVariablesFormComponent } from './indicadores-variables-form/indicadores-variables-form.component';
 import { AppService } from 'src/app/services/app.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-indicadores-variables',
@@ -52,9 +53,39 @@ export class IndicadoresVariablesComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(IndicadoresVariablesFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', disableClose: true, backdropClass: 'dark',
+      width: '50%', height: 'auto', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getIndicadoresVariabless()}});
+  }
+
+  public setEstado(data: any) {
+    Swal.fire({
+      title: 'Advertencia',
+      text: 'Estas seguro de que quiere Cambiar el estado?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Cambiar',
+      confirmButtonClass: 'btn btn-info',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.appService.openSpinner();
+        this.appService.put('indicadorVariables/estado', data).subscribe(
+          (data: any) => {
+            console.log(data),
+              this.appService.closeSpinner();
+            Swal.fire({
+              type: 'success', timer: 3000,
+              text: 'El estado de la Variable ' + String(data.nombreVariable).toUpperCase() + ' ha sido Cambiado', showConfirmButton: false
+            });
+            this.getIndicadoresVariabless();
+          }, error => {
+            this.appService.closeSpinner();
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    })
   }
 
 }

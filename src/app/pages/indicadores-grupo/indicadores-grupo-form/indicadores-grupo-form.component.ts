@@ -103,6 +103,7 @@ export class IndicadoresGrupoFormComponent implements OnInit {
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, Crear',
+      confirmButtonClass: 'btn btn-info',
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.value) {
@@ -113,7 +114,7 @@ export class IndicadoresGrupoFormComponent implements OnInit {
             this.appService.closeSpinner();
             this.close(1);
             Swal.fire({
-              type: 'success', text: 'El Grupo ' + String(data.NombreGrupo).toUpperCase() + ' Ha sido Creado!',
+              type: 'success', text: 'El Grupo ' + String(data.nombreGrupo).toUpperCase() + ' Ha sido Creado!',
               timer: 3000, showConfirmButton: false
             });
           }, error => {
@@ -134,6 +135,7 @@ export class IndicadoresGrupoFormComponent implements OnInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
@@ -144,7 +146,7 @@ export class IndicadoresGrupoFormComponent implements OnInit {
               this.appService.closeSpinner();
               this.close(1);
               Swal.fire({
-                type: 'success', text: 'El Grupo ' + String(data.NombreGrupo).toUpperCase() + ' Ha sido Editado!',
+                type: 'success', text: 'El Grupo ' + String(data.nombreGrupo).toUpperCase() + ' Ha sido Editado!',
                 timer: 3000, showConfirmButton: false
               });
             }, error => {

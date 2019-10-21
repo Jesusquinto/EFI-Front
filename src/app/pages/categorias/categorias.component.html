@@ -5,7 +5,7 @@
                 <div class=" card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <button (click)="nuevo()" style="margin-left: 10px;" pTooltip="Nuevo Empresa"
+                            <button (click)="nuevo()" style="margin-left: 10px;" pTooltip="Nuevo Usuario"
                                 tooltipPosition="top" type="button" class="btn btn-sm btn-info"><i
                                     class="fa fa-plus"></i> Nuevo</button>
                         </div>
@@ -19,29 +19,30 @@
                                 <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control"
                                     placeholder="Buscar por...">
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="">
                         <table mat-table [dataSource]="dataSource" matSort class="w-100">
+
                             <ng-container matColumnDef="acciones">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-atom text-warning"></i>&nbsp; Acciones </th>
                                 <td mat-cell *matCellDef="let item">
                                     <div class="row">
 
-                                        <button (click)="editar(item)" pTooltip="Editar Empresa"
-                                            tooltipPosition="top" type="button" rel="tooltip"
-                                            class="btn btn-info btn-link btn-icon btn-sm">
+                                        <button (click)="editar(item)" pTooltip="Editar Usuario" tooltipPosition="top"
+                                            type="button" rel="tooltip" class="btn btn-info btn-link btn-icon btn-sm">
                                             <i class="tim-icons icon-pencil"></i>
                                         </button>
                                         <button *ngIf="item.estado == 0" (click)="setEstado(item)"
-                                            pTooltip="Anular Empresa" tooltipPosition="top" type="button"
+                                            pTooltip="Anular Indicador Grupo" tooltipPosition="top" type="button"
                                             rel="tooltip" class="btn btn-link btn-icon btn-sm text-danger">
                                             <i class="tim-icons icon-simple-remove"></i>
                                         </button>
                                         <button *ngIf="item.estado == 1" (click)="setEstado(item)"
-                                            pTooltip="Habilitar Empresa" tooltipPosition="top" type="button"
+                                            pTooltip="Habilitar Indicador Grupo" tooltipPosition="top" type="button"
                                             rel="tooltip" class="btn btn-link btn-icon btn-sm text-warning">
                                             <i class="tim-icons icon-refresh-01"></i>
                                         </button>
@@ -50,58 +51,38 @@
                                 </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="entidad">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Entidad Asociada</th>
-                                <td mat-cell *matCellDef="let item"> {{item.fkEntidad.entidad}} </td>
+                            <ng-container matColumnDef="categoria">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-minimal-down text-warning"></i>&nbsp;  Categoria</th>
+                                <td mat-cell *matCellDef="let item"> {{item.categoria}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="nombre">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
-                                <td mat-cell *matCellDef="let item"> {{item.nombre}} </td>
+                            <ng-container matColumnDef="descripcionCategoria">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-minimal-down text-warning"></i>&nbsp;  Descripcion Categoria </th>
+                                <td mat-cell *matCellDef="let item"> {{item.descripcionCategoria}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="nit">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nit </th>
-                                <td mat-cell *matCellDef="let item"> {{item.nit}} </td>
+                            <ng-container matColumnDef="habitantesInferior">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-minimal-down text-warning"></i>&nbsp;  Habitantes Inferior </th>
+                                <td mat-cell *matCellDef="let item"> {{item.habitantesInferior}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="telefono">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefono </th>
-                                <td mat-cell *matCellDef="let item"> {{item.telefono}} </td>
+                            <ng-container matColumnDef="habitantesSuperior">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-minimal-down text-warning"></i>&nbsp;  Habitantes Superior </th>
+                                <td mat-cell *matCellDef="let item"> {{item.habitantesSuperior}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="direccion">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Direccion </th>
-                                <td mat-cell *matCellDef="let item"> {{item.direccion}} </td>
+                            <ng-container matColumnDef="ingresosCorrientes">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-minimal-down text-warning"></i>&nbsp;  Ingresos Corrientes</th>
+                                <td mat-cell *matCellDef="let item"> {{item.ingresosCorrientes}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="orden">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Orden</th>
-                                <td mat-cell *matCellDef="let item"> {{item.orden}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="contactoNombre">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contacto Nombre </th>
-                                <td mat-cell *matCellDef="let item"> {{item.contactoNombre}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="contactoTelefono">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contacto Telefono </th>
-                                <td mat-cell *matCellDef="let item"> {{item.contactoTelefono}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="contactoEmail">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contacto Email </th>
-                                <td mat-cell *matCellDef="let item"> {{item.contactoEmail}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="contactoCargo">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contacto Cargo </th>
-                                <td mat-cell *matCellDef="let item"> {{item.contactoCargo}} </td>
+                            <ng-container matColumnDef="limiteGasto">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-minimal-down text-warning"></i>&nbsp;  Limite Gasto</th>
+                                <td mat-cell *matCellDef="let item"> {{item.limiteGasto}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="estado">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header><i class="tim-icons icon-minimal-down text-warning"></i>&nbsp;  Estado </th>
                                 <td mat-cell *matCellDef="let item">
                                     <span *ngIf="item.estado == 0" class="badge bg-success text-white"><i
                                             class="fa fa-check-circle"></i> Activo</span>

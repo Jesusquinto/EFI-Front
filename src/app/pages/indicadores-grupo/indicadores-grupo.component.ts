@@ -53,27 +53,12 @@ export class IndicadoresGrupoComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(IndicadoresGrupoFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', minWidth: '35%', disableClose: true, backdropClass: 'dark',
+      width: 'auto', height: 'auto', minWidth: '35%', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getIndicadoresGrupos()}});
   }
 
   public setEstado(data: any) {
-    switch (data.estado) {
-      case 0:
-        data.estado = 1;
-        this.update(data);
-        break;
-      case 1:
-        data.estado = 0;
-        this.update(data);
-        break;
-      default:
-        break;
-    }
-  }
-
-  public update(data: any) {
     Swal.fire({
       title: 'Advertencia',
       text: 'Estas seguro de que quiere Cambiar El Grupo?',
@@ -84,12 +69,12 @@ export class IndicadoresGrupoComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.appService.openSpinner();
-        this.appService.put('indicadorGrupo', data).subscribe(
+        this.appService.put('indicadorGrupo/estado/', data).subscribe(
           (data: any) => {
             console.log(data),
             this.appService.closeSpinner();
             Swal.fire({
-              type: 'success', text: 'El estado del Grupo ' + String(data.NombreGrupo).toUpperCase() + ' Ha sido Cambiado!',
+              type: 'success', text: 'El estado del Grupo ' + String(data.nombreGrupo).toUpperCase() + ' Ha sido Cambiado!',
               timer: 3000, showConfirmButton: false
             });
             this.getIndicadoresGrupos();

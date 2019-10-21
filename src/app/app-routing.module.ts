@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
 
-import { UserLayoutComponent } from "./layouts/user-layout/user-layout.component";
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { LoginGuard } from './guards/login.guard';
 import { UserGuard } from './guards/user.guard';
@@ -12,25 +12,25 @@ import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
-    path: "",
-    redirectTo: "login",
-    pathMatch: "full"
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
 
-  //ADMIN
+  // ADMIN
   {
-    path: "",
+    path: '',
     component: AdminLayoutComponent,
     children: [
       {
-        path: "",
+        path: '',
         loadChildren:
-          "./layouts/admin-layout/admin-layout.module#AdminLayoutModule"
+          './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
       }
     ],
-    canActivate: [AdminGuard]
-  }, 
-  //AUTH  
+    // canActivate: [AdminGuard]
+  },
+  // AUTH
   {
     path: '',
     component: AuthLayoutComponent,
@@ -40,9 +40,9 @@ export const routes: Routes = [
         loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
       }
     ],
-    canActivate: [LoginGuard]
+    // canActivate: [LoginGuard]
   },
-  //USER
+  // USER
   {
     path: '',
     component: UserLayoutComponent,
@@ -52,13 +52,13 @@ export const routes: Routes = [
         loadChildren: './layouts/user-layout/user-layout.module#UserLayoutModule'
       }
     ],
-    canActivate: [UserGuard]
+    // canActivate: [UserGuard]
   },
 
-  //DEFAULT
+  // DEFAULT
   {
-    path: "**",
-    redirectTo: "login"
+    path: '**',
+    redirectTo: 'login'
   }
 ];
 

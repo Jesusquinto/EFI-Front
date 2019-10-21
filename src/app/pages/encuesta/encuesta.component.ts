@@ -55,39 +55,25 @@ export class EncuestaComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(EncuestaFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: '80%', height: 'auto', minWidth: '90%', maxWidth: '50%', maxHeight: '90%', disableClose: true, backdropClass: 'dark',
+      width: '80%', height: 'auto', minWidth: '90%', maxWidth: '50%',
+      maxHeight: '90%', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) { this.getEncuestas() } });
   }
 
   public setEstado(data: any) {
-    const estado = data.estado;
-    switch (estado) {
-      case 0:
-        data.estado = 1;
-        this.update(data);
-        break;
-      case 1:
-        data.estado = 0;
-        this.update(data);
-        break;
-      default:
-        break;
-    }
-  }
-
-  public update(data: any) {
     Swal.fire({
       title: 'Advertencia',
       text: 'Estas seguro de que quiere Cambiar el Estado?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, Cambiar',
+      confirmButtonClass: 'btn btn-info',
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.value) {
         this.appService.openSpinner();
-        this.appService.put('encuestas', data).subscribe(
+        this.appService.put('encuestas/estado', data).subscribe(
           (data: any) => {
             console.log(data),
             this.appService.closeSpinner();

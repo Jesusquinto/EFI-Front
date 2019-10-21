@@ -6,15 +6,20 @@
                     <div class="row">
                         <div class="col-md-8">
                             <button (click)="nuevo()" style="margin-left: 10px;" pTooltip="Nuevo Tipo Indicador"
-                                tooltipPosition="top" type="button" class="btn btn-sm text-white"><i
+                                tooltipPosition="top" type="button" class="btn btn-sm btn-info"><i
                                     class="fa fa-plus"></i> Nuevo</button>
                         </div>
                         <div class="col-md-4">
-                            <div class="ui-inputgroup">
-                                <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
-                                <input style="width: 100%" (keyup)="applyFilter($event.target.value)" type="text"
-                                    pInputText placeholder="Buscar Por...">
-                            </div>
+                                <div class="input-group w-100">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tim-icons icon-zoom-split text-info"></i>
+                                            </div>
+                                        </div>
+                                        <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control"
+                                            placeholder="Buscar por...">
+                                    </div>
+        
                         </div>
                     </div>
                 </div>
@@ -26,18 +31,23 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                                 <td mat-cell *matCellDef="let item">
                                     <div class="row">
-                                        <button pTooltip="Editar Tipo Indicador" tooltipPosition="top" mat-icon-button
-                                            (click)="setEstado(item)">
-                                            <mat-icon class="mat-18 text-info">create</mat-icon>
-                                        </button>
-                                        <button *ngIf="item.estado == 1" (click)="setEstado(item)"
-                                            pTooltip="Anular Tipo Indicador" tooltipPosition="top" mat-icon-button>
-                                            <mat-icon class="mat-18 text-danger">settings_power</mat-icon>
+
+                                        <button (click)="editar(item)" pTooltip="Editar Tipo Indicador"
+                                            tooltipPosition="top" type="button" rel="tooltip"
+                                            class="btn btn-info btn-link btn-icon btn-sm">
+                                            <i class="tim-icons icon-pencil"></i>
                                         </button>
                                         <button *ngIf="item.estado == 0" (click)="setEstado(item)"
-                                            pTooltip="Restaurar Tipo Indicador" tooltipPosition="top" mat-icon-button>
-                                            <mat-icon class="mat-18 text-warning">cached</mat-icon>
+                                            pTooltip="Anular Tipo Indicador" tooltipPosition="top" type="button"
+                                            rel="tooltip" class="btn btn-link btn-icon btn-sm text-danger">
+                                            <i class="tim-icons icon-simple-remove"></i>
                                         </button>
+                                        <button *ngIf="item.estado == 1" (click)="setEstado(item)"
+                                            pTooltip="Habilitar Tipo Indicador" tooltipPosition="top" type="button"
+                                            rel="tooltip" class="btn btn-link btn-icon btn-sm text-warning">
+                                            <i class="tim-icons icon-refresh-01"></i>
+                                        </button>
+
                                     </div>
                                 </td>
                             </ng-container>
@@ -50,9 +60,9 @@
                             <ng-container matColumnDef="estado">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
                                 <td mat-cell *matCellDef="let item">
-                                    <span *ngIf="item.estado == 1" class="badge bg-success text-white"><i
+                                    <span *ngIf="item.estado == 0" class="badge bg-success text-white"><i
                                             class="fa fa-check-circle"></i> Activo</span>
-                                    <span *ngIf="item.estado == 0" class="badge bg-danger text-white"><i
+                                    <span *ngIf="item.estado == 1" class="badge bg-danger text-white"><i
                                             class="fa fa-ban"></i> Inactivo</span>
                                 </td>
                             </ng-container>

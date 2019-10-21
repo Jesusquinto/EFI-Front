@@ -111,17 +111,17 @@ export const ROUTESADMIN: RouteInfo[] = [
         class: ''
       },
       {
-        path: '/entidades',
-        title: 'Entidades',
+        path: '/categorias',
+        title: 'Categorias',
         icon: 'icon-single-02',
         class: ''
       },
       {
-        path: '/municipios',
-        title: 'Municipios',
+        path: '/entidades',
+        title: 'Entidades',
         icon: 'icon-single-02',
         class: ''
-      },
+      }
     ]
   },
   {

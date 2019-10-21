@@ -55,12 +55,10 @@ export class GrupoPreguntasComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(GrupoPreguntasFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', minWidth: '40%', disableClose: true, backdropClass: 'dark',
+      width: 'auto', height: 'auto', minWidth: '40%', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) { this.getGrupoPreguntass() } });
   }
-
-  
 
   public update(data: any) {
     Swal.fire({
@@ -69,6 +67,7 @@ export class GrupoPreguntasComponent implements OnInit {
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, Editar',
+      confirmButtonClass: 'btn btn-info',
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.value) {

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { AppService } from 'src/app/services/app.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios-form',
@@ -19,6 +19,7 @@ export class UsuariosFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     private appService: AppService) { 
       this.datos = this.formBuilder.group({
+        id: [0, Validators.required],
         username: ['', Validators.required],
         nombre: ['', Validators.required],
         apellido: ['', Validators.required],
@@ -61,30 +62,14 @@ export class UsuariosFormComponent implements OnInit {
     if (this.datos.valid) {
       const datos = this.datos.value;
       return {
-        id: this.getId(),
-        username: datos.username,
-        nombre: datos.nombre,
-        apellido: datos.apellido,
-        documento: datos.documento,
-        email: datos.email,
-        enabled: datos.enabled,
+        ...this.datos.value,
         password: this.getPaswword(),
-        roles: this.getRole()
+        roles: this.getRole(),
+        idEmpresa: 1
       }
     }
   }
 
-  public getId() {
-    switch (this.data.tipoForm) {
-      case 0:
-        return 0;
-        break;
-      case 1:
-        return this.data.data.id;
-      default:
-        break;
-    }
-  };
 
   public getRole() {
     switch (this.data.tipoForm) {
@@ -98,13 +83,13 @@ export class UsuariosFormComponent implements OnInit {
     }
   }
 
-  public getPaswword(){
+  public getPaswword() {
     switch (this.data.tipoForm) {
       case 0:
         return this.datos.value.documento;
         break;
       case 1:
-        return '$2a$10$xUQQEHf585VH0qxePGPhTu8u8BO4t1IKDMePJu2T0ChI7QZuGnHCq';
+        return this.data.data.password;
         break;
       default:
         break;
@@ -115,10 +100,11 @@ export class UsuariosFormComponent implements OnInit {
     if (this.datos.valid) {
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere crear la Cuenta?',
+        text: 'Estas seguro de que quiere crear el Usuario?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Crear',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
@@ -128,7 +114,7 @@ export class UsuariosFormComponent implements OnInit {
               this.appService.closeSpinner();
               this.close(1);
               Swal.fire({
-                type: 'success', text: 'El Usuario ' + String(data.username).toUpperCase() + ' Ha sido Editado!',
+                type: 'success', text: 'El Usuario ' + String(data.username).toUpperCase() + ' Ha sido Creado!',
                 timer: 3000, showConfirmButton: false
               });
             },error => {
@@ -145,10 +131,11 @@ export class UsuariosFormComponent implements OnInit {
     if (this.datos.valid) {
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere editar la Cuenta?',
+        text: 'Estas seguro de que quiere editar el Usuario?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {

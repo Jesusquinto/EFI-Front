@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
 import { PlanCuentaFormComponent } from './plan-cuenta-form/plan-cuenta-form.component';
 import { AppService } from 'src/app/services/app.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-plan-cuenta',
@@ -54,8 +55,38 @@ export class PlanCuentaComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(PlanCuentaFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', disableClose: true, backdropClass: 'dark',
+      width: '60%', height: 'auto', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getPlanCuentas()}});
+  }
+
+  public setEstado(data: any) {
+    Swal.fire({
+      title: 'Advertencia',
+      text: 'Estas seguro de que quiere Cambiar el Estado?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonClass: 'btn btn-info',
+      confirmButtonText: 'Si, Cambiar',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.appService.openSpinner();
+        this.appService.put('planCuentas/estado', data).subscribe(
+          (r: any) => {
+            console.log(r),
+            this.appService.closeSpinner();
+            Swal.fire({
+              type: 'success', text: 'el estado de la Cuenta #:' + data.idCuenta + 'ha sido Editada!',
+              showConfirmButton: false, timer: 3000
+             });
+            this.getPlanCuentas();
+          }, error => {
+            this.appService.closeSpinner();
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    })
   }
 }

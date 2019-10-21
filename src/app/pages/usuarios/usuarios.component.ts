@@ -27,6 +27,15 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.getUsuarios();
+    //this.exportExcel();
+  }
+
+  public exportExcel() {
+    this.appService.get('export').subscribe(
+      (data: any) => {
+        console.log(data);
+      }
+    )
   }
 
   public getUsuarios() {
@@ -53,44 +62,28 @@ export class UsuariosComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(UsuariosFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', disableClose: true, backdropClass: 'dark',
+      width: 'auto', maxWidth: '60%', height: 'auto', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getUsuarios()}});
   }
 
   public setEstado(data: any) {
-    switch (data.enabled) {
-      case true:
-        data.enabled = false;
-        return data;
-        break;
-      case false:
-        data.enabled = true;
-        return data;
-        break;
-      default:
-        break;
-    }
-    return data;
-  }
-
-  public update(data: any) {
-
     Swal.fire({
       title: 'Advertencia',
-      text: 'Estas seguro de que quiere crear la Cuenta?',
+      text: 'Estas seguro de que quiere cambiar el estado?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, Editar',
+      confirmButtonClass: 'btn btn-info',
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.value) {
         this.appService.openSpinner();
-        this.appService.put('usuarios', this.setEstado(data)).subscribe(
+        this.appService.put('usuarios/estado', data).subscribe(
           (data: any) => {
             this.appService.closeSpinner();
             Swal.fire({
-              type: 'success', text: 'El Usuario ' + String(data.username).toUpperCase() + ' Ha sido Editado!',
+              type: 'success', text: 'El estado del Usuario ' + String(data.username).toUpperCase() + ' Ha sido Editado!',
               timer: 3000, showConfirmButton: false
             });
             this.getUsuarios()
@@ -102,7 +95,6 @@ export class UsuariosComponent implements OnInit {
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
-
   }
 
 }

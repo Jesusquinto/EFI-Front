@@ -1,0 +1,88 @@
+
+        <div class="tableBody">
+            <div class="table-responsive" style="overflow: auto;">
+                <table class="table table-hover dashboard-task-infos">
+                        <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Indicador</th>
+                                    <th>Departamental</th>
+                                    <th>Nacional</th>
+                                </tr>
+                            </thead>
+                    <tbody>
+                            
+                        <tr *ngFor="let i of indicadores; let n = index" [ngClass]="{'primer-indicador' : n === 0}" >
+
+
+                            <td>
+                                <h4 style="font-size: small;" [ngClass]="{'text-white': n === 0}">
+                                    {{i.nombreTipo}}
+                                </h4>
+                            </td>
+
+                            <td >
+                                
+                               <div [ngClass]="{'text-white': n === 0}" style="display: inline-block; margin-right: 3px;">{{i.valor}}%  </div> 
+                            
+
+                            <i class="fas fa-arrow-up"
+                                    style="color: rgb(56, 193, 83) !important;"
+                                    *ngIf="i.valor > i.valorAnterior"></i>
+                                <i class="fas fa-arrow-down"
+                                    style="color: rgb(193, 56, 56) !important; "
+                                    *ngIf="i.valor < i.valorAnterior"></i>
+                                <i class="fas fa-arrow-right"
+                                    style="color: rgb(54, 177, 204) !important; "
+                                    *ngIf="i.valor == i.valorAnterior"></i>
+
+                                    <div [ngClass]="{'text-white': n === 0}" style="display: inline-block; margin-left: 3px;">{{i.valorAnterior}}%  </div> 
+
+                            </td>
+
+
+                            <td [ngClass]="{'text-white': n === 0}">
+                                
+                                
+                                    <div [ngClass]="{'text-white': n === 0}" style="display: inline-block; margin-right: 3px;"> #{{i.puesto}}   </div>  
+
+                                    <i class="fas fa-arrow-up"
+                                            style="color: rgb(56, 193, 83) !important;"
+                                            *ngIf="i.puesto < i.puestoAnterior"></i>
+                                        <i class="fas fa-arrow-down"
+                                            style="color: rgb(193, 56, 56) !important; "
+                                            *ngIf="i.puesto > i.puestoAnterior"></i>
+                                        <i class="fas fa-arrow-right"
+                                            style="color: rgb(54, 177, 204) !important; "
+                                            *ngIf="i.puesto == i.puestoAnterior"></i>
+
+                                            <div [ngClass]="{'text-white': n === 0}" style="display: inline-block; margin-left: 3px;"> #{{i.puestoAnterior}}   </div>  
+
+                                    </td>
+
+                                    <td [ngClass]="{'text-white': n === 0}">
+                                
+                                
+                                            <div [ngClass]="{'text-white': n === 0}" style="display: inline-block; margin-right: 3px;"> #{{i.nacional}}    </div>  
+                                           
+
+                                            <i class="fas fa-arrow-up"
+                                                    style="color: rgb(56, 193, 83) !important; "
+                                                    *ngIf="i.nacional < i.nacionalAnterior"></i>
+                                                <i class="fas fa-arrow-down"
+                                                    style="color: rgb(193, 56, 56) !important; "
+                                                    *ngIf="i.nacional > i.nacionalAnterior"></i>
+                                                <i class="fas fa-arrow-right"
+                                                    style="color: rgb(54, 177, 204) !important;"
+                                                    *ngIf="i.nacional == i.nacionalAnterior"></i>
+
+                                                    <div [ngClass]="{'text-white': n === 0}" style="display: inline-block; margin-left: 3px;"> #{{i.nacionalAnterior}}    </div>  
+
+                                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>

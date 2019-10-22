@@ -1,0 +1,108 @@
+<div style="position: relative; text-align: center; overflow: hidden" *ngIf="indicador">
+  <div class="row">
+
+      <div class="col-12 mb-3">
+          <div class="row">
+              <div class="col-4">
+                  <h4 style="font-weight: bolder;"></h4>
+              </div>
+              <div class="col-8">
+                  <div class="row">
+                      <div class="col-6">
+                          <h6 style="margin: 0px; border-bottom: 1px solid #dfd5d566;font-weight: 400;" class="text-white">Actual
+                          </h6>
+                      </div>
+                      <div class="col-6">
+                          <h6 style="margin: 0px; border-bottom: 1px solid #dfd5d566; font-weight: 400;" class="text-white">Anterior
+                          </h6>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-12" style="border-bottom: 1px solid #dfd5d5;">
+          <div class="row">
+              <div class="col-4">
+                  <h4 style="font-weight: bolder;" class="text-white">Indicador</h4>
+              </div>
+              <div class="col-8">
+                  <div class="row">
+                      <div class="col-6">
+                          <h4 style="margin-bottom: 5px;" class="text-white">{{indicador.valor}}%</h4>
+                      </div>
+                      <div style="position: relative;font-size: 30px;right: 10px; bottom: 5px">
+                          <i class="fas fa-arrow-down"
+                              style="color: rgb(193, 56, 56)  !important; position: absolute"
+                              *ngIf="indicador.valor < indicador.valorAnterior"></i>
+                          <i class="fas fa-arrow-up"
+                              style="color: rgb(56, 193, 83) !important; position: absolute"
+                              *ngIf="indicador.valor > indicador.valorAnterior"></i>
+                          <i class="fas fa-arrow-right"
+                              style="color: rgb(54, 177, 204) !important; position: absolute"
+                              *ngIf="indicador.valor == indicador.valorAnterior"></i>
+                      </div>
+                      <div class="col-6">
+                          <h4 style="margin-bottom: 5px;" class="text-white">{{indicador.valorAnterior}}%</h4>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-12 mt-4" style="border-bottom: 1px solid #dfd5d5;">
+          <div class="row">
+              <div class="col-4">
+                  <h4 style="font-weight: bolder;" class="text-white">Departamental</h4>
+              </div>
+              <div class="col-8">
+                  <div class="row">
+                      <div class="col-6">
+                          <h3 class="text-white">#{{indicador.puesto}}</h3>
+                      </div>
+                      <div style="position: relative;font-size: 30px;right: 10px;">
+                          <i class="fas fa-arrow-up"
+                              style="color: rgb(56, 193, 83) !important; position: absolute"
+                              *ngIf="indicador.puesto < indicador.puestoAnterior"></i>
+                          <i class="fas fa-arrow-down"
+                              style="color: rgb(193, 56, 56) !important; position: absolute"
+                              *ngIf="indicador.puesto > indicador.puestoAnterior"></i>
+                          <i class="fas fa-arrow-right"
+                              style="color: rgb(54, 177, 204) !important; position: absolute"
+                              *ngIf="indicador.puesto == indicador.puestoAnterior"></i>
+                      </div>
+                      <div class="col-6">
+                          <h3 class="text-white">#{{indicador.puestoAnterior}}</h3>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-12 mt-4">
+          <div class="row">
+              <div class="col-4">
+                  <h4 style="font-weight: bolder;" class="text-white">Nacional</h4>
+              </div>
+              <div class="col-8">
+                  <div class="row">
+                      <div class="col-6">
+                          <h3 class="text-white">#{{indicador.nacional}}</h3>
+                      </div>
+                      <div style="position: relative;font-size: 30px;right: 10px;">
+                          <i class="fas fa-arrow-up"
+                              style="color: rgb(56, 193, 83) !important; position: absolute"
+                              *ngIf="indicador.nacional < indicador.nacionalAnterior"></i>
+                          <i class="fas fa-arrow-down"
+                              style="color: rgb(193, 56, 56) !important; position: absolute"
+                              *ngIf="indicador.nacional > indicador.nacionalAnterior"></i>
+                          <i class="fas fa-arrow-right"
+                              style="color: rgb(54, 177, 204) !important; position: absolute"
+                              *ngIf="indicador.nacional == indicador.nacionalAnterior"></i>
+                      </div>
+                      <div class="col-6">
+                          <h3 class="text-white">#{{indicador.nacionalAnterior}}</h3>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

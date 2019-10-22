@@ -1,0 +1,81 @@
+
+<div class=" content">
+    <div class=" row">
+     <div class=" col-12">
+       <div class=" card card-chart">
+         <div class=" card-header">
+           <div class=" row">
+             <div class=" col-sm-6 text-left">
+               <h5 class=" card-category" >Seleccionar Departamento</h5>
+               <h2 class=" card-title" >Alertas</h2>
+
+
+             </div>
+
+
+
+             <div class=" col-sm-6">
+               <div class=" btn-group btn-group-toggle float-right" >
+                <div class="row">
+                  
+                  <div class="col-md-4">
+                      <mat-form-field >
+                          <mat-select [(ngModel)]="departamento" placeholder="Seleccionar Departamentos" (selectionChange)="setDepartamento()" >
+                            <mat-option>
+                              <ngx-mat-select-search [(ngModel)]="departamentoFilterCtrl" [placeholderLabel]="'Buscar departamento...'"
+                              [noEntriesFoundLabel]="'no se encontró el departamento'"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let departamento of departamentos | searchPipe:{entidad: departamentoFilterCtrl} " [value]="departamento">
+                              {{departamento.entidad}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>  
+                  </div>
+
+                  <div class="col-md-4">
+                      <mat-form-field style="margin-left: 2rem; margin-right: 2rem; width: 100%">
+                          <mat-select [(ngModel)]="periodo" placeholder="Seleccionar Periodo" (selectionChange)="setPeriodo()" >
+                            <mat-option>
+                              <ngx-mat-select-search [(ngModel)]="periodoFilterCtrl" [placeholderLabel]="'Buscar periodo...'"
+                              [noEntriesFoundLabel]="'no se encontró el peridodo'"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let periodo of periodos | searchPipe:{periodo: periodoFilterCtrl} " [value]="periodo">
+                              {{periodo}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field> 
+                  </div>
+
+                  <div class="col-md-4"></div>
+
+
+
+                </div>
+
+               
+
+                                 
+               </div>
+             </div>
+
+
+
+           </div>
+         </div>
+         <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+
+
+
+    
+
+
+
+         </div>
+       </div>
+     </div>
+   </div> 
+
+ 
+ 
+ </div>
+ 

@@ -4,15 +4,34 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AppService } from 'src/app/services/app.service';
+import { trigger,style,transition,animate,keyframes,query,stagger,group, state, animateChild } from '@angular/animations';
+import { VerResponsablesComponent } from '../ver-responsables/ver-responsables.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: "app-ver-encuestas",
   templateUrl: "ver-encuestas.component.html",
-  styleUrls: ["ver-encuestas.component.scss"]
+  styleUrls: ["ver-encuestas.component.scss"],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 export class VerEncuestasComponent implements OnInit {
+
   public encuestas: any;
   public searchInput: any;
+
+  columnsToDisplay = ['consecutivo','entidad', 'encuesta', 'periodo', 'fecha','estado' , 'acciones'];
+  expandedElement: any | null;
+
+  public entidad: any;
+  public entidades: any;
+  public entidadFilterCtrl: any;
 
   @Output() aplicarEncuesta = new EventEmitter();
   @Output() editarEncuesta = new EventEmitter();
@@ -37,9 +56,29 @@ export class VerEncuestasComponent implements OnInit {
     buttonsStyling: false,
   });
 
-  constructor(private servicio: AppService){ 
+  constructor(private servicio: AppService,  public dialog: MatDialog,){ 
+    this.entidad = '';
  
   }
+
+
+
+    public verResponsables(encuesta: any) {
+    const dialogRef = this.dialog.open(VerResponsablesComponent, {
+      data: {encuesta: encuesta }, 
+      width: '60%', height: 'auto', minWidth: '70%', maxWidth: '50%',
+      maxHeight: '90%', disableClose: false, backdropClass: 'dark', panelClass: 'box', closeOnNavigation: true
+    });
+
+    dialogRef.backdropClick().subscribe(() => {
+      console.log("quepedo ksefjwiv")
+      dialogRef.close();
+    })
+
+    dialogRef.afterClosed().subscribe(result => { if (result === 1) { this.getEncuestas() } });
+  }
+
+
 
   ngOnInit() {
     switch (this.tipo) {
@@ -106,11 +145,24 @@ export class VerEncuestasComponent implements OnInit {
   getEncuestasRealizadas(){
     this.servicio.openSpinner();
     this.servicio.get('resultadoencuesta/empresa').subscribe(
-      result => {console.log(result), this.encuestas = result, this.servicio.closeSpinner(), this.Toast.fire({type: 'success',title: 'Encuestas',text: 'Actualizadas con exito'})},
+      result => {console.log(result), this.encuestas = result, this.servicio.closeSpinner(), this.getEntidades() ,this.Toast.fire({type: 'success',title: 'Encuestas',text: 'Actualizadas con exito'})},
       error =>{console.log(error), this.servicio.closeSpinner(), this.Toast.fire({type: 'error',title: 'Error',text: 'Al cargar encuestas'})}
     )
   }
+
+
+
+  getEntidades(){
+    this.servicio.openSpinner();
+    this.servicio.get("list/departamentos").subscribe(
+      result =>{ console.log(result), this.servicio.closeSpinner(), this.entidades = result, this.entidad = this.entidades[0]},
+      error => {console.log(error), this.servicio.closeSpinner()}
+    )
+  }
   
+  setEntidades(e){
+    this.entidad = e;
+  }
 
 
 }

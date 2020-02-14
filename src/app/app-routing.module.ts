@@ -9,6 +9,8 @@ import { LoginGuard } from './guards/login.guard';
 import { UserGuard } from './guards/user.guard';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminGuard } from './guards/admin.guard';
+import { ConfirmarComponent } from './pages/confirmar/confirmar.component';
+
 
 export const routes: Routes = [
   {
@@ -53,6 +55,10 @@ export const routes: Routes = [
       }
     ],
     canActivate: [UserGuard]
+  },
+  {
+    path: "confirmar/:idResultadoEncuesta/:idResponsable",
+    component: ConfirmarComponent
   },
 
   //DEFAULT

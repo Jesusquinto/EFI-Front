@@ -13,8 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './encuesta-form.component.html',
   styleUrls: ['./encuesta-form.component.scss']
 })
-export class EncuestaFormComponent implements OnInit {
 
+export class EncuestaFormComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -40,7 +40,7 @@ export class EncuestaFormComponent implements OnInit {
     private appService: AppService) {
     this.datos = this.formBuilder.group({
       nombre: ['', Validators.required],
-      estado: [0, Validators.required],
+      estado: [1, Validators.required],
       usuario: ['', Validators.required],
       idUsuario: ['', Validators.required],
       empresa: ['', Validators.required],
@@ -87,7 +87,7 @@ export class EncuestaFormComponent implements OnInit {
 
   public getPreguntas() {
     this.appService.openSpinner();
-    this.appService.get('preguntas/native').subscribe(
+    this.appService.get('preguntas').subscribe(
       (data: any) => {
         console.log(data);
         this.preguntas = data;
@@ -100,14 +100,12 @@ export class EncuestaFormComponent implements OnInit {
   }
 
   public seleccionarPregunta(item: any) {
-
-    this.preguntasSelected.push(item.data);
+    this.preguntasSelected.push(item);
   }
 
   public deletePregunta(index) {
     this.preguntasSelected.splice(index, 1);
   }
-
 
   setId() {
     switch (this.data.tipoForm) {
@@ -171,7 +169,7 @@ export class EncuestaFormComponent implements OnInit {
   public crearDetallePreguntas(idEncuesta: number) {
     for (let index = 0; index < this.preguntasSelected.length; index++) {
       const item = this.preguntasSelected[index];
-      this.crearDetalle(idEncuesta, item[0]);
+      this.crearDetalle(idEncuesta, item.id);
     }
   }
 
@@ -183,6 +181,7 @@ export class EncuestaFormComponent implements OnInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Crear',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
@@ -209,6 +208,7 @@ export class EncuestaFormComponent implements OnInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
@@ -247,16 +247,15 @@ export class EncuestaFormComponent implements OnInit {
     }
   }
 
-
-  mouseEnter(e) { this.desc1 = e[0]; }
+  mouseEnter(e) { this.desc1 = e.id; }
 
   mouseLeave(e) { this.desc1 = 0; }
 
-  mouseEnter2(e) { this.desc2 = e[0]; }
+  mouseEnter2(e) { this.desc2 = e.id; }
 
   mouseLeave2(e) { this.desc2 = 0; }
 
-  mouseEnter3(e) { this.desc3 = e[0]; }
+  mouseEnter3(e) { this.desc3 = e.id; }
 
   mouseLeave3(e) { this.desc3 = 0; }
 

@@ -12,6 +12,7 @@ import { AppService } from 'src/app/services/app.service';
 export class EntidadesFormComponent implements OnInit {
 
   public datos: FormGroup;
+  public categorias: Array<any> = [];
 
   constructor(
 
@@ -21,12 +22,24 @@ export class EntidadesFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     private appService: AppService) {
     this.datos = this.formBuilder.group({
-      codigoBanco: ['', Validators.required],
-      codigoCta: ['', Validators.required],
-      nombreCuenta: ['', Validators.required],
-      tercero: ['', Validators.required],
-      tipoCuenta: ['', Validators.required],
-      cuentaNro: ['', Validators.required],
+      idEntidad: [0, Validators.required],
+      entidad: ['', Validators.required],
+      nit: ['', Validators.required],
+      correo: ['', Validators.required],
+      direccion: ['', Validators.required],
+      telefonos: ['', Validators.required],
+      sector: ['', Validators.required],
+      naturaleza: ['', Validators.required],
+      tipo: ['', Validators.required],
+      departamento: ['', Validators.required],
+      ciudad: ['', Validators.required],
+      fax: ['', Validators.required],
+      paginaWeb: ['', Validators.required],
+      codigoChip: ['', Validators.required],
+      codigoDane: ['', Validators.required],
+      codigoPostal: ['', Validators.required],
+      fkCategoria: ['', Validators.required],
+      estado: [1, Validators.required],
     });
   }
 
@@ -46,32 +59,30 @@ export class EntidadesFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.data.tipoForm == 1) {
+    if (this.data.tipoForm === 1) {
       console.log(this.data.data);
       this.datos.patchValue({
-        codigoBanco: this.data.data.codigoBanco,
-        codigoCta: this.data.data.codigoCta,
-        nombreCuenta: this.data.data.nombreCuenta,
-        tercero: String(this.data.data.tercero),
-        tipoCuenta: this.data.data.tipoCuenta,
-        cuentaNro: this.data.data.cbancoCuentaPK.cuentaNro
+        ...this.data.data
       });
     }
+    this.getCategorias();
+  }
+
+  public getCategorias() {
+    this.appService.get('categoria/estado/1').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.categorias = data;
+      }
+    );
   }
 
   public setCuenta() {
     if (this.datos.valid) {
-      const datos = this.datos.value;
       return {
-        "codigoBanco": datos.codigoBanco,
-        "codigoCta": datos.codigoCta,
-        "nombreCuenta": datos.nombreCuenta,
-        "tercero": parseInt(datos.tercero),
-        "tipoCuenta": datos.tipoCuenta,
-        "cbancoCuentaPK": {
-          "codigoEntidad": "1",
-          "cuentaNro": datos.cuentaNro
-        }
+        ...this.datos.value,
+        codigoChip: parseInt(this.datos.value.codigoChip),
+        codigoPostal: parseInt(this.datos.value.codigoPostal),
       }
     }
   }
@@ -80,22 +91,26 @@ export class EntidadesFormComponent implements OnInit {
     if (this.datos.valid) {
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere crear la Cuenta?',
+        text: 'Estas seguro de que quiere crear la Entidad?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Crear',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.post('cbancocuenta/new', this.setCuenta()).subscribe(
+          this.appService.post('entidades', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
-              this.close(1)
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'La Entidad ' + String(data.entidad).toUpperCase() + ' Ha sido Creada!',
+                timer: 3000, showConfirmButton: false
+              });
+              this.close(1);
             }, error => {
-              console.log(error)
-              this.appService.closeSpinner()
+              this.appService.closeSpinner();
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -108,22 +123,26 @@ export class EntidadesFormComponent implements OnInit {
     if (this.datos.valid) {
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere editar la Cuenta?',
+        text: 'Estas seguro de que quiere editar la Entidad?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.put('cbancocuenta/edit', this.setCuenta()).subscribe(
+          this.appService.put('entidades', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
-              this.close(1)
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'La Entidad ' + String(data.entidad).toUpperCase() + ' Ha sido Editada!',
+                timer: 3000, showConfirmButton: false
+              });
+              this.close(1);
             }, error => {
-              console.log(error),
-                this.appService.closeSpinner();
+              this.appService.closeSpinner();
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {

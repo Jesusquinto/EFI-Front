@@ -24,6 +24,10 @@ import { VerEncuestasComponent } from 'src/app/pages/aplicar-encuesta/ver-encues
 import { HacerEncuestaComponent } from 'src/app/pages/aplicar-encuesta/hacer-encuesta/hacer-encuesta.component';
 import { EncuestasRealizadasComponent } from 'src/app/pages/encuestas-realizadas/encuestas-realizadas.component';
 import { SharedPagesModule } from 'src/app/shared-pages/shared-pages.module';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { VerResponsablesComponent } from 'src/app/pages/aplicar-encuesta/ver-responsables/ver-responsables.component';
+import { CalidadComponent } from 'src/app/pages/calidad/calidad.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -42,14 +46,17 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PipesModule,
     FileUploadModule,
     MatDialogModule,
-    SharedPagesModule
+    SharedPagesModule,
+    ComponentsModule
   ],
   declarations: [
     PanelComponent,
     AplicarEncuestaComponent,
     VerEncuestasComponent,
     HacerEncuestaComponent,
-    EncuestasRealizadasComponent
+    EncuestasRealizadasComponent,
+    VerResponsablesComponent,
+    CalidadComponent
     // RtlComponent
   ],
   providers: [
@@ -59,7 +66,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
   ],
-  entryComponents:[]
+  entryComponents:[VerResponsablesComponent]
 
 })
 export class UserLayoutModule {}

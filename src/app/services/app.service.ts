@@ -89,6 +89,9 @@ export class AppService {
   this.clearSession();
  }
 
+
+
+
  // PUT
  put(ruta: string, body: any) { 
   if( this.auth.isAuthenticated()) {
@@ -100,6 +103,13 @@ export class AppService {
   }
   this.clearSession();
  }
+
+
+ confirmar(ruta: string){
+  this.httpOptions = {headers: new HttpHeaders({  'Content-Type': 'application/json' })};
+   return this.http.get<any>(this.url.concat(ruta), this.httpOptions);
+ }
+
 
  login(usuario: Usuario): Observable<any> {
   const credenciales = btoa('angularapp' + ':' + '12345');

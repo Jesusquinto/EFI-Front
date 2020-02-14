@@ -1,0 +1,268 @@
+<div class="row">
+
+    <i class=" tim-icons icon-simple-remove text-danger-states" style="margin-right: 1rem;
+    position: relative;
+    background: #940606;
+    color: white;
+    left: 95%;
+    padding: 1px;
+    border-radius: 7px;
+"(click)="cerrar()"> </i>
+
+
+</div>
+
+<div class=" row">
+
+
+      <div class=" card card-chart ml-2 mr-2" style="padding: 10px"> 
+
+
+            <h4 class=" card-title">
+                <i class=" tim-icons icon-zoom-split text-danger-states"> </i> Responsables de la encuesta  {{data.encuesta.idEncuesta.nombre}} [{{data.encuesta.consecutivo}}]
+              </h4>
+
+      </div>
+
+    
+
+
+
+
+
+
+      <div class="col-md-8">
+          <div class="example-container mat-elevation-z8 contenedor-tabla" *ngIf="responsables">
+
+          <mat-table [dataSource]="responsables">
+
+              <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="nombre"> 
+                
+                     <button type="button"  class="btn btn-info btn-link btn-icon btn-sm" >
+                        <i class="tim-icons icon-single-02"></i>
+                    </button>
+                
+                
+                
+                {{row.nombre}} {{row.apellido}} </mat-cell>
+            </ng-container>
+    
+        
+            <ng-container matColumnDef="identificacion">
+              <mat-header-cell *matHeaderCellDef > identificación </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="identificacion"> {{row.identificacion}} </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="telefono">
+              <mat-header-cell *matHeaderCellDef > Telefono </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="telefono"> {{row.telefono}} </mat-cell>
+            </ng-container>
+
+             <ng-container matColumnDef="correo">
+              <mat-header-cell *matHeaderCellDef > Correo </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="correo"> {{row.correo}} </mat-cell>
+            </ng-container>
+
+             <ng-container matColumnDef="cargo">
+              <mat-header-cell *matHeaderCellDef > Cargo </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="cargo"> {{row.cargo}}</mat-cell>
+            </ng-container>
+
+             <ng-container matColumnDef="confirmacion">
+              <mat-header-cell *matHeaderCellDef > estado  </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="confirmacion"> 
+
+                <button type="button" class="btn " [ngClass]="{'btn-success': row.confirmacion == 1, 'btn-warning': row.confirmacion == 0}" 
+                  style="font-size: 10px;padding: 4px">
+                    <div *ngIf="row.confirmacion == 0"> Sin confirmar </div> 
+                     <div *ngIf="row.confirmacion == 1"> Confirmó </div> 
+                
+                </button>
+                
+              
+              
+              </mat-cell>
+            </ng-container>
+
+
+              <ng-container matColumnDef="acciones">
+              <mat-header-cell *matHeaderCellDef > acciones </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="acciones"> 
+
+                  <button type="button" rel="tooltip" class="btn btn-info btn-link btn-icon btn-sm" pTooltip="Ver respuestas" (click)="setResponsable(row)"
+                    tooltipPosition="top" >
+                        <i class="tim-icons icon-bullet-list-67"></i>
+                    </button>
+
+
+              </mat-cell>
+            </ng-container>
+
+
+<!-- 
+               <ng-container matColumnDef="confirmacion">
+              <mat-header-cell *matHeaderCellDef >  </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="confrimacion"> 
+                
+                  <button type="button" class="btn " [ngClass]="{'btn-success': row.estado == 3, 'btn-warning': row.estado != 3 }" 
+                  style="font-size: 10px;padding: 4px">
+                    <div *ngIf="row.estado == 0">Sin confirmar </div> 
+                     <div *ngIf="row.estado == 1"> Confirmado </div> 
+                    <div *ngIf="row.estado == 2"> Cancelado </div> 
+
+                
+                </button>
+              </mat-cell>
+            </ng-container> -->
+
+
+
+
+      
+
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" class="fila">
+            </mat-row>
+          </mat-table>
+        
+        </div>
+
+
+
+      </div>
+
+    
+
+      <div class="col-md-4">
+
+         <div class=" row">
+          <div class=" col-12">
+            <div class=" card card-chart">
+              <div class=" card-header">
+                <div class=" row">
+                  <div class=" col-sm-6 text-left">
+                    <h5 class=" card-category respuestas-title-1" >Respuestas del responsable</h5>
+                    <h2 class=" card-title mb-0 respuestas-title-2">Respuestas</h2>
+                    <h5 class=" card-category mt-0" *ngIf="tipo == 'todas'">Todas ({{respuestas?.length}})</h5>
+                    <h5 class=" card-category mt-0" *ngIf="tipo == 'responsable'">Responsable {{responsable.apellido}} {{responsable.identificacion}} ({{respuestas?.length}})</h5>
+
+
+
+                  </div>
+                  <div class=" col-sm-6">
+                    <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
+                      <label class=" btn btn-sm btn-info btn-simple" (click)="tipo = 'todas'; getPreguntas()" [ngClass]="{'active':tipo==='todas'}">
+                        <input checked="checked" name="options" type="radio"/>
+      
+                        <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                          Todas
+                        </span>
+                        <span class=" d-block d-sm-none">
+                          <i class=" tim-icons icon-single-copy-04"> </i>
+                        </span>
+                      </label>
+                      <label class=" btn btn-sm btn-info btn-simple"  [ngClass]="{'active':tipo==='responsable'}">
+                        <input class=" d-none d-sm-none" name="options" type="radio"/>
+      
+                        <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                          Responsable
+                        </span>
+                        <span class=" d-block d-sm-none">
+                          <i class=" tim-icons icon-single-02"> </i>
+                        </span>
+                      </label>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+
+
+          <div class="table-responsive" style="max-height: 400px;">
+
+                        <table class="table">
+          <thead>
+              <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+              </tr>
+          </thead>
+          <tbody>
+            
+        
+              <tr *ngFor="let r of respuestas">
+                  <td style="font-size: smaller;">{{r.idPregunta.descripcion}}</td>
+                  <td style="font-size: smaller; text-align: center;">
+                    
+              <button type="button" class="btn " [ngClass]="{'btn-success': r.resultado == 0, 'btn-warning': r.resultado == 1, 'btn-default' : r.resultado == 2 }" 
+                  style="font-size: 10px;padding: 4px">
+                    <div *ngIf="r.resultado == 0">SI </div> 
+                     <div *ngIf="r.resultado == 1"> NO </div> 
+                    <div *ngIf="r.resultado == 2"> NO RESPONDIÓ </div> 
+                
+                </button>
+                    
+                    
+        </td>
+                <!--   <td class="td-actions text-right">
+                      <button type="button" rel="tooltip" class="btn btn-info btn-link btn-icon btn-sm" pTooltip="Editar responsables"
+                      tooltipPosition="top">
+                          <i class="tim-icons icon-single-02"></i>
+                      </button>
+                      <button type="button" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm" pTooltip="Editar encuesta"
+                      tooltipPosition="top">
+                          <i class="tim-icons icon-pencil"></i>
+                      </button>
+                      <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm" pTooltip="Eliminar encuesta"
+                      tooltipPosition="top">
+                          <i class="tim-icons icon-simple-remove"></i>
+                      </button>
+                  </td> -->
+              </tr>
+          </tbody>
+      </table>
+
+            
+    
+            
+    
+    
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+         
+
+              </div>
+            </div>
+          </div>
+        </div> 
+
+
+
+
+
+
+      </div>
+        
+
+ 
+ 
+
+
+
+
+  </div>

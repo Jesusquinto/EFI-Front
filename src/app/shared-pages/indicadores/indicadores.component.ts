@@ -11,8 +11,25 @@ import { AppService } from 'src/app/services/app.service';
   styleUrls: ["indicadores.component.scss"]
 })
 export class IndicadoresComponent implements OnInit {
+
+  public indicadores: any;
+
+  public grupo: any; 
+  public grupos: any;
+
+  public dataTipo: any;
+
+  public tipos:any;
   public tipo: any;
   public encuesta: any;
+
+  public tipoFilterCtrl: any;
+
+
+
+
+
+  
  
   public Toast = swal.mixin({
     toast: true,
@@ -31,12 +48,80 @@ export class IndicadoresComponent implements OnInit {
   });
 
   constructor(private servicio: AppService ) { 
-    this.tipo = 'financieros'
+    this.grupo = null;
+    this.tipo = null;
+    this.dataTipo = '',
+    this.tipoFilterCtrl = '';
     
   }
 
   ngOnInit() {
+    this.getTipos();
     
+  }
+
+
+
+  getTipos(){
+    this.servicio.openSpinner();
+    this.servicio.get("tipos").subscribe(
+      result => {console.log("TIPOS ",result), this.servicio.closeSpinner(), this.tipos = result, this.setTipo(this.tipos[0].idTipoIndicador)},
+      error => {console.log(error), this.servicio.closeSpinner()}
+    ) 
+  }
+
+  getGruposInidicador(idTipo){
+    this.servicio.openSpinner();
+    this.servicio.get("grupos/indicador/".concat(idTipo)).subscribe(
+      (result : any) => {console.log("GRUPOS :",result), this.servicio.closeSpinner();
+    
+          this.grupos = result;
+          this.setGrupo(this.grupos[0])},
+
+          
+        
+      error => {console.log(error), this.servicio.closeSpinner()}
+    )
+
+  }
+
+
+  getIndicadoresByTipoAndGrupo(){
+    this.servicio.openSpinner();
+    this.servicio.get("indicadores/tipo/grupo/"+this.tipo+"/"+this.grupo.idGrupo).subscribe(
+      result => { console.log("INDICADORES " ,result), this.servicio.closeSpinner(), this.indicadores = result; if(this.dataTipo == ''){this.dataTipo = 'departamento'}},
+      error => {console.log(error), this.servicio.closeSpinner()}
+    )
+  }
+
+  
+
+  setGrupo(grupo){
+    this.indicadores = null;
+    let before = this.dataTipo;
+    this.dataTipo = null;
+    this.dataTipo = before;
+      this.grupo = grupo;
+      this.dataTipo = '';
+      if(this.grupo){
+        this.getIndicadoresByTipoAndGrupo();
+      }else{
+        this.indicadores = [];
+      }
+
+    
+  }
+
+
+
+
+
+  setTipo(tipo){
+    console.log("TIPO ", tipo)
+    this.tipo = tipo;
+    this.indicadores = null;
+    this.grupos = null;
+    this.getGruposInidicador(tipo);
   }
 
 

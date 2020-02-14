@@ -1,14 +1,8 @@
-export let Endpoints : any =  {
-    //ENDPOINTS DEL BACKEND CLIENTES
-    "normal": "http://localhost:5000/",
-    "prefix" : "http://localhost:5000/efi/",
-    "uploads" : "http://localhost:8000/uploads/",
+export let Endpoints: any =  {
+    // ENDPOINTS DEL BACKEND CLIENTES
+    normal: 'http://portal.tributo.co:4008/',
+    prefix : 'http://portal.tributo.co:4008/efi/',
 
-    //ENDPOINTS DEL BACKEND ENTIDADES
-    "entidadesEndpointNormal": "http://administracion.tributo.co:5000/",
-    "entidadesEndpointComplete": "http://administracion.tributo.co:5000/rest/v1/",
-    //ENDPOINT BASE DEL CLIENTE
-    "serverUrl": "http://www.tributo.co/"
-
-
-};
+    // ENDPOINT BASE DEL CLIENTE
+    serverUrl: 'http://portal.tributo.co/efi/'
+}

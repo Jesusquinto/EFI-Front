@@ -32,6 +32,7 @@ export class datosMunicipalesComponent implements OnInit {
 
   public dataPeriodos: any;
 
+  public indicador: any;
 
   
 
@@ -67,7 +68,7 @@ export class datosMunicipalesComponent implements OnInit {
   getEntidades(){
     this.servicio.openSpinner();
     this.servicio.get("list/departamentos").subscribe(
-      result =>{ console.log(result), this.servicio.closeSpinner(), this.departamentos = result, this.departamento = this.departamentos[0], this.getMunicipios()},
+      result =>{ console.log(result), this.servicio.closeSpinner(), this.departamentos = result, this.departamento = this.departamentos[0], this.indicador = null, this.getMunicipios()},
       error => {console.log(error), this.servicio.closeSpinner()}
     )
   }
@@ -95,7 +96,10 @@ export class datosMunicipalesComponent implements OnInit {
     console.log(municipio);
       this.servicio.openSpinner();
     this.servicio.get("indicadores/municipio/grupo/periodo/"+municipio+"/"+this.grupo.idGrupo+"/"+this.periodo).subscribe(
-      result => {console.log(result), this.servicio.closeSpinner();this.datos = result, this.getDatosPeriodos();      },
+      result => {console.log(result), this.servicio.closeSpinner();this.datos = result;
+          //this.indicador  ? this.indicador = this.indicador : this.indicador = this.datos[0] 
+          if(this.datos[0]){this.indicador = this.datos[0];  this.getDatosPeriodos();};
+        },
       error => {console.log(error), this.servicio.closeSpinner()}
     )
   
@@ -103,13 +107,13 @@ export class datosMunicipalesComponent implements OnInit {
 
 getDatosPeriodos(){
   this.servicio.openSpinner();
-  this.servicio.get("indicadores/municipio/grupo/indicador/"+this.municipio.codigoDane+"/"+this.grupo.idGrupo+"/"+this.datos[0].datosIndicadoresPK.tipo).subscribe(
+  this.servicio.get("indicadores/municipio/grupo/indicador/"+this.municipio.codigoDane+"/"+this.grupo.idGrupo+"/"+this.indicador.datosIndicadoresPK.tipo).subscribe(
     result => {console.log(result), this.servicio.closeSpinner(), this.datosPeriodos = result,
       this.dataPeriodos = {
         labels: [],
         datasets: [
             {
-                label: this.datos[0].nombreTipo,
+                label: this.indicador.nombreTipo,
                 data: [],
                 fill: false,
                 borderColor: '#ec4543',
@@ -118,7 +122,6 @@ getDatosPeriodos(){
             }            
         ]
       }
-
       this.datosPeriodos.forEach(e => {
         this.dataPeriodos.labels.push(e.datosIndicadoresPK.periodo);
         this.dataPeriodos.datasets[0].data.push(e.valor);
@@ -142,6 +145,12 @@ getDatosPeriodos(){
   }
   setPeriodo(){
     this.getDatos();
+  }
+
+  setIndicador(e){
+    this.indicador = e;
+    console.log(e);
+    this.getDatosPeriodos();
   }
 
 

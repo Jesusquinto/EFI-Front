@@ -1,0 +1,165 @@
+
+  
+    
+    <div class=" row">
+     <div class=" col-12">
+       <div class=" card card-chart">
+         <div class=" card-header">
+           <div class=" row">
+             <div class=" col-sm-6 text-left">
+               <h5 class="card-category">Seleccionar Departamento</h5>
+               <h2 class="card-title" >Estadísticas Departamentales</h2>
+             </div>
+
+             <div class=" col-sm-6">
+
+                <div class="row">
+
+                  <div class="col-sm-4">
+                    <mat-form-field>
+                      <mat-select [(ngModel)]="departamento" placeholder="Seleccionar Departamentos" (selectionChange)="setDepartamento()" >
+                        <mat-option>
+                          <ngx-mat-select-search [(ngModel)]="departamentoFilterCtrl" [placeholderLabel]="'Buscar departamento...'"
+                          [noEntriesFoundLabel]="'no se encontró el departamento'"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let departamento of departamentos | searchPipe:{entidad: departamentoFilterCtrl} " [value]="departamento">
+                          {{departamento.entidad}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>    
+
+                  </div>
+
+                  <div class="col-sm-4">
+                    <mat-form-field >
+                      <mat-select [(ngModel)]="anno" placeholder="Seleccionar Año" (selectionChange)="setAnno()" >
+                        <mat-option>
+                          <ngx-mat-select-search [(ngModel)]="annoFilterCtrl" [placeholderLabel]="'Buscar año...'"
+                          [noEntriesFoundLabel]="'no se encontró el año'"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let anno of annos | UniqueSearch: annoFilterCtrl " [value]="anno">
+                          {{anno}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>    
+                  </div>
+
+                  <div class="col-sm-4">
+                    <mat-form-field>
+                      <mat-select [(ngModel)]="periodo" placeholder="Seleccionar Periodo" (selectionChange)="setPeriodo()" >
+                        <mat-option>
+                          <ngx-mat-select-search [(ngModel)]="periodoFilterCtrl" [placeholderLabel]="'Buscar periodo...'"
+                          [noEntriesFoundLabel]="'no se encontró el peridodo'"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let periodo of periodos | searchPipe:{periodo: periodoFilterCtrl} " [value]="periodo">
+                          {{periodo[1]}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>  
+
+                  </div>
+
+
+                </div>
+
+
+
+<!--                 <div class=" btn-group btn-group-toggle float-right" style="width: 100%" data-toggle="buttons">
+                    <mat-form-field  *ngIf="tendencias?.length != 0">
+                        <mat-select [(ngModel)]="departamento" placeholder="Seleccionar Departamentos" (selectionChange)="setDepartamento()" >
+                          <mat-option>
+                            <ngx-mat-select-search [(ngModel)]="departamentoFilterCtrl" [placeholderLabel]="'Buscar departamento...'"
+                            [noEntriesFoundLabel]="'no se encontró el departamento'"></ngx-mat-select-search>
+                          </mat-option>
+                          <mat-option *ngFor="let departamento of departamentos | searchPipe:{entidad: departamentoFilterCtrl} " [value]="departamento">
+                            {{departamento.entidad}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>                                  
+                </div> -->
+              </div>
+
+
+
+           </div>
+         </div>
+         <div class=" card-body">
+        <div class="row">          
+          <div class="col-md-4">
+              <div class=" card card-chart">
+                  <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem; background: #f2f4f9">
+                      <h5 class=" card-category" style="font-size: x-small;margin-bottom: 0px;">Seleccionar Indicador</h5>
+                      <h2 class=" card-title" style="font-size: initial;" >Tendencias</h2>
+
+                      <h2 class=" card-title" style="font-size: small;color: #b3b1b1;" *ngIf="variables?.length == 0">No hay tendencias que mostrar</h2>
+
+
+                    <div  *ngFor="let i of variables" 
+                    [ngClass]="{'indicador-selected':i?.idVariable === variable?.idVariable, 'indicador': i?.idVariable != variable?.idVariable}"
+                    (click)="setVariable(i)" >
+                    <div class="color-indicador mr-2" [ngStyle]="{'background': i?.css}" ><i class=" tim-icons icon-chart-bar-32"></i></div> {{i?.nombreVariable}}</div>
+                    
+                  </div>
+                </div>
+          </div>
+
+
+          <div class="col-md-8">
+              <div class=" card card-chart">
+                  <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem; background: #f2f4f9">
+                    
+                      <div class="row">
+                          <div class=" col-sm-6 text-left seleccionarperiodo">
+                              <h5 class=" card-category mb-0">Estadísticas</h5>
+                              <h2 class=" card-title" *ngIf="historicos?.length > 0" >{{variable?.nombreVariable}} ({{historicos[0]?.planCuenta}})</h2>
+                              <h2 class=" card-title"  *ngIf="historicos?.length === 0">No hay Estadísticas que mostrar</h2>
+                            </div>               
+
+                      </div>
+                      <div class="row">
+                      
+
+                        <perfect-scrollbar style="max-height: 400px;">
+
+                            
+                        <table class="table table-striped tableFixHead" *ngIf="historicos?.length > 0">
+                          <thead >
+                            <th style="text-align: left;">Municipio</th>
+                            <th style="text-align: left;"  *ngFor="let key of historicos[0]?.data"  >{{key.nombre}}</th>
+                        </thead>
+
+                              <tbody>
+                                
+                                <tr *ngFor="let h of historicos">
+                                  <td style="text-align: left;">{{h.nombre}}</td>
+                                  <td style="text-align: left;" *ngFor="let key of h.data" >{{key.valor}}</td>                                  
+                                </tr>
+                                
+
+                              </tbody>
+
+
+                            </table> 
+                          </perfect-scrollbar>
+
+                        
+
+
+            
+
+
+
+                       
+                      </div>
+                  </div>
+                </div>
+          </div>
+        </div>
+         </div>
+       </div>
+     </div>
+   </div> 
+
+
+ 
+ 

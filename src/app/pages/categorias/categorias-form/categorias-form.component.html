@@ -1,0 +1,77 @@
+<div fxLayout="row">
+    <form [formGroup]="datos" class="w-100">
+        <div class="form-row">
+            <!-- // Informacion Principal  // -->
+            <div class="col-md-12">
+                <div class="my-2">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="w-100">
+                        <div class="">
+                            <a *ngIf="data.tipoForm == 0" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-plus"></i>&nbsp;&nbsp;Nuevo
+                                Usuario</a>
+                            <a *ngIf="data.tipoForm == 1" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;Editar
+                                Usuario </a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Categoria <b class="text-danger">*</b></label>
+                                    <input type="text" formControlName="categoria" name="categoria" id="categoria"
+                                        class="form-control" placeholder="Categoria">
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="descripcionCategoria">Descripcion Categoria <b class="text-danger">*</b></label>
+                                    <input type="text" formControlName="descripcionCategoria" name="descripcionCategoria" id="descripcionCategoria"
+                                        class="form-control" placeholder="Descripcion Categoria">
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="habitantesInferior">Habitantes Inferior <b class="text-danger">*</b></label>
+                                    <input type="number" formControlName="habitantesInferior" name="habitantesInferior" id="habitantesInferior"
+                                        class="form-control" placeholder="Habitantes Inferior">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="habitantesSuperior">Habitantes Superior <b class="text-danger">*</b></label>
+                                    <input type="number" formControlName="habitantesSuperior" name="habitantesSuperior" id="habitantesSuperior"
+                                        class="form-control" placeholder="Habitantes Superior">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ingresosCorrientes">Ingresos Corrientes <b class="text-danger">*</b></label>
+                                    <input type="number" formControlName="ingresosCorrientes" name="ingresosCorrientes" id="ingresosCorrientes"
+                                        class="form-control" placeholder="Ingresos Corrientes">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <hr>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button [disabled]="!datos.valid" (click)="submit()" type="button" class="btn btn-sm btn-simple btn-info"><i [ngClass]="data.tipoForm == 0 ? 'fa fa-save' : 'fa fa-edit'"></i> Guardar</button>
+                                    <button (click)="close(0)" type="button" class="btn btn-sm btn-simple btn-info"><i class="fa fa-times"></i> Cancelar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

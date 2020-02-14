@@ -4,6 +4,7 @@ import { IndicadoresGrupoComponent } from './indicadores-grupo.component';
 import { IndicadoresGrupoFormComponent } from './indicadores-grupo-form/indicadores-grupo-form.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialImports } from 'src/app/imports/material-imports.import';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 export const routes: Routes = [
   { path: '', component: IndicadoresGrupoComponent, pathMatch: 'full' }
@@ -17,7 +18,8 @@ export const routes: Routes = [
   imports: [
     CommonModule,
     MaterialImports,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    PipesModule
   ],
   entryComponents:[
     IndicadoresGrupoFormComponent

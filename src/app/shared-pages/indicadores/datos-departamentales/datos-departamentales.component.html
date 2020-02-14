@@ -5,13 +5,13 @@
          <div class=" card-header">
            <div class=" row">
              <div class=" col-sm-6 text-left">
-               <h5 class=" card-category">Seleccionar Departamento</h5>
-               <h2 class=" card-title" >Estadísticas Departamentales</h2>
+               <h5 class="card-category">Seleccionar Departamento</h5>
+               <h2 class="card-title" >Estadísticas Departamentales</h2>
              </div>
 
              <div class=" col-sm-6">
                 <div class=" btn-group btn-group-toggle float-right" style="width: 100%" data-toggle="buttons">
-                    <mat-form-field style="margin-left: 2rem; margin-right: 2rem; width: 100%" *ngIf="indicadores?.length != 0">
+                    <mat-form-field  *ngIf="indicadores?.length != 0">
                         <mat-select [(ngModel)]="departamento" placeholder="Seleccionar Departamentos" (selectionChange)="setDepartamento()" >
                           <mat-option>
                             <ngx-mat-select-search [(ngModel)]="departamentoFilterCtrl" [placeholderLabel]="'Buscar departamento...'"
@@ -29,7 +29,7 @@
 
            </div>
          </div>
-         <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+         <div class=" card-body">
         <div class="row">          
           <div class="col-md-4">
               <div class=" card card-chart">
@@ -42,7 +42,8 @@
 
                     <div  *ngFor="let i of indicadores" 
                     [ngClass]="{'indicador-selected':i?.idVariable === indicador?.idVariable, 'indicador': i?.idVariable != indicador?.idVariable}"
-                    (click)="setIndicador(i)">  <i class=" tim-icons icon-chart-bar-32 mr-3" > </i>{{i?.nombreVariable}}</div>
+                    (click)="setIndicador(i)" >
+                    <div class="color-indicador mr-2" [ngStyle]="{'background': i?.css}" ><i class=" tim-icons icon-chart-bar-32"></i></div> {{i?.nombreVariable}}</div>
                     
                   </div>
                 </div>
@@ -54,14 +55,14 @@
                   <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem; background: #f2f4f9">
                     
                       <div class="row">
-                          <div class=" col-sm-6 text-left">
+                          <div class=" col-sm-6 text-left seleccionarperiodo">
                               <h5 class=" card-category mb-0">Seleccionar Peridodo</h5>
-                              <h2 class=" card-title"style="font-size: large;" *ngIf="indicadores?.length != 0 && datos?.length != 0" >{{indicador?.nombreVariable}}</h2>
-                              <h2 class=" card-title"style="font-size: large;"  *ngIf="indicadores?.length == 0 || datos?.length == 0">No hay Estadísticas que mostrar</h2>
+                              <h2 class=" card-title" *ngIf="indicadores?.length != 0 && datos?.length != 0" >{{indicador?.nombreVariable}}</h2>
+                              <h2 class=" card-title"  *ngIf="indicadores?.length == 0 || datos?.length == 0">No hay Estadísticas que mostrar</h2>
                             </div>               
                             <div class=" col-sm-6">
                                <div class=" btn-group btn-group-toggle float-right" style="width: 100%" data-toggle="buttons" *ngIf="indicadores?.length != 0">
-                                   <mat-form-field style="margin-left: 2rem; margin-right: 2rem; width: 100%">
+                                   <mat-form-field style="width: 100%">
                                        <mat-select [(ngModel)]="periodo" placeholder="Seleccionar Periodo" (selectionChange)="setPeriodo()" >
                                          <mat-option>
                                            <ngx-mat-select-search [(ngModel)]="periodoFilterCtrl" [placeholderLabel]="'Buscar periodo...'"
@@ -77,11 +78,18 @@
                       </div>
                       <div class="row">
                       
-                        <p-chart *ngIf="data && indicadores?.length != 0 && datos?.length != 0" type="horizontalBar" [data]="data" [options]="options"
-                        [width]="600" [height]="alto" class="animated fadeIn fast"
-                        (onDataSelect)="dataInfo($event)"
-                        ></p-chart>
- 
+
+                        <perfect-scrollbar style=" max-height: 400px;" >
+                          <p-chart *ngIf="data && indicadores?.length != 0 && datos?.length != 0" type="horizontalBar" [data]="data" [options]="options"
+                          [width]="600" [height]="alto" class="animated fadeIn fast"
+                          (onDataSelect)="dataInfo($event)"
+                          ></p-chart>
+   
+
+                        </perfect-scrollbar>
+
+
+                       
                       </div>
                   </div>
                 </div>

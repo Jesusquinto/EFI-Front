@@ -36,7 +36,7 @@ export class datosDepartamentalesComponent implements OnInit {
   public dataSeleccionada: any;
 
   options = {
-		responsive: false,
+		responsive: true,
 		maintainAspectRatio: false,
 		legend: {
 			display : false
@@ -52,8 +52,10 @@ export class datosDepartamentalesComponent implements OnInit {
 		scales: {
 			yAxes: [{
 			  ticks: {
-				stepSize: 10,
-				beginAtZero: true
+				stepSize: 5,
+        beginAtZero: true,
+        fontSize: 10
+        
 			  }
 			}]
 		  }
@@ -111,6 +113,7 @@ export class datosDepartamentalesComponent implements OnInit {
     let codigoDepartamento = this.departamento.codigoDane.substring(0,2);
     console.log(codigoDepartamento);
     console.log(this.indicador)
+    console.log("idGurpo", this.grupo.idGrupo)
     if(this.indicador){
       this.servicio.openSpinner();
     this.servicio.get("indicadores/departamento/grupo/periodo/indicador/"+codigoDepartamento+"/"+this.grupo.idGrupo+"/"+this.periodo+"/"+this.indicador.idVariable).subscribe(
@@ -125,8 +128,8 @@ export class datosDepartamentalesComponent implements OnInit {
           "labels" : [],
           "datasets": [{
                 label: this.indicador.nombreVariable, 
-                backgroundColor: '#3155e5',
-                borderColor: '#3155e5',
+                backgroundColor: this.indicador.css,
+                borderColor: this.indicador.css,
                 data: []
           }]
         }; 

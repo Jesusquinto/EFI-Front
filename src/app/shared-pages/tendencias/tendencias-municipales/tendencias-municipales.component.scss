@@ -1,0 +1,199 @@
+.grupo-indicador{
+    transition: all .3s;
+    color: rgb(54, 52, 52) !important;
+    background: linear-gradient(90deg, rgb(245, 246, 250) 0%, rgb(224, 228, 245) 100%) !important;
+}
+
+.grupo-indicador:hover{
+    color: rgb(103, 99, 99) !important;
+    background: rgb(245, 246, 250) !important;
+    cursor: pointer;
+}
+
+.grupo-indicador-selected{
+    color: white !important;
+    background: linear-gradient(90deg, rgba(51,87,243,1) 0%, rgb(41, 72, 152) 100%) !important;
+
+}
+.text-white{
+    color: white !important;
+}
+
+.grupo-indicador-selected:hover{
+
+}
+
+
+.indicador-selected{
+    transition: all .3s;
+    padding: 10px;
+    width: 100%;
+    background: #556eda;
+    color: white;
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.indicador-selected:hover{
+    background: #8c9ad6;
+}
+
+.indicador{
+    transition: all .3s;
+    padding: 10px;
+    width: 100%;
+    background: #d5d7dc;
+    color: rgb(34, 32, 32);
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.indicador:hover{
+    background: #b0b2b5;
+    cursor: pointer;
+
+}
+/* mat-form-field{
+    margin-left: 2rem; margin-right: 2rem; width: 100%
+} */
+
+
+@media (max-width : 490px){
+    .col-12{
+        padding: 0px !important;
+    }
+
+    .card-header{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    .card-title{
+        font-size: small !important;
+    }
+
+    mat-form-field{
+        margin-left: 0rem; margin-right: 0rem;
+    }
+
+    .card-body{
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .cart-chart{
+        margin-bottom: 0px !important;
+    }
+
+    .col-lg-12{
+        padding: 0px;
+    }
+
+    .periodosficha{
+        display: none !important;
+    }
+
+    .periodosfichatitle{
+        margin-bottom: 0px !important;
+    }
+
+    .col-md-8{
+        padding: 0px !important;
+    }
+
+    .grafica-s{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+.card-title{
+    font-size: large;
+}
+
+
+.grupo-indicador{
+    transition: all .3s;
+    color: rgb(54, 52, 52) !important;
+    background: linear-gradient(90deg, rgb(245, 246, 250) 0%, rgb(224, 228, 245) 100%) !important;
+}
+
+.grupo-indicador:hover{
+    color: rgb(103, 99, 99) !important;
+    background: rgb(245, 246, 250) !important;
+    cursor: pointer;
+}
+
+.grupo-indicador-selected{
+    color: white !important;
+    background: linear-gradient(90deg, rgba(51,87,243,1) 0%, rgb(41, 72, 152) 100%) !important;
+
+}
+.text-white{
+    color: white !important;
+}
+
+.grupo-indicador-selected:hover{
+
+}
+
+.indicador-selected{
+    transition: all .3s;
+    padding: 10px;
+    width: 100%;
+    background: #556eda;
+    color: white !important;
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.indicador-selected:hover{
+    background: #8c9ad6;
+}
+
+.indicador{
+    transition: all .3s;
+    padding: 10px;
+    width: 100%;
+    background: #c6c6c6;
+    color: white;
+    margin-bottom: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.indicador:hover{
+    background: #b0b2b5;
+    cursor: pointer;
+
+}
+
+.card-title{
+    font-size: large;
+}
+
+mat-form-field{
+ width: 100%;
+}
+
+.card-body{
+    padding-left: 2rem; padding-right: 2rem
+}
+
+.color-indicador{
+    padding-left: .5rem;
+    padding-right: .5rem;
+    display: inline-block;
+    border-radius: 4px;
+}

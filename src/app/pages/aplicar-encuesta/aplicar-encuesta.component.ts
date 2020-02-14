@@ -42,6 +42,8 @@ export class AplicarEncuestaComponent implements OnInit {
   }
 
   ngOnInit() {
+
+ 
     
    
   }

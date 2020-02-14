@@ -6,15 +6,20 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <button (click)="nuevo()" style="margin-left: 10px;" pTooltip="Nuevo Categoria Pregunta"
-                                    tooltipPosition="top" type="button" class="btn btn-sm text-white"><i
+                                    tooltipPosition="top" type="button" class="btn btn-sm btn-info"><i
                                         class="fa fa-plus"></i> Nuevo</button>
                             </div>
                             <div class="col-md-4">
-                                <div class="ui-inputgroup">
-                                    <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
-                                    <input style="width: 100%" (keyup)="applyFilter($event.target.value)" type="text"
-                                        pInputText placeholder="Buscar Por...">
-                                </div>
+                                    <div class="input-group w-100">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tim-icons icon-zoom-split text-info"></i>
+                                                </div>
+                                            </div>
+                                            <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control"
+                                                placeholder="Buscar por...">
+                                        </div>
+            
                             </div>
                         </div>
                     </div>
@@ -27,9 +32,6 @@
                                                 <div class="row">
                                                     <button pTooltip="Editar Categoria Pregunta" tooltipPosition="top" mat-icon-button (click)="editar(item)">
                                                         <mat-icon class="mat-18 text-info">create</mat-icon>
-                                                    </button>
-                                                    <button pTooltip="Anular Categoria Pregunta" tooltipPosition="top" mat-icon-button>
-                                                        <mat-icon class="mat-18 text-danger">cancel</mat-icon>
                                                     </button>
                                                 </div>
                                             </td>

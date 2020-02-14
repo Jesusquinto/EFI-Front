@@ -2,16 +2,19 @@
     color: white !important;
 }
 
-.primer-indicador{
+.indicador-selected{
     transition: all .3s;
-    background: #3b54ac;
+    background: #3b54ac !important;
 }
 
-.primer-indicador:hover{
-    background: #13182d;
+.indicador:hover{
     cursor: pointer;
 }
+
 
 .text-white{
     color: white !important;
 }
+
+
+

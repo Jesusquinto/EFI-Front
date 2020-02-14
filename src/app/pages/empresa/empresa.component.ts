@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
 import { AppService } from 'src/app/services/app.service';
 import { EmpresaFormComponent } from './empresa-form/empresa-form.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-empresa',
@@ -16,8 +17,8 @@ export class EmpresaComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  public displayedColumns: string[] = ['acciones',
-  'nombre', 'nit', 'telefono', 'direccion', 'orden', 'contactoNombre', 'contactoTelefono', 'contactoEmail', 'contactoCargo'];
+  public displayedColumns: string[] = ['acciones', 'entidad', 'nombre', 'nit', 'telefono', 'direccion',
+  'orden', 'contactoNombre', 'contactoTelefono', 'contactoEmail', 'contactoCargo', 'estado'];
   public dataSource: any;
   public itemSelected: any;
 
@@ -55,9 +56,35 @@ export class EmpresaComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(EmpresaFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', disableClose: true, backdropClass: 'dark',
+      width: '80%', height: 'auto', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getEmpresas()}});
+  }
+
+  public setEstado(data: any) {
+    Swal.fire({
+      title: 'Advertencia',
+      text: 'Estas seguro de que quiere cambiar el estado?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Crear',
+      confirmButtonClass: 'btn btn-info',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.appService.openSpinner();
+        this.appService.put('empresa/estado', data).subscribe(
+          (r: any) => {
+            console.log(r),
+            this.appService.closeSpinner();
+            this.getEmpresas();
+          }, error => {
+            this.appService.closeSpinner();
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
   }
 
 }

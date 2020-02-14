@@ -1,0 +1,74 @@
+<div fxLayout="row">
+    <form [formGroup]="datos" class="w-100">
+        <div class="form-row">
+            <!-- // Informacion Principal  // -->
+            <div class="col-md-12">
+                <div class="my-2">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="w-100">
+                        <div class="">
+                            <a *ngIf="data.tipoForm == 0" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-plus"></i>&nbsp;&nbsp;Nuevo Reportes</a>
+                            <a *ngIf="data.tipoForm == 1" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;Editar Reportes</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="codigoChipReporte">Codigo Chip Reporte <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Codigo Chip</mat-label>
+                                        <input type="text" name="codigoChipReporte" id="codigoChipReporte"
+                                            formControlName="codigoChipReporte" placeholder="Codigo Chip Reporte" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="tipoReporte">Tipo Reporte <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Tipo Reporte</mat-label>
+                                        <input type="text" name="tipoReporte" id="tipoReporte"
+                                            formControlName="tipoReporte" placeholder="Tipo Reporte" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre Reporte <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Nombre Reporte</mat-label>
+                                        <input type="text" name="nombre" id="nombre" formControlName="nombre"
+                                            placeholder="Nombre Reporte" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-12">
+                                <hr>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button [disabled]="!datos.valid" (click)="submit()" type="button"
+                                        class="btn btn-sm btn-simple btn-info"><i
+                                            [ngClass]="data.tipoForm == 0 ? 'fa fa-save' : 'fa fa-edit'"></i>
+                                        Guardar</button>
+                                    <button (click)="close(0)" type="button" class="btn btn-sm btn-simple btn-info"><i
+                                            class="fa fa-times"></i> Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -4,6 +4,7 @@ import { IndicadoresVariablesComponent } from './indicadores-variables.component
 import { IndicadoresVariablesFormComponent } from './indicadores-variables-form/indicadores-variables-form.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialImports } from 'src/app/imports/material-imports.import';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 export const routes: Routes = [
   { path: '', component: IndicadoresVariablesComponent, pathMatch: 'full' }
@@ -17,9 +18,10 @@ export const routes: Routes = [
   imports: [
     CommonModule,
     MaterialImports,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ColorPickerModule
   ],
-  entryComponents:[
+  entryComponents:[ 
     IndicadoresVariablesFormComponent
   ]
 })

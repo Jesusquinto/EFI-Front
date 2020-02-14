@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material';
 import { AppService } from 'src/app/services/app.service';
 import { PreguntasFormComponent } from './preguntas-form/preguntas-form.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-preguntas',
@@ -16,7 +17,7 @@ export class PreguntasComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  public displayedColumns: string[] = [ 'responsable', 'descripcion', 'referencia', 'periodo', 'grupo', 'categoria'];
+  public displayedColumns: string[] = [ 'acciones','responsable', 'descripcion', 'referencia', 'periodo', 'grupo', 'categoria', 'estado'];
   public dataSource: any;
   public itemSelected: any;
   public desc1: number;
@@ -33,7 +34,7 @@ export class PreguntasComponent implements OnInit {
 
   public getPreguntass() {
     this.appService.openSpinner();
-    this.appService.get('preguntas/native').subscribe(
+    this.appService.get('preguntas').subscribe(
       (data: any) => {
         console.log(data);
         this.dataSource = new MatTableDataSource<any>(data);
@@ -46,7 +47,7 @@ export class PreguntasComponent implements OnInit {
   }
 
   mouseEnter(e) {
-    this.desc1 = e[0];
+    this.desc1 = e.id;
   }
 
   mouseLeave(e){
@@ -54,7 +55,7 @@ export class PreguntasComponent implements OnInit {
   }
 
   mouseEnter2(e) {
-    this.desc2 = e[0];
+    this.desc2 = e.id;
   }
 
   mouseLeave2(e){
@@ -62,7 +63,7 @@ export class PreguntasComponent implements OnInit {
   }
 
   mouseEnter3(e) {
-    this.desc3 = e[0];
+    this.desc3 = e.id;
   }
 
   mouseLeave3(e){
@@ -81,9 +82,37 @@ export class PreguntasComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(PreguntasFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', disableClose: true, backdropClass: 'dark',
+      width: '90%', height: '80%', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getPreguntass()}});
   }
 
+  public setEstado(data: any) {
+    Swal.fire({
+      title: 'Advertencia',
+      text: 'Estas seguro de que quiere cambiar el estado?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Editar',
+      confirmButtonClass: 'btn btn-info',
+      cancelButtonText: 'No, Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.appService.openSpinner();
+        this.appService.put('preguntas/estado', data).subscribe(
+          (data: any) => {
+            this.appService.closeSpinner();
+            Swal.fire({
+              type: 'success', text: 'El estado de la Pregunta #: ' + data.id + 'sido Editado!',
+              timer: 3000, showConfirmButton: false
+            });
+            this.getPreguntass();
+          },error => {
+            this.appService.closeSpinner();
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }
 }

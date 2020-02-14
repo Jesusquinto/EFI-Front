@@ -23,6 +23,7 @@
 
 }
 
+
 .indicador-selected{
     transition: all .3s;
     padding: 10px;
@@ -58,4 +59,60 @@
     cursor: pointer;
 
 }
+/* mat-form-field{
+    margin-left: 2rem; margin-right: 2rem; width: 100%
+} */
 
+
+@media (max-width : 490px){
+    .col-12{
+        padding: 0px !important;
+    }
+
+    .card-header{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    .card-title{
+        font-size: small !important;
+    }
+
+    mat-form-field{
+        margin-left: 0rem; margin-right: 0rem;
+    }
+
+    .card-body{
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .cart-chart{
+        margin-bottom: 0px !important;
+    }
+
+    .col-lg-12{
+        padding: 0px;
+    }
+
+    .periodosficha{
+        display: none !important;
+    }
+
+    .periodosfichatitle{
+        margin-bottom: 0px !important;
+    }
+
+    .col-md-8{
+        padding: 0px !important;
+    }
+
+    .grafica-s{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+.card-title{
+    font-size: large;
+}

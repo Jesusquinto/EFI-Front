@@ -38,7 +38,14 @@
               <img alt="Profile Photo" src="assets/img/default-avatar.png" />
             </div>
             <b class=" caret d-none d-lg-block d-xl-block"> </b>
-            <p class=" d-lg-none">Log out</p>
+            <p class=" d-lg-none">
+          
+                  <button type="button" class="btn " [ngClass]="{'btn-success': rol == 'user', 'btn-warning': rol == 'admin' }" >{{username}}</button>
+                
+
+
+
+            </p>
           </a>
           <ul class=" dropdown-navbar" ngbDropdownMenu>
           

@@ -13,6 +13,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ["./navbar.component.css"]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+
+  public username: string;
+  public rol: string;
+
   private listTitles: any[];
   location: Location;
   mobile_menu_visible: any = 0;
@@ -45,6 +49,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
      }
    };
   ngOnInit() {
+
+
+    this.username = this.usuario.obtenerDatosUser().nombre.concat(' ').concat(this.usuario.obtenerDatosUser().apellido);
+    switch (this.usuario.obtenerDatosToken(sessionStorage.getItem('token')).roles[0].nombre) {
+      case 'ROLE_ADMIN':
+        this.rol = 'admin';
+        break;
+      case 'ROLE_USER':
+        this.rol = 'user';
+        break;
+    }
+
+
     window.addEventListener("resize", this.updateColor);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;

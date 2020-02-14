@@ -15,7 +15,7 @@ declare interface RouteInfo {
 export const ROUTESUSER: RouteInfo[] = [
   {
     path: '/panel',
-    title: 'Dashboard',
+    title: 'Inicio',
     icon: 'icon-components',
     class: '',
 
@@ -48,13 +48,36 @@ export const ROUTESUSER: RouteInfo[] = [
     class: "",
   
   },
+
+  {
+    path: "/user-alertas",
+    title: "Alertas",
+    icon: "icon-bell-55",
+    class: "",
+  
+  },
+
+  {
+    path: "/calidad",
+    title: "Calidad FUT",
+    icon: "icon-sound-wave",
+    class: "",
+  
+  },
+  {
+    path: '/tendencias',
+    title: 'Tendencias',
+    icon: 'icon-chart-pie-36',
+    class: '',
+
+  },
  ];
 
 
 export const ROUTESADMIN: RouteInfo[] = [
   {
     path: '/dashboard',
-    title: 'Dashboard',
+    title: 'Inicio',
     icon: 'icon-components',
     class: '',
 
@@ -80,6 +103,18 @@ export const ROUTESADMIN: RouteInfo[] = [
     class: '',
     showSubrutas: false,
     subrutas: [
+      {
+        path: '/calendario',
+        title: 'Calendario',
+        icon: 'icon-single-02',
+        class: ''
+      },
+      {
+        path: '/categorias',
+        title: 'Categorias',
+        icon: 'icon-single-02',
+        class: ''
+      },
       {
         path: '/indicadores-tipo',
         title: 'Tipo Indicador',
@@ -117,8 +152,8 @@ export const ROUTESADMIN: RouteInfo[] = [
         class: ''
       },
       {
-        path: '/municipios',
-        title: 'Municipios',
+        path: '/reportes',
+        title: 'Reportes',
         icon: 'icon-single-02',
         class: ''
       },
@@ -200,6 +235,8 @@ export class SidebarComponent implements OnInit {
   constructor(private usuario: AuthService) { }
 
   ngOnInit() {
+
+    this.isMobileMenu();
 
     this.username = this.usuario.obtenerDatosUser().nombre.concat(' ').concat(this.usuario.obtenerDatosUser().apellido);
 

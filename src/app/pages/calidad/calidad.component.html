@@ -1,0 +1,236 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-12">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <div class=" row">
+            <div class=" col-sm-4 text-left">
+              <h5 class=" card-category">Seleccionar Departamento</h5>
+              <h2 class=" card-title">Calidad FUT</h2>
+            </div>
+
+            <div class=" col-sm-8">
+              <div
+                class=" btn-group btn-group-toggle float-right"
+                style="margin-right: 3rem; margin-top: 1rem;"
+              >
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                    >
+                      <mat-select
+                        [(ngModel)]="departamento"
+                        placeholder="Seleccionar Departamentos"
+                        (selectionChange)="setDepartamento($event)"
+                      >
+                        <mat-option>
+                          <ngx-mat-select-search
+                            [(ngModel)]="departamentoFilterCtrl"
+                            [placeholderLabel]="'Buscar departamento...'"
+                            [noEntriesFoundLabel]="
+                              'no se encontró el departamento'
+                            "
+                          ></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option
+                          *ngFor="
+                            let departamento of departamentos
+                              | searchPipe: { entidad: departamentoFilterCtrl }
+                          "
+                          [value]="departamento"
+                        >
+                          {{ departamento.entidad }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-2">
+                    <mat-form-field
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                    >
+                      <mat-select
+                        [(ngModel)]="year"
+                        placeholder="Seleccionar Año"
+                        (selectionChange)="setYear($event)"
+                      >
+                        <mat-option>
+                          <ngx-mat-select-search
+                            [(ngModel)]="yearFilterCtrl"
+                            [placeholderLabel]="'Buscar años...'"
+                            [noEntriesFoundLabel]="'no se encontró el Año'"
+                          ></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option
+                          *ngFor="
+                            let year of years | UniqueSearch: yearFilterCtrl
+                          "
+                          [value]="year"
+                        >
+                          {{ year }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <mat-form-field
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                    >
+                      <mat-select
+                        [(ngModel)]="periodo"
+                        placeholder="Seleccionar Periodo"
+                        (selectionChange)="setPeriodo($event)"
+                      >
+                        <mat-option>
+                          <ngx-mat-select-search
+                            [(ngModel)]="periodoFilterCtrl"
+                            [placeholderLabel]="'Buscar periodo...'"
+                            [noEntriesFoundLabel]="'no se encontró el peridodo'"
+                          ></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option
+                          *ngFor="
+                            let periodo of periodos 
+                              | searchPipe: { nombre: periodoFilterCtrl }
+                          "
+                          [value]="periodo.valor"
+                        > 
+                          {{periodo.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <button
+                      type="button"
+                      class="btn btn-info"
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100% "
+                    (click)="getCalidadFut()">
+                      Consultar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+          <div class="row">
+    
+
+            <div class="col-md-12">
+              <div class=" card card-chart" style="background: #f7f7f7;">
+                <div class=" card-header">
+                  <div class=" row">
+                    <div class=" col-sm-6 text-left">
+                      <h5 class=" card-category">FUT</h5>
+                      <h2 class=" card-title">indicador calidad</h2>
+
+
+
+
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class=" card-body"
+                  style="padding-left: 2rem; padding-right: 2rem"
+                >
+                <div class="table-responsive">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr *ngIf="data?.length > 0">
+                        <th style="font-size: large;" >Municipio</th>
+
+                        <th style="font-size: large;" >Cobertura</th>
+                        <th style="font-size: large;" ></th>
+
+                        <th style="font-size: large;" >Oportunidad</th>
+                        <th style="font-size: large;" ></th>
+
+                        <th style="font-size: large;" >Calidad</th>
+                        <th style="font-size: large;" ></th>
+
+                        <th style="font-size: large;" >FUT</th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <tr *ngFor ="let a of data">
+
+                        <td class="municipio" style="color: #606060 !important;"> 
+                          <button class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="CodigoChip {{a[3]}}" container="body" >
+                            <i class="tim-icons icon-bank" style="font-size: 1.5rem; color: #606060;" ></i>
+                          </button>
+                          
+                          {{a[8]}} 
+                        
+                        </td>
+
+
+
+                        <td style="text-align: center;">                          
+                           {{a[4]}} 
+                      </td>
+                      <td style="text-align: center; font-size: x-large; color: #33477d !important;">+</td>
+
+                      <td style="text-align: center; ">                          
+                          {{a[5]}} 
+                     </td>
+                     <td style="text-align: center; font-size: x-large; color: #33477d !important;">+</td>
+                     <td style="text-align: center;">                          
+                        {{a[6]}} 
+                   </td>
+                   <td style="text-align: center; font-size: x-large; color: #33477d !important;">=</td>
+                   <td style="text-align: center; font-size: large; color: #337d3c !important;">                          
+                      {{a[7]}} 
+                 </td>
+
+                      </tr>
+
+
+
+
+         
+                    </tbody>
+                  </table>
+
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+
+      <div class="col-12" *ngIf="calidad.length == 0">
+           <div class=" card card-chart">
+        <div class=" card-header">
+          <div class=" row">
+            <div class=" col-12 text-center">
+              <h5 class=" card-category">Filtre para encontrar datos</h5>
+              <h2 class=" card-title">No se encontraron reportes</h2>
+            </div>
+            </div>
+            </div>
+            </div>
+
+      </div>
+
+
+
+
+
+  </div>
+</div>
+
+
+

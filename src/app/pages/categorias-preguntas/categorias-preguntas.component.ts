@@ -54,7 +54,7 @@ export class CategoriasPreguntasComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(CategoriasPreguntasFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', minWidth: '35%', disableClose: true, backdropClass: 'dark',
+      width: 'auto', height: 'auto', minWidth: '35%', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) {this.getCategoriasPreguntass()}});
   }

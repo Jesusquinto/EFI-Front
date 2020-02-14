@@ -1,0 +1,202 @@
+.encuesta{
+    transition: all .3s;
+    background: rgb(248, 248, 248) !important
+}
+.encuesta:hover{
+    cursor: pointer;
+    background: rgb(240, 240, 240) !important
+}
+
+
+.contenedor-tabla{
+  width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    box-shadow: none;
+  
+}
+
+table {
+    width: 100%;
+  }
+  
+  tr {
+    height: 0;
+  }
+  
+  tr:hover {
+    background: rgb(190, 190, 190);
+  }
+  
+  tr:active {
+    background: #efefef;
+  }
+  
+  td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  .fila:hover{
+    background: rgb(238, 238, 238);
+    cursor: pointer;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+
+  
+  .respuestas-title-2{
+    font-size: 1.30rem;
+  }
+
+  
+
+  @media screen and (max-width: 1400px) {
+
+    .respuestas-title-1{
+      display: none;
+    }
+
+    .respuestas-title-2{
+      font-size: inherit !important;
+      margin-top: 3rem;
+    }
+
+    .mat-table {
+      border: 0;
+      vertical-align: middle
+    }
+  
+    .mat-table caption {
+      font-size: 1em;
+    }
+    
+    /*  Enable this to hide header
+    .mat-table .mat-header-cell {
+      
+      border: 10px solid;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    */
+    .mat-table .mat-row {
+      display: block;
+      background: #f2f2f2;
+      padding: 2rem;
+      min-height: 0rem;
+      border-radius: 7px;
+      margin-bottom: 1rem;
+      border-bottom: 0.50rem solid;
+    }
+    /*
+    .mat-table .mat-row:nth-child(even) {background: #CCC}
+    .mat-table .mat-row:nth-child(odd) {background: #FFF}
+    */
+    .mat-table .mat-cell {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 1em;
+      text-align: right;
+      font-weight: bold;
+      height:30px;
+      margin-bottom: 4%;
+    }
+    .mat-table .mat-cell:before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      text-transform: uppercase;
+      font-weight: normal;
+      
+      font-size: .85em;
+    }
+    .mat-table .mat-cell:last-child {
+      border-bottom: 0;
+    }
+      .mat-table .mat-cell:first-child {
+        background: #e0e0e0;
+        border-radius: 7px;
+        padding: 2rem;
+        padding-top: 1rem;
+        font-size: medium;
+        font-weight: inherit;
+        color: #3f549c;
+    }
+  }
+
+
+  @media (max-width: 700px){
+    .card-body{
+      padding-left: 1.50rem;
+      padding-right: 1.50rem;
+    }
+
+    .contenedor-tabla{
+      padding: 0px !important;
+    }
+
+    mat-header-row{
+      display: none !important;
+    }
+
+    mat-row{
+      padding: 0px !important;
+      font-size: 12px !important;
+    }
+
+    .mat-column-consecutivo{
+      font-size: .80rem !important;
+    }
+
+    mat-cell{
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    .mat-column-encuesta{
+      font-size: .70rem !important;
+    }
+
+
+  }
+
+
+
+  @media (max-width: 500px){
+    .card-title{
+      font-size: smaller;
+    }
+  }
+
+

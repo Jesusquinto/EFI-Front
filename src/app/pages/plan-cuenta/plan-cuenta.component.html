@@ -2,22 +2,157 @@
     <div class=" row">
         <div class=" col-md-12">
             <div class=" card">
-                <div class=" card-header">
+
+                    <div class=" card-header">
+                            <div class=" row">
+                              <div class=" col-sm-4 text-left">
+                                <h5 class=" card-category">Seleccionar Plan cuentas</h5>
+                                <h2 class=" card-title">Plan cuentas</h2>
+                                <button (click)="nuevo()" style="margin-left: 10px;" pTooltip="Nuevo Plan Cuenta"
+                                tooltipPosition="top" type="button" class="btn btn-sm btn-info"><i
+                                    class="fa fa-plus"></i> Nuevo</button>
+                              </div>
+                  
+                              <div class=" col-sm-8">
+                                <div
+                                  class=" btn-group btn-group-toggle float-right"
+                                  style="margin-right: 3rem; margin-top: 1rem;"
+                                >
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <mat-form-field
+                                        style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                                      >
+                                        <mat-select
+                                          [(ngModel)]="tipoPlan"
+                                          placeholder="Seleccionar Tipo plan"
+                                        >
+                                          <mat-option>
+                                            <ngx-mat-select-search
+                                              [(ngModel)]="tipoPlanFilterCtrl"
+                                              [placeholderLabel]="'Buscar Tipo plan...'"
+                                              [noEntriesFoundLabel]="
+                                                'no se encontró el tipo plan'
+                                              "
+                                            ></ngx-mat-select-search>
+                                          </mat-option>
+                                          <mat-option
+                                            *ngFor="
+                                              let tipop of tiposPlan
+                                                | UniqueSearch: tipoPlanFilterCtrl
+                                            "
+                                            [value]="tipop"
+                                          >
+                                            {{ tipop }}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                  
+                                    <div class="col-md-3">
+                                      <mat-form-field
+                                        style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                                      >
+                                        <mat-select
+                                          [(ngModel)]="tipo"
+                                          placeholder="Seleccionar Tipo"
+                                        >
+                                          <mat-option>
+                                            <ngx-mat-select-search
+                                              [(ngModel)]="tipoFilterCtrl"
+                                              [placeholderLabel]="'Buscar tipos...'"
+                                              [noEntriesFoundLabel]="'no se encontró el tipo'"
+                                            ></ngx-mat-select-search>
+                                          </mat-option>
+                                          <mat-option
+                                            *ngFor="
+                                              let tipo of tipos | UniqueSearch: tipoFilterCtrl
+                                            "
+                                            [value]="tipo"
+                                          >
+                                            {{ tipo }}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                  
+                                    <div class="col-md-3">
+                                      <mat-form-field
+                                        style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                                      >
+                                        <mat-select
+                                          [(ngModel)]="tipoEntidad"
+                                          placeholder="Seleccionar tipo entidad"
+                                        >
+                                          <mat-option>
+                                            <ngx-mat-select-search
+                                              [(ngModel)]="tipoEntidadFilterCtrl"
+                                              [placeholderLabel]="'Buscar tipo entidad...'"
+                                              [noEntriesFoundLabel]="'no se encontró el peridodo'"
+                                            ></ngx-mat-select-search>
+                                          </mat-option>
+                                          <mat-option
+                                            *ngFor="
+                                              let tipoe of tiposEntidad 
+                                                | UniqueSearch:  tipoEntidadFilterCtrl 
+                                            "
+                                            [value]="tipoe"
+                                          > 
+                                            {{tipoe}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                  
+                                    <div class="col-md-3">
+                                      <button
+                                        type="button"
+                                        class="btn btn-info"
+                                        style="margin-left: 2rem; margin-right: 2rem; width: 100% "
+                                      (click)="getPlanCuentas()">
+                                        Consultar
+                                      </button>
+                                    </div>
+                                    <div class="col-md-12" *ngIf="dataSource">
+                                            <div class="input-group w-50 float-right">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="tim-icons icon-zoom-split text-info"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control"
+                                                        placeholder="Buscar por...">
+                                            </div>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+              <!--   <div class=" card-header">
                     <div class="row">
                         <div class="col-md-8">
                             <button (click)="nuevo()" style="margin-left: 10px;" pTooltip="Nuevo Plan Cuenta"
-                                tooltipPosition="top" type="button" class="btn btn-sm text-white"><i
+                                tooltipPosition="top" type="button" class="btn btn-sm btn-info"><i
                                     class="fa fa-plus"></i> Nuevo</button>
                         </div>
                         <div class="col-md-4">
-                            <div class="ui-inputgroup">
-                                <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
-                                <input style="width: 100%" (keyup)="applyFilter($event.target.value)" type="text"
-                                    pInputText placeholder="Buscar Por...">
+                            <div class="input-group w-100">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tim-icons icon-zoom-split text-info"></i>
+                                        </div>
+                                    </div>
+                                    <input (keyup)="applyFilter($event.target.value)" type="text" class="form-control"
+                                        placeholder="Buscar por...">
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="card-body">
                     <div class="">
                         <table mat-table [dataSource]="dataSource" matSort class="w-100">
@@ -25,12 +160,23 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                                 <td mat-cell *matCellDef="let item">
                                     <div class="row">
-                                        <button pTooltip="Editar Plan de Cuenta" tooltipPosition="top" mat-icon-button (click)="editar(item)">
-                                            <mat-icon class="mat-18 text-info">create</mat-icon>
+
+                                        <button (click)="editar(item)" pTooltip="Editar Tipo Indicador"
+                                            tooltipPosition="top" type="button" rel="tooltip"
+                                            class="btn btn-info btn-link btn-icon btn-sm">
+                                            <i class="tim-icons icon-pencil"></i>
                                         </button>
-                                        <button pTooltip="Anular Plan de Cuenta" tooltipPosition="top" mat-icon-button>
-                                            <mat-icon class="mat-18 text-danger">cancel</mat-icon>
+                                        <button *ngIf="item.estado == 1" (click)="setEstado(item)"
+                                            pTooltip="Anular Tipo Indicador" tooltipPosition="top" type="button"
+                                            rel="tooltip" class="btn btn-link btn-icon btn-sm text-danger">
+                                            <i class="tim-icons icon-simple-remove"></i>
                                         </button>
+                                        <button *ngIf="item.estado == 0" (click)="setEstado(item)"
+                                            pTooltip="Habilitar Tipo Indicador" tooltipPosition="top" type="button"
+                                            rel="tooltip" class="btn btn-link btn-icon btn-sm text-warning">
+                                            <i class="tim-icons icon-refresh-01"></i>
+                                        </button>
+
                                     </div>
                                 </td>
                             </ng-container>
@@ -68,9 +214,9 @@
                             <ng-container matColumnDef="estado">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
                                 <td mat-cell *matCellDef="let item">
-                                    <span *ngIf="item.estado == 'A         '" class="badge bg-success text-white"><i
+                                    <span *ngIf="item.estado == 1" class="badge bg-success text-white"><i
                                             class="fa fa-check-circle"></i> Activo</span>
-                                    <span *ngIf="item.estado == 'I         '" class="badge bg-danger text-white"><i
+                                    <span *ngIf="item.estado == 0" class="badge bg-danger text-white"><i
                                             class="fa fa-ban"></i> Inactivo</span>
                                 </td>
                             </ng-container>

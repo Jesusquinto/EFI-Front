@@ -1,8 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { AppService } from 'src/app/services/app.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import Swal from 'sweetalert2';
+declare var $: any;
 
 @Component({
   selector: 'app-empresa-form',
@@ -12,6 +16,13 @@ import { AppService } from 'src/app/services/app.service';
 export class EmpresaFormComponent implements OnInit {
 
   public datos: FormGroup;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  public displayedColumns: string[] = ['acciones', 'entidad', 'nit', 'correo', 'direccion', 'telefonos',
+    'departamento', 'ciudad', 'estado'];
+  public dataSource: any;
+  public itemSelected: any;
+  public display = false;
 
   constructor(
 
@@ -21,12 +32,21 @@ export class EmpresaFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     private appService: AppService) {
     this.datos = this.formBuilder.group({
-      codigoBanco: ['', Validators.required],
-      codigoCta: ['', Validators.required],
-      nombreCuenta: ['', Validators.required],
-      tercero: ['', Validators.required],
-      tipoCuenta: ['', Validators.required],
-      cuentaNro: ['', Validators.required],
+      id: [0, Validators.required],
+      nombre: ['', Validators.required],
+      nit: ['', Validators.required],
+      orden: ['', Validators.required],
+      licencia: ['', Validators.required],
+      telefono: ['', Validators.required],
+      direccion: ['', Validators.required],
+      logo: ['none.jpg', Validators.required],
+      contactoNombre: ['', Validators.required],
+      contactoTelefono: ['', Validators.required],
+      contactoEmail: ['', Validators.required],
+      contactoCargo: ['', Validators.required],
+      fkEntidad: ['', Validators.required],
+      nombreEntidad: ['', Validators.required],
+      estado: [1, Validators.required]
     });
   }
 
@@ -46,32 +66,39 @@ export class EmpresaFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.data.tipoForm == 1) {
-      console.log(this.data.data);
+    if (this.data.tipoForm === 1) {
       this.datos.patchValue({
-        codigoBanco: this.data.data.codigoBanco,
-        codigoCta: this.data.data.codigoCta,
-        nombreCuenta: this.data.data.nombreCuenta,
-        tercero: String(this.data.data.tercero),
-        tipoCuenta: this.data.data.tipoCuenta,
-        cuentaNro: this.data.data.cbancoCuentaPK.cuentaNro
+        ...this.data.data,
+        fkEntidad: this.data.data.fkEntidad.idEntidad,
+        nombreEntidad: this.data.data.fkEntidad.entidad
       });
     }
+    this.getEntidadess();
+  }
+
+  public getEntidadess() {
+    this.appService.openSpinner();
+    this.appService.get('entidades').subscribe(
+      (data: any) => {
+        console.log(data);
+        this.dataSource = new MatTableDataSource<any>(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.appService.closeSpinner();
+      },
+      error => { this.appService.closeSpinner(); }
+    );
+  }
+
+  public applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) { this.dataSource.paginator.firstPage() }
   }
 
   public setCuenta() {
     if (this.datos.valid) {
-      const datos = this.datos.value;
       return {
-        "codigoBanco": datos.codigoBanco,
-        "codigoCta": datos.codigoCta,
-        "nombreCuenta": datos.nombreCuenta,
-        "tercero": parseInt(datos.tercero),
-        "tipoCuenta": datos.tipoCuenta,
-        "cbancoCuentaPK": {
-          "codigoEntidad": "1",
-          "cuentaNro": datos.cuentaNro
-        }
+        ...this.datos.value
       }
     }
   }
@@ -80,22 +107,27 @@ export class EmpresaFormComponent implements OnInit {
     if (this.datos.valid) {
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere crear la Cuenta?',
+        text: 'Estas seguro de que quiere crear la Empresa?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Crear',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.post('cbancocuenta/new', this.setCuenta()).subscribe(
+          this.appService.post('empresa', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
-              this.close(1)
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'La Empresa '
+                + String(data.nombre).toUpperCase() + 'ha sido Creada!',
+                showConfirmButton: false, timer: 3000
+               });
+              this.close(1);
             }, error => {
-              console.log(error)
-              this.appService.closeSpinner()
+              this.appService.closeSpinner();
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -108,21 +140,26 @@ export class EmpresaFormComponent implements OnInit {
     if (this.datos.valid) {
       Swal.fire({
         title: 'Advertencia',
-        text: 'Estas seguro de que quiere editar la Cuenta?',
+        text: 'Estas seguro de que quiere editar la Empresa?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.put('cbancocuenta/edit', this.setCuenta()).subscribe(
+          this.appService.put('empresa', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
-              this.close(1)
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'La Empresa '
+                + String(data.nombre).toUpperCase() + 'ha sido Editada!',
+                showConfirmButton: false, timer: 3000
+               });
+              this.close(1);
             }, error => {
-              console.log(error),
                 this.appService.closeSpinner();
             }
           );
@@ -150,6 +187,22 @@ export class EmpresaFormComponent implements OnInit {
 
   public close(tipo: number): void {
     this.dialogRef.close(tipo);
+  }
+
+  public openTable() {
+    this.display = true;
+  }
+
+  public closeTable() {
+    this.display = false;
+  }
+
+  public selectEntidad(item: any) {
+    this.datos.patchValue({
+      fkEntidad: item.idEntidad,
+      nombreEntidad: item.entidad
+    });
+    this.closeTable();
   }
 
 }

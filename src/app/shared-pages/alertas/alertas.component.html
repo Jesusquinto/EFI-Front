@@ -1,81 +1,403 @@
-
 <div class=" content">
-    <div class=" row">
-     <div class=" col-12">
-       <div class=" card card-chart">
-         <div class=" card-header">
-           <div class=" row">
-             <div class=" col-sm-6 text-left">
-               <h5 class=" card-category" >Seleccionar Departamento</h5>
-               <h2 class=" card-title" >Alertas</h2>
+  <div class=" row">
+    <div class=" col-12">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <div class=" row">
+            <div class=" col-sm-4 text-left">
+              <h5 class=" card-category">Seleccionar Departamento</h5>
+              <h2 class=" card-title">Alertas</h2>
+            </div>
 
-
-             </div>
-
-
-
-             <div class=" col-sm-6">
-               <div class=" btn-group btn-group-toggle float-right" >
+            <div class=" col-sm-8">
+              <div
+                class=" btn-group btn-group-toggle float-right"
+                style="margin-right: 3rem; margin-top: 1rem;"
+              >
                 <div class="row">
-                  
                   <div class="col-md-4">
-                      <mat-form-field >
-                          <mat-select [(ngModel)]="departamento" placeholder="Seleccionar Departamentos" (selectionChange)="setDepartamento()" >
-                            <mat-option>
-                              <ngx-mat-select-search [(ngModel)]="departamentoFilterCtrl" [placeholderLabel]="'Buscar departamento...'"
-                              [noEntriesFoundLabel]="'no se encontró el departamento'"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let departamento of departamentos | searchPipe:{entidad: departamentoFilterCtrl} " [value]="departamento">
-                              {{departamento.entidad}}
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field>  
+                    <mat-form-field
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                    >
+                      <mat-select
+                        [(ngModel)]="departamento"
+                        placeholder="Seleccionar Departamentos"
+                        (selectionChange)="setDepartamento($event)"
+                      >
+                        <mat-option>
+                          <ngx-mat-select-search
+                            [(ngModel)]="departamentoFilterCtrl"
+                            [placeholderLabel]="'Buscar departamento...'"
+                            [noEntriesFoundLabel]="
+                              'no se encontró el departamento'
+                            "
+                          ></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option
+                          *ngFor="
+                            let departamento of departamentos
+                              | searchPipe: { entidad: departamentoFilterCtrl }
+                          "
+                          [value]="departamento"
+                        >
+                          {{ departamento.entidad }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
 
-                  <div class="col-md-4">
-                      <mat-form-field style="margin-left: 2rem; margin-right: 2rem; width: 100%">
-                          <mat-select [(ngModel)]="periodo" placeholder="Seleccionar Periodo" (selectionChange)="setPeriodo()" >
-                            <mat-option>
-                              <ngx-mat-select-search [(ngModel)]="periodoFilterCtrl" [placeholderLabel]="'Buscar periodo...'"
-                              [noEntriesFoundLabel]="'no se encontró el peridodo'"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let periodo of periodos | searchPipe:{periodo: periodoFilterCtrl} " [value]="periodo">
-                              {{periodo}}
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field> 
+                  <div class="col-md-2">
+                    <mat-form-field
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                    >
+                      <mat-select
+                        [(ngModel)]="year"
+                        placeholder="Seleccionar Año"
+                        (selectionChange)="setYear($event)"
+                      >
+                        <mat-option>
+                          <ngx-mat-select-search
+                            [(ngModel)]="yearFilterCtrl"
+                            [placeholderLabel]="'Buscar años...'"
+                            [noEntriesFoundLabel]="'no se encontró el Año'"
+                          ></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option
+                          *ngFor="
+                            let year of years | UniqueSearch: yearFilterCtrl
+                          "
+                          [value]="year"
+                        >
+                          {{ year }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
 
-                  <div class="col-md-4"></div>
+                  <div class="col-md-3">
+                    <mat-form-field
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100%"
+                    >
+                      <mat-select
+                        [(ngModel)]="periodo"
+                        placeholder="Seleccionar Periodo"
+                        (selectionChange)="setPeriodo($event)"
+                      >
+                        <mat-option>
+                          <ngx-mat-select-search
+                            [(ngModel)]="periodoFilterCtrl"
+                            [placeholderLabel]="'Buscar periodo...'"
+                            [noEntriesFoundLabel]="'no se encontró el peridodo'"
+                          ></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option
+                          *ngFor="
+                            let periodo of periodos
+                              | searchPipe: { nombre: periodoFilterCtrl }
+                          "
+                          [value]="periodo.valor"
+                        >
+                          {{ periodo.nombre }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <button
+                      type="button"
+                      class="btn btn-info"
+                      style="margin-left: 2rem; margin-right: 2rem; width: 100% "
+                      (click)="getAlertas()"
+                    >
+                      Consultar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+          <div class="row">
+            <!--      <div class="col-md-4">
+              <div class=" card card-chart" style="background: #f7f7f7;">
+                <div class=" card-header">
+                  <div class=" row">
+                    <div class=" col-sm-6 text-left">
+                      <h5 class=" card-category">Lista de municipios</h5>
+                      <h2 class=" card-title">Municipios</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class=" card-body"
+                  style="padding-left: 2rem; padding-right: 2rem">
+            
+                      <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Municipio</th>
+
+                        <th></th>
+                      
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let a of alertas">
+                        <td style="font-size: 1.4rem;font-weight: 200;">{{a.entidad}}</td>
+                        <td><button class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="Ver datos del reporte" container="body" (click)="verDatos(a)">
+                            <i class="tim-icons icon-zoom-split" style="font-size: 1.5rem;" ></i>
+                          </button>  </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
 
 
                 </div>
+              </div>
+            </div> -->
 
-               
+            <div class="col-md-12">
+              <div class=" card card-chart" style="background: #f7f7f7;">
+                <div class=" card-header">
+                  <div class=" row">
+                    <div class=" col-sm-6 text-left">
+                      <h5 class=" card-category">Reportes chip</h5>
+                      <h2 class=" card-title">Reportes</h2>
 
-                                 
-               </div>
-             </div>
+                      <h5 class="card-category">
+                        <div
+                          class="alert-green mr-2"
+                          placement="left"
+                          ngbTooltip="Está al día"
+                          container="body"
+                          style="display: inline-block;"
+                        ></div>
+                        Está al día
+                        <p style="display: inline-block;" class="ml-2 mr-2">
+                          |
+                        </p>
+                        <div
+                          class="alert-red mr-2"
+                          placement="left"
+                          ngbTooltip="No está al día"
+                          container="body"
+                          style="display: inline-block;"
+                        ></div>
+                        no está al día
+                        <p style="display: inline-block;" class="ml-2 mr-2">
+                          |
+                        </p>
+                        <div
+                          class="alert-gray mr-2"
+                          placement="left"
+                          ngbTooltip="No hay datos"
+                          container="body"
+                          style="display: inline-block;"
+                        ></div>
+                        No hay datos
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class=" card-body"
+                  style="padding-left: 2rem; padding-right: 2rem">
+                  <div class="table-responsive">
+
+
+                    <table class="table table-striped">
+                      <thead>
+                        <tr *ngIf="alertas.length > 0">
+                          <th style="font-size: large;">Municipio</th>
+
+                          <th
+                            *ngFor="let a of alertas[0]?.alertas"
+                            style="font-size: large;"
+                            placement="left"
+                            ngbTooltip="{{ a.nombreAlerta }}"
+                            container="body">
+                            {{ a.alerta }}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let a of alertas">
+                          <td
+                            class="municipio"
+                            style="color: #606060 !important;"
+                            (click)="verDatos(a)"
+                          >
+                            <button
+                              class=" btn btn-link pb-0"
+                              type="button"
+                              placement="left"
+                              ngbTooltip="Ver datos del reporte"
+                              container="body"
+                            >
+                              <i
+                                class="tim-icons icon-zoom-split"
+                                style="font-size: 1.5rem; color: #606060;"
+                              ></i>
+                            </button>
+
+                            {{ a.entidad }}
+                          </td>
+                          <td
+                            *ngFor="
+                              let i of alertas[0]?.alertas;
+                              let in = index
+                            "
+                          >
+                            <div
+                              *ngIf="
+                                a.alertas[in] != null &&
+                                a.alertas[in].valor == 0
+                              "
+                              class="alert-green"
+                              placement="left"
+                              ngbTooltip="Está al día"
+                              container="body"
+                            ></div>
+                            <div
+                              *ngIf="
+                                a.alertas[in] != null &&
+                                a.alertas[in].valor == 1
+                              "
+                              class="alert-red"
+                              placement="left"
+                              ngbTooltip="Alerta, no está al día"
+                              container="body"
+                            ></div>
+                            <div
+                              *ngIf="a.alertas[in] == null"
+                              class="alert-gray"
+                              placement="left"
+                              ngbTooltip="No hay datos"
+                              container="body"
+                            ></div>
+
+                            <!--    <button *ngIf="i.valor == 1" class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="Alerta, no está al día" container="body">
+                            <i class="tim-icons icon-alert-circle-exc alerta" style="color: rgb(167, 51, 51);"></i>
+                          </button>  
+
+                              <button *ngIf="i.valor == 0" class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="Al día" container="body">
+                            <i class="tim-icons icon-check-2 alerta" style="color: rgb(70, 167, 70);" ></i>
+                          </button>  
+
+                            <button *ngIf="i.valor == null" class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="No existen datos" container="body">
+                            <i class="tim-icons icon-simple-remove alerta" style="color: rgb(70, 104, 167);" ></i>
+                          </button>   -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
 
 
 
-           </div>
-         </div>
-         <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="col-12" *ngIf="alertas.length == 0">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <div class=" row">
+            <div class=" col-12 text-center">
+              <h5 class=" card-category">Filtre para encontrar datos</h5>
+              <h2 class=" card-title">No se encontraron reportes</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    
+<p-dialog
+  [header]="municipioSelected.entidad"
+  [(visible)]="display"
+  [style]="{ overflow: 'hidden' }"
+  *ngIf="municipioSelected"
+  dismissableMask="true"
+  style="overflow: hidden;"
+>
+  <div
+    class="row mb-3"
+    style="padding-left: 2rem; padding-right: 2rem; text-align: center;"
+    *ngIf="data"
+  >
+    <div class="col-3" style="text-align: center;">
+      Cobertura
+      <div
+        style="    background: #334a97;
+    padding: 20px;
+    max-width: 84px;
+    border-radius: 4px;"
+      >
+        {{ data.cobertura }}
+      </div>
+    </div>
 
+    <div class="col-3" style="text-align: center;">
+      Oportunidad
+      <div
+        style="    background: #334a97;
+    padding: 20px;
+    max-width: 84px;
+    border-radius: 4px;"
+      >
+        {{ data.oportunidad }}
+      </div>
+    </div>
 
+    <div class="col-3" style="text-align: center;">
+      Calidad
+      <div
+        style="    background: #334a97;
+    padding: 20px;
+    max-width: 84px;
+    border-radius: 4px;"
+      >
+        {{ data.calidad }}
+      </div>
+    </div>
 
-         </div>
-       </div>
-     </div>
-   </div> 
+    <div class="col-3" style="text-align: center;">
+      FUT
+      <div
+        style="    background: #339759;
+    padding: 20px;
+    max-width: 84px;
+    border-radius: 4px;"
+      >
+        {{ data.indicadorFut }}
+      </div>
+    </div>
+  </div>
 
- 
- 
- </div>
- 
+  <div
+    class="row"
+    *ngIf="!data"
+    style="padding-left: 2rem; padding-right: 2rem; text-align: center;"
+  >
+    <div class=" col-12 text-center">
+      <h5 class=" card-category mb-0" style="color: white;">
+        Ocurrió un problema
+      </h5>
+      <h2 class=" card-title mt-0" style="color: white;">
+        No se encontraron los datos solicitados
+      </h2>
+    </div>
+  </div>
+</p-dialog>

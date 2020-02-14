@@ -30,7 +30,6 @@ export class IndicadoresTipoComponent implements OnInit {
   }
 
   public getEmpresas() {
-    this.appService.openSpinner();
     this.appService.get('indicadorTipo').subscribe(
       (data: any) => {
         console.log(data);
@@ -41,7 +40,7 @@ export class IndicadoresTipoComponent implements OnInit {
       },
       error => {
         this.appService.closeSpinner();
-       }
+      }
     );
   }
 
@@ -57,39 +56,25 @@ export class IndicadoresTipoComponent implements OnInit {
   public openForm(tipoForm: number) {
     const dialogRef = this.dialog.open(IndicadoresTipoFormComponent, {
       data: { tipoForm: tipoForm, data: this.itemSelected },
-      width: 'auto', height: 'auto', minWidth: '30%', disableClose: true, backdropClass: 'dark',
+      width: 'auto', height: 'auto', minWidth: '30%', disableClose: true, backdropClass: 'dark', panelClass: 'box'
     });
     dialogRef.afterClosed().subscribe(result => { if (result === 1) { this.getEmpresas() } });
   }
 
-  public setEstado(data: any) {
-     const info = data;
-     switch (info.estado) {
-       case 1:
-         info.estado = 0;
-         this.update(info);
-         break;
-       case 0:
-         info.estado = 1;
-         this.update(info);
-         break;
-       default:
-         break;
-     }
-  }
 
-  public update(data: any) {
+  public setEstado(data: any) {
     Swal.fire({
       title: 'Advertencia',
       text: 'Estas seguro de que quiere Cambiar el estado?',
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, Cambiar',
+      confirmButtonClass: 'btn btn-info',
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.value) {
         this.appService.openSpinner();
-        this.appService.put('indicadorTipo', data).subscribe(
+        this.appService.put('indicadorTipo/estado', data).subscribe(
           (data: any) => {
             console.log(data),
               this.appService.closeSpinner();

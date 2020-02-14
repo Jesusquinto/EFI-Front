@@ -1,52 +1,44 @@
 <div fxLayout="row">
-    <form [formGroup]="datos" style="height: 100%; width: 100%;">
+    <form [formGroup]="datos" class="w-100">
         <div class="form-row">
             <!-- // Informacion Principal  // -->
-            <div class="col-md-12"
-                style="padding: 15px; border-radius: 6px;">
-                <div class="bg-dark text-white my-2" style="border-radius: 4px;">
+            <div class="col-md-12">
+                <div class="my-2">
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="w-100">
                         <div class="">
-                            <a *ngIf="data.tipoForm == 0" class="text-white my-1" style="margin-left: 10px; font-size: 20px;"><i
-                                    class="fa fa-plus"></i>&nbsp;Nuevo Tipo Indicador</a>
-                            <a *ngIf="data.tipoForm == 1" class="text-white my-1" style="margin-left: 10px; font-size: 20px;"><i
-                                    class="fa fa-edit"></i>&nbsp;Editar Tipo Indicador </a>
+                            <a *ngIf="data.tipoForm == 0" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-plus"></i>&nbsp;&nbsp;Nueva Tipo Indicador</a>
+                            <a *ngIf="data.tipoForm == 1" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;Editar Tipo Indicador</a>
                         </div>
                     </div>
                 </div>
+                <hr>
 
-                <div class="form-row" style="margin-top: 15px;">
+                <div class="form-row">
                     <div class="col-md-12">
+
                         <div class="row">
                             <div class="col-md-12">
-
                                 <div class="form-group">
-                                  <label for="nombre">Nombre Tipo <b class="text-danger">*</b></label>
-                                  <input type="text" formControlName="nombreTipo" name="nombre" id="nombre" class="form-control" placeholder="Nombre Tipo">
+                                    <label for="nombre">Nombre Tipo <b class="text-danger">*</b></label>
+                                    <input type="text" formControlName="nombreTipo" name="nombre" id="nombre"
+                                        class="form-control" placeholder="Nombre Tipo">
                                 </div>
 
+                                <hr>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button [disabled]="!datos.valid" (click)="submit()" type="button"
+                                        class="btn btn-sm btn-simple btn-info"><i
+                                            [ngClass]="data.tipoForm == 0 ? 'fa fa-save' : 'fa fa-edit'"></i>
+                                        Guardar</button>
+                                    <button (click)="close(0)" type="button" class="btn btn-sm btn-simple btn-info"><i
+                                            class="fa fa-times"></i> Cancelar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- // Submit // -->
-                <div class="col-md-12">
-                    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-                        <button [ngClass]="data.tipoForm == 0 ? 'text-success' : 'text-info'" mat-button
-                            class="bg-white" (click)="submit()">
-                            <mat-icon *ngIf="data.tipoForm == 0">save</mat-icon>
-                            <mat-icon *ngIf="data.tipoForm == 1">create</mat-icon>
-                            Guardar
-                        </button>
-
-                        <button mat-button class="bg-white text-danger" (click)="close()">
-                            <mat-icon>cancel</mat-icon> Cancelar
-                        </button>
-                    </div>
-                </div>
-                <br>
-
             </div>
         </div>
     </form>

@@ -1,0 +1,125 @@
+<div fxLayout="row">
+    <form [formGroup]="datos" class="w-100">
+        <div class="form-row">
+            <!-- // Informacion Principal  // -->
+            <div class="col-md-12">
+                <div class="my-2">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="w-100">
+                        <div class="">
+                            <a *ngIf="data.tipoForm == 0" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-plus"></i>&nbsp;&nbsp;Nuevo Calendario</a>
+                            <a *ngIf="data.tipoForm == 1" class="my-2" style="font-size: 18px"><i
+                                    class="fa fa-edit"></i>&nbsp;&nbsp;Editar Calendario</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="nombreGrupo">Codigo Chip <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Codigo Chip</mat-label>
+                                        <input type="text" name="codigoChip" id="codigoChip"
+                                            formControlName="codigoChip" placeholder="Codigo Chip" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="descripcionChip">Descripcion Chip <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Descripcion Chip</mat-label>
+                                        <input type="text" name="descripcionChip" id="descripcionChip"
+                                            formControlName="descripcionChip" placeholder="Descripcion Chip" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="periodo">Periodo <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Periodo</mat-label>
+                                        <input type="text" name="periodo" id="periodo" formControlName="periodo"
+                                            placeholder="Periodo" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="extemporaneo">Extemporaneo <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Extemporaneo</mat-label>
+                                        <input name="extemporaneo" id="extemporaneo" formControlName="extemporaneo"
+                                            placeholder="Fecha Inicio" matInput [matDatepicker]="extemporaneo">
+                                        <mat-datepicker-toggle matSuffix [for]="extemporaneo"></mat-datepicker-toggle>
+                                        <mat-datepicker #extemporaneo></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="oportuno">Oportuno <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Oportuno</mat-label>
+                                        <input name="oportuno" id="oportuno" formControlName="oportuno"
+                                            placeholder="Fecha Final" matInput [matDatepicker]="oportuno">
+                                        <mat-datepicker-toggle matSuffix [for]="oportuno"></mat-datepicker-toggle>
+                                        <mat-datepicker #oportuno></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fechaInicio">Fecha Inicio <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Fecha Inicio</mat-label>
+                                        <input name="fechaInicio" id="fechaInicio" formControlName="fechaInicio"
+                                            placeholder="Fecha Inicio" matInput [matDatepicker]="fechaInicio">
+                                        <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+                                        <mat-datepicker #fechaInicio></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="fechaFinal">Fecha Final <b class="text-danger">*</b></label>
+                                    <mat-form-field style="width: 100%" appearance="outline">
+                                        <mat-label>Fecha Final</mat-label>
+                                        <input name="fechaFinal" id="fechaFinal" formControlName="fechaFinal"
+                                            placeholder="Fecha Final" matInput [matDatepicker]="fechaFinal">
+                                        <mat-datepicker-toggle matSuffix [for]="fechaFinal"></mat-datepicker-toggle>
+                                        <mat-datepicker #fechaFinal></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <hr>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button [disabled]="!datos.valid" (click)="submit()" type="button"
+                                        class="btn btn-sm btn-simple btn-info"><i
+                                            [ngClass]="data.tipoForm == 0 ? 'fa fa-save' : 'fa fa-edit'"></i>
+                                        Guardar</button>
+                                    <button (click)="close(0)" type="button" class="btn btn-sm btn-simple btn-info"><i
+                                            class="fa fa-times"></i> Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

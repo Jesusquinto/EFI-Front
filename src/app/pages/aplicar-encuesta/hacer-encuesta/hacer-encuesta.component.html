@@ -30,7 +30,7 @@
                   <table class=" table">
                     <tbody>
                      
-                      <tr *ngFor="let p of preguntas; let i = index" class="pregunta">
+                      <tr *ngFor="let p of preguntas; let i = index" class="pregunta" [ngClass]="{'pregunta-selected' : encuestasDetalleSelected == i }">
                          
 
 
@@ -57,13 +57,18 @@
 
 
                         <td class=" td-actions text-right">
-                          <button class=" btn btn-link" type="button" placement="left" ngbTooltip="Agregar Observacion" container="body" (click)="selectEncuestaDetalleIndex(i)">
+                          <button class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="Agregar Observación" container="body" (click)="selectEncuestaDetalleIndex(i)">
                             <i class="tim-icons icon-pencil" [ngClass]="{'with-observacion': encuestasDetalle[i].observacion != null && encuestasDetalle[i].observacion != '' }" ></i>
                           </button>  
                           
-                          <button class=" btn btn-link" type="button" placement="left" ngbTooltip="{{p.idPregunta.referencia}}" container="body" >
+                          <button class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="{{p.idPregunta.referencia}}" container="body" >
                             <a class="tim-icons icon-attach-87" href="{{p.idPregunta.referencia}}" target="_blank"></a>
                           </button>  
+
+                           <button *ngIf="p.idPregunta.responsable != 'NA'" class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="Agregar responsable" container="body" (click)="selectEncuestaDetalleIndexResponsable(i)">
+                            <i class="tim-icons icon-single-02" [ngClass]="{'with-responsable': encuestasDetalle[i].idResponsable != null && encuestasDetalle[i].idResponsable != '' }" ></i>
+                          </button>  
+
                         </td>
                       </tr>
                       
@@ -76,10 +81,25 @@
           <div class=" col-lg-4 col-md-12">
             <div class=" card">
               <div class=" card-header">
-                  <h5 class=" card-category" *ngIf="showAddObservacion">pregunta {{preguntas[encuestasDetalleSelected].idPregunta.codigo}} </h5>
-                <h4 class=" card-title" *ngIf="!showAddObservacion">Configurar encuesta</h4>
-                <h4 class=" card-title" *ngIf="showAddObservacion">Agregar Observacion</h4> 
-                
+                  <h5 class=" card-category" *ngIf="estado != 'mostrar-preguntas' && estado != 'agregar-responsable'">pregunta {{preguntas[encuestasDetalleSelected].idPregunta.codigo}} </h5>
+
+                   <div class="row" *ngIf="estado == 'mostrar-preguntas'">
+                      <div class="col-md-6">
+                           <h4 class=" card-title">Configurar encuesta </h4>                        
+                      </div>
+                      <div class="col-md-6 text-right">
+                           <button  class=" btn btn-link pb-0" type="button" placement="left" ngbTooltip="Agregar repsonsable" container="body" (click)="estado = 'agregar-responsable'">
+                            <a class="tim-icons icon-single-02"  target="_blank" style="font-size: 1.4rem;color: #3354dd;"></a>
+                          </button>  
+                      </div>
+                   </div> 
+
+
+                <h4 class=" card-title" *ngIf="estado == 'mostrar-observacion'">Agregar Observacion</h4> 
+                <h4 class=" card-title" *ngIf="estado == 'mostrar-responsable'">Agregar Responsable</h4> 
+                <h4 class=" card-title" *ngIf="estado == 'agregar-responsable'">Crear Responsable</h4> 
+
+
                          
               </div>
               <div class=" card-body">
@@ -87,13 +107,13 @@
 
 
 
-                <div *ngIf="!showAddObservacion" style="width: 80%; margin-left: 2rem; margin-right: 2rem;">
-                    <mat-form-field class="example-full-width " style="margin-left: 2rem; margin-right: 2rem; width: 100%">
+                <div *ngIf="estado == 'mostrar-preguntas'" style=" margin-left: 2rem; margin-right: 2rem;">
+                    <mat-form-field class="example-full-width " style=" width: 100%">
                         <input type="text" matInput placeholder="Digite periodo" [(ngModel)]="periodo">
                         <mat-icon matSuffix>event</mat-icon>
                     </mat-form-field>
   
-                    <mat-form-field style="margin-left: 2rem; margin-right: 2rem; width: 100%">
+                    <mat-form-field style="width: 100%">
                         <mat-select [(ngModel)]="empresaCtrl" placeholder="Seleccionar entidad" #singleSelect>
                           <mat-option>
                             <ngx-mat-select-search [(ngModel)]="empresaFilterCtrl" [placeholderLabel]="'Buscar entidad...'"
@@ -104,38 +124,107 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                    <button *ngIf="tipo == 1" type="button" class="btn btn-info" style="margin-left: 2rem; margin-right: 2rem; width: 100% " (click)="sendEncuestaResultado()">Aplicar encuesta</button>
-                    <button *ngIf="tipo == 2" type="button" class="btn btn-info" style="margin-left: 2rem; margin-right: 2rem; width: 100% " (click)="sendEncuestaResultado()">Editar encuesta</button>
+                    <button *ngIf="tipo == 1" type="button" class="btn btn-info" style=" width: 100% " (click)="sendEncuestaResultado()">Aplicar encuesta</button>
+                    <button *ngIf="tipo == 2" type="button" class="btn btn-info" style=" width: 100% " (click)="sendEncuestaResultado()"> <h6 class="edit-encuesta">Editar encuesta</h6>   <i class="tim-icons icon-pencil edit-encuesta-icon"></i>     </button>
                 </div>
 
 
-                <div *ngIf="showAddObservacion" style="width: 80%; margin-left: 2rem; margin-right: 2rem;">
+                <div *ngIf="estado == 'mostrar-observacion'" style="width: 80%; margin-left: 2rem; margin-right: 2rem;">
                   <mat-form-field class="example-full-width" style="width: 100%;  margin-left: 2rem; margin-right: 2rem; ">
-
                       <textarea matInput placeholder="Observación" [(ngModel)]="observacion"></textarea>
-
-
                   </mat-form-field>
                   <div class="row">
                     <div [ngClass]="{'col-10': encuestasDetalle[encuestasDetalleSelected].observacion != null || encuestasDetalle[encuestasDetalleSelected].observacion != '',
-                                    'col-12': encuestasDetalle[encuestasDetalleSelected].observacion == null || encuestasDetalle[encuestasDetalleSelected].observacion == ''}"> 
-                      
-                    <button type="button" class="btn btn-info" style="margin-left: 2rem; margin-right: 2rem; width: 100%" (click)="setObservacion()">Agregar Observacion</button>
- 
+                                    'col-12': encuestasDetalle[encuestasDetalleSelected].observacion == null || encuestasDetalle[encuestasDetalleSelected].observacion == ''}">                   
+                    <button type="button" class="btn btn-info" style="margin-left: 2rem; margin-right: 2rem; width: 100%" (click)="setObservacion()"><h6 class="add-responsable">Agregar Observacion</h6>   <i class="tim-icons icon-simple-add add-responsable-icon"></i></button>
                    </div>
-
                     <div *ngIf="encuestasDetalle[encuestasDetalleSelected].observacion != null"
                      class="col-2"> <button  class=" btn btn-link" type="button" (click)="eliminarObservacion()" placement="left" ngbTooltip="Eliminar observacion" container="body" >
                         <i class="tim-icons icon-simple-remove"></i>
                       </button> 
                      </div>
-
                   </div>
-
-                  <button type="button" class="btn btn-danger" style="margin-left: 2rem; margin-right: 2rem; width: 100% " (click)="showAddObservacion = false;
+                  <button type="button" class="btn btn-danger" style="margin-left: 2rem; margin-right: 2rem; width: 100% " (click)="estado  = 'mostrar-preguntas';
                   encuestasDetalleSelected = null; observacion = '' ">Cancelar</button>
-
                 </div>
+
+
+                <div *ngIf="estado == 'mostrar-responsable'" >
+
+                      <mat-form-field style="width: 100%">
+                        <mat-select [(ngModel)]="responsableCtrl" placeholder="Seleccionar Responsable">
+                          <mat-option>
+                            <ngx-mat-select-search [(ngModel)]="responsableFilterCtrl" [placeholderLabel]="'Buscar responsable...'"
+                            [noEntriesFoundLabel]="'no se encontró el responsable'"></ngx-mat-select-search>
+                          </mat-option>
+                          <mat-option *ngFor="let responsable of responsables | searchPipe:{nombre: responsableFilterCtrl, identificacion: responsableFilterCtrl, apellido: responsableFilterCtrl} " [value]="responsable">
+                            {{responsable.nombre}} {{responsable.apellido}} - {{responsable.identificacion}} [{{responsable.cargo}}]
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                  <div class="row">
+                    <div class="col-12">                   
+                    <button type="button" class="btn btn-info" style=" width: 100%" (click)="setResponsable()"><h6 class="add-responsable">Agregar responsable</h6>   <i class="tim-icons icon-simple-add add-responsable-icon"></i></button>
+                   </div>
+               
+                  </div>
+                  <button type="button" class="btn btn-danger" style=" width: 100% " (click)="estado  = 'mostrar-preguntas';
+                  encuestasDetalleSelected = null; responsableCtrl = null ">Cancelar</button>
+                </div>
+
+
+
+                  <div *ngIf="estado == 'agregar-responsable'"  [formGroup]="formulario">
+
+                      <mat-form-field class="example-full-width" style="width: 100%;  ">
+                      <input matInput placeholder="Nombre" formControlName="nombre" >
+                          <mat-error ><show-errors [control]="formulario.controls.nombre"></show-errors></mat-error>
+
+                  </mat-form-field>
+
+
+                     <mat-form-field class="example-full-width" style="width: 100%; ">
+                      <input matInput placeholder="Apellido" formControlName="apellido">
+                      <mat-error ><show-errors [control]="formulario.controls.apellido"></show-errors></mat-error>
+
+                  </mat-form-field>
+                    <mat-form-field class="example-full-width" style="width: 100% ">
+                      <input matInput type="number" placeholder="Identificación" formControlName="identificacion">
+                      <mat-error ><show-errors [control]="formulario.controls.identificacion"></show-errors></mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width" style="width: 100%; ">
+                      <input matInput type="number" placeholder="Telefono" formControlName="telefono">
+                      <mat-error ><show-errors [control]="formulario.controls.telefono"></show-errors></mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width" style="width: 100%;">
+                      <input matInput placeholder="Correo" formControlName="correo">
+                      <mat-error ><show-errors [control]="formulario.controls.correo"></show-errors></mat-error>
+                  </mat-form-field>
+
+                    <mat-form-field class="example-full-width" style="width: 100%; ">
+                      <input matInput placeholder="Cargo" formControlName="cargo">
+                      <mat-error ><show-errors [control]="formulario.controls.cargo"></show-errors></mat-error>
+                  </mat-form-field>
+
+
+
+                  <div class="row">
+                    <div class="col-md-12">                   
+                    <button type="button" class="btn btn-info" style=" width: 100%" (click)="crearResponsable()"  ><h6 class="add-responsable">Crear responsable</h6>   <i class="tim-icons icon-simple-add add-responsable-icon"></i></button>
+                   </div>
+                 
+                  </div>
+                  <button type="button" class="btn btn-danger" style=" width: 100% " (click)="estado  = 'mostrar-preguntas';
+                  encuestasDetalleSelected = null; observacion = '' ">Cancelar</button>
+                </div>
+
+
+
+           
+
 
 
                 

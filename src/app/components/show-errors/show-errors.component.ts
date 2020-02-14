@@ -22,7 +22,7 @@ import { trigger,style,transition,animate,keyframes,query,stagger,group, state, 
       ],
     template: `
     <div *ngIf="shouldShowErrors() || (!shouldShowErrors() && submited)" [@enterAnimation]> 
-     <div style="    position: absolute;
+     <div style=" 
      width: 100%;
      margin-bottom: 1rem;
      border: 1px solid transparent;

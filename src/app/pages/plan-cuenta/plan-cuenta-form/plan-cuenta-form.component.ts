@@ -9,6 +9,7 @@ import { AppService } from 'src/app/services/app.service';
   templateUrl: './plan-cuenta-form.component.html',
   styleUrls: ['./plan-cuenta-form.component.scss']
 })
+
 export class PlanCuentaFormComponent implements OnInit {
 
   public datos: FormGroup;
@@ -21,12 +22,15 @@ export class PlanCuentaFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     private appService: AppService) {
     this.datos = this.formBuilder.group({
-      codigoBanco: ['', Validators.required],
-      codigoCta: ['', Validators.required],
-      nombreCuenta: ['', Validators.required],
-      tercero: ['', Validators.required],
-      tipoCuenta: ['', Validators.required],
-      cuentaNro: ['', Validators.required],
+      idCuenta: ['', Validators.required],
+      tipoPlan: ['', Validators.required],
+      orden: ['', Validators.required],
+      codigo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      tipo: ['', Validators.required],
+      nivel: ['', Validators.required],
+      entidad: ['', Validators.required],
+      estado: [1, Validators.required]
     });
   }
 
@@ -46,32 +50,19 @@ export class PlanCuentaFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.data.tipoForm == 1) {
+    if (this.data.tipoForm === 1) {
       console.log(this.data.data);
       this.datos.patchValue({
-        codigoBanco: this.data.data.codigoBanco,
-        codigoCta: this.data.data.codigoCta,
-        nombreCuenta: this.data.data.nombreCuenta,
-        tercero: String(this.data.data.tercero),
-        tipoCuenta: this.data.data.tipoCuenta,
-        cuentaNro: this.data.data.cbancoCuentaPK.cuentaNro
+        ...this.data.data
       });
     }
   }
 
   public setCuenta() {
     if (this.datos.valid) {
-      const datos = this.datos.value;
       return {
-        "codigoBanco": datos.codigoBanco,
-        "codigoCta": datos.codigoCta,
-        "nombreCuenta": datos.nombreCuenta,
-        "tercero": parseInt(datos.tercero),
-        "tipoCuenta": datos.tipoCuenta,
-        "cbancoCuentaPK": {
-          "codigoEntidad": "1",
-          "cuentaNro": datos.cuentaNro
-        }
+        ...this.datos.value,
+        orden: 11
       }
     }
   }
@@ -84,17 +75,21 @@ export class PlanCuentaFormComponent implements OnInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Crear',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.post('cbancocuenta/new', this.setCuenta()).subscribe(
+          this.appService.post('planCuentas', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
-              this.close(1)
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'La Cuenta #:' + data.idCuenta + 'ha sido Creada!',
+                showConfirmButton: false, timer: 3000
+               });
+              this.close(1);
             }, error => {
-              console.log(error)
               this.appService.closeSpinner()
             }
           );
@@ -112,18 +107,22 @@ export class PlanCuentaFormComponent implements OnInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
           this.appService.openSpinner();
-          this.appService.put('cbancocuenta/edit', this.setCuenta()).subscribe(
+          this.appService.put('planCuentas', this.setCuenta()).subscribe(
             (data: any) => {
               console.log(data),
-                this.appService.closeSpinner();
-              this.close(1)
+              this.appService.closeSpinner();
+              Swal.fire({
+                type: 'success', text: 'La Cuenta #:' + data.idCuenta + 'ha sido Editada!',
+                showConfirmButton: false, timer: 3000
+               });
+              this.close(1);
             }, error => {
-              console.log(error),
-                this.appService.closeSpinner();
+              this.appService.closeSpinner();
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -141,7 +140,6 @@ export class PlanCuentaFormComponent implements OnInit {
         case 1:
           this.editar();
           break;
-
         default:
           break;
       }

@@ -6,9 +6,10 @@ export class searchPipe implements PipeTransform {
       return items;
     }
 ​
-    if (!Array.isArray(items)){
+    if (!Array.isArray(items)){     
       return items;
     }
+
 ​
     if (filter && Array.isArray(items)) {
       let filterKeys = Object.keys(filter);

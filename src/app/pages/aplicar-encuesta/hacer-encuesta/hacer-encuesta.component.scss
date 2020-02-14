@@ -15,8 +15,65 @@
     transition: all .3s;
 }
 
+.pregunta-selected{
+    background: #f0f2ff !important;
+}
 
 
 .with-observacion{
-    color: #3355e2 !important;
+    color: #4ae233 !important;
+}
+
+.with-responsable{
+    color: #4ae233 !important;
+}
+
+
+.edit-encuesta-icon{
+    display: none;
+}
+
+.edit-encuesta{
+    display: block;
+    color: white;
+}
+
+.add-responsable{
+    display: block;
+    color: white;
+}
+
+.add-responsable-icon{
+    display: none;
+}
+ 
+
+
+@media (max-width : 400px){
+    .edit-encuesta-icon{
+        display: block;
+    }
+
+    .edit-encuesta{
+        display: none;
+    }
+
+    .add-responsable{
+        display: none;
+    }
+
+    .add-responsable-icon{
+        display: block;
+    }
+
+
+
+}    
+
+
+
+@media (max-width: 380px){
+    .dropdown-toggle{
+        display: none;
+    }
 }

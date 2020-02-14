@@ -13,7 +13,8 @@ import { AppService } from 'src/app/services/app.service';
 export class datosTableComponent implements OnInit {
 
   @Input() public indicadores: any;
- 
+  @Output() public setIndicador = new EventEmitter();
+  public indicador: any;
 
   public Toast = swal.mixin({
     toast: true,
@@ -37,7 +38,14 @@ export class datosTableComponent implements OnInit {
   ngOnInit() {
     console.log("lele");
     console.log(this.indicadores)
+    this.indicador = this.indicadores[0];
    
+  }
+
+  selectIndicador(e){
+    this.indicador = e;
+    this.setIndicador.emit(e);
+  
   }
 
   

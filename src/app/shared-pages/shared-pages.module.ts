@@ -19,6 +19,15 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import { IndicadoresComponent } from './indicadores/indicadores.component';
+import { datosDepartamentalesComponent } from './indicadores/datos-departamentales/datos-departamentales.component';
+import { datosModalComponent } from './indicadores/datos-departamentales/datos-modal/datos-modal.component';
+import { datosMunicipalesComponent } from './indicadores/datos-municipales/datos-municipales.component';
+import { datosTableComponent } from './indicadores/datos-municipales/datos-table/datos-table.component';
+import { AlertasComponent } from './alertas/alertas.component';
+import { TendenciasComponent } from './tendencias/tendencias.component';
+import { tendenciasDepartamentalesComponent } from './tendencias/tendencias-departamentales/tendencias-departamentales.component';
+import { tendenciasMunicipalesComponent } from './tendencias/tendencias-municipales/tendencias-municipales.component';
+
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -39,12 +48,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatDialogModule
   ],
   declarations: [
-    IndicadoresComponent   
-    // RtlComponent
+    IndicadoresComponent,
+    datosDepartamentalesComponent,
+    datosModalComponent,
+    datosMunicipalesComponent,
+    datosTableComponent,
+    AlertasComponent,
+    TendenciasComponent,
+    tendenciasDepartamentalesComponent,
+    tendenciasMunicipalesComponent
+        // RtlComponent
   ],
 
   exports : [
-    IndicadoresComponent
+    IndicadoresComponent,
+    TendenciasComponent
   ],
   providers: [
     {

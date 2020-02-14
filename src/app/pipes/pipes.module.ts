@@ -9,6 +9,9 @@ import { MunicipioSearchPipe } from './municipio-search.pipe';
 import { ContratanteSearchPipe } from './contratante-search.pipe.';
 import { TruncateFilePipe } from './truncate-file.pipe';
 import { searchPipe } from './search.pipe';
+import { FilterPipe } from '../utils/filter.pipe';
+import { UniqueSearchPipe } from './unique-search.pipe';
+import { EncuestasRSearchPipe } from './encuestas-realizadas.pipe';
 
 
 @NgModule({
@@ -17,23 +20,29 @@ import { searchPipe } from './search.pipe';
     ],
     declarations: [
       MenuSearch,
+      UniqueSearchPipe,
       EncuestaSearchPipe,
       TruncatePipe,
       DepartamentoSearchPipe,
       MunicipioSearchPipe,
       ContratanteSearchPipe,
       TruncateFilePipe,
-      searchPipe
+      FilterPipe,
+      searchPipe,
+      EncuestasRSearchPipe,
     ],
     exports: [
         TruncateFilePipe,
         MenuSearch,
+        UniqueSearchPipe,
         EncuestaSearchPipe,
+        FilterPipe,
         TruncatePipe,
         DepartamentoSearchPipe,
         MunicipioSearchPipe,
         ContratanteSearchPipe,
-        searchPipe
+        searchPipe,
+        EncuestasRSearchPipe,
     ]
 })
 export class PipesModule { }

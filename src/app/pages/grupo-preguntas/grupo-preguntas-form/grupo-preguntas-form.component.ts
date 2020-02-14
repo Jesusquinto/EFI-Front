@@ -80,6 +80,7 @@ export class GrupoPreguntasFormComponent implements OnInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Crear',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {
@@ -115,6 +116,7 @@ export class GrupoPreguntasFormComponent implements OnInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Si, Editar',
+        confirmButtonClass: 'btn btn-info',
         cancelButtonText: 'No, Cancelar'
       }).then((result) => {
         if (result.value) {

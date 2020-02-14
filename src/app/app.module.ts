@@ -12,7 +12,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-
+import { ConfirmarComponent } from './pages/confirmar/confirmar.component';
+import { SuperadminLayoutComponent } from './layouts/superadmin-layout/supersupersuperadmin-layout.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
     NgxSpinnerModule,
     ToastrModule.forRoot(),
   ],
-  declarations: [AppComponent, UserLayoutComponent, AuthLayoutComponent, AdminLayoutComponent],
+  declarations: [AppComponent, UserLayoutComponent, AuthLayoutComponent, AdminLayoutComponent, ConfirmarComponent, SuperadminLayoutComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

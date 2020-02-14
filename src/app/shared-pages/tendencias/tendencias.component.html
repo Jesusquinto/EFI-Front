@@ -1,0 +1,88 @@
+
+<div class=" content">
+        <div class=" row">
+         <div class=" col-12">
+           <div class=" card card-chart">
+             <div class=" card-header">
+               <div class=" row">
+                 <div class=" col-sm-6 text-left">
+                   <h5 class=" card-category"  >Estadisticas</h5>
+                   <h2 class=" card-title" >Tendencias</h2>
+
+
+                 </div>
+
+
+
+
+               </div>
+
+               
+              <div class="row">
+                <div class="ml-4 float-left tipodm" >
+                    <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
+                      <label  class=" btn btn-sm btn-info btn-simple"  (click)="dataTipo = 'departamento'" [ngClass]="{'active':dataTipo === 'departamento'}" >
+                        <input checked="checked" name="options" type="radio"/>
+      
+                        <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                         Departamento
+                        </span>
+                        <span class=" d-block d-sm-none">                        
+                          <i class=" tim-icons icon-chart-bar-32"> </i> Dept.
+                        </span>
+                      </label>
+  
+                      <label  class=" btn btn-sm btn-info btn-simple" (click)="dataTipo = 'municipio'" [ngClass]="{'active':dataTipo === 'municipio'}">
+                          <input checked="checked" name="options" type="radio"/>
+        
+                          <span class=" d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                           Municipio
+                          </span>
+                          <span class=" d-block d-sm-none">
+                            <i class=" tim-icons icon-chart-bar-32"> </i> Muni.
+                          </span>
+                        </label>              
+                    </div>
+                  </div>
+                </div>
+             </div>
+             <div class=" card-body" style="padding-left: 2rem; padding-right: 2rem">
+
+              <div class="row">
+                <div class=" col-sm-6 text-left " *ngIf="grupos == null || grupos?.length == 0">
+                                     
+                    <h2 class=" card-title"  >No hay grupos que mostrar</h2>
+                       </div> 
+                          <div  class=" col-lg-3 grupo" *ngFor="let g of grupos" >
+                             <div class=" card card-chart " [ngClass]="{'grupo-indicador-selected':g.idGrupo === grupo.idGrupo, 'grupo-indicador': g.idGrupo != grupo.idGrupo}"
+                                 (click)="setGrupo(g)">
+                                    <div class=" card-header">
+                                        <h5 class=" card-category " [ngClass]="{'text-white': g.idGrupo === grupo.idGrupo}">Grupo de indicador</h5>
+                                             
+                                          <h4 class=" card-title mb-0" [ngClass]="{'text-white': g.idGrupo === grupo.idGrupo}" style="margin-bottom: 0px" >
+                                              <i class=" tim-icons icon-notes" [ngClass]="{'text-white': g.idGrupo === grupo.idGrupo}" style="font-size: larger;"> </i> {{g.nombreGrupo}}
+                                          </h4>                        
+                                        </div>
+                                   <div class=" card-body">                        
+                               </div>            
+                           </div>
+                       </div>
+                </div>
+
+
+
+              <app-tendencias-departamentales [grupoChange]="grupo" *ngIf="dataTipo === 'departamento'"></app-tendencias-departamentales>
+                
+<!--               <app-datos-municipales *ngIf="dataTipo === 'municipio'"  [tipo]="tipo" [grupo]="grupo"></app-datos-municipales>
+ -->
+              <app-tendencias-municipales [grupoChange]="grupo" *ngIf="dataTipo === 'municipio'"></app-tendencias-municipales>
+
+             </div>
+           </div>
+         </div>
+       </div> 
+
+     
+     
+     </div>
+     
